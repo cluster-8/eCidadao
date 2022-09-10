@@ -1,11 +1,12 @@
-import { BaseNavigationContainer } from '@react-navigation/core';
-import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { StatusBar } from 'react-native';
-import { useTheme } from 'styled-components';
-import { useAuth } from '../hooks/useAuth';
-import { AppRoutes } from './app.routes';
-import { AuthRoutes } from './auth.routes';
+// import { BaseNavigationContainer } from "@react-navigation/core";
+import { NavigationContainer } from "@react-navigation/native";
+import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import * as React from "react";
+import { StatusBar } from "react-native";
+import { useTheme } from "styled-components";
+import { useAuth } from "../hooks/useAuth";
+import { AppRoutes } from "./app.routes";
+import { AuthRoutes } from "./auth.routes";
 
 export interface NavigatorProps {
   screenOptions: NativeStackNavigationOptions;
@@ -20,21 +21,23 @@ export const Routes: React.FC = () => {
     () => ({
       headerShown: false,
       contentStyle: { backgroundColor: theme.colors.background },
-      animation: 'slide_from_right'
+      animation: "slide_from_right",
     }),
     [theme]
   );
 
   return (
-    <BaseNavigationContainer>
-      {!authUser.id ? (
+    <NavigationContainer>
+      {/* {!authUser.id ? (
         <AuthRoutes screenOptions={screenOptions} />
       ) : (
         <>
           <StatusBar backgroundColor={theme.colors.primary} translucent />
           <AppRoutes screenOptions={screenOptions} />
+          <AppRoutes />
         </>
-      )}
-    </BaseNavigationContainer>
+      )} */}
+      <AppRoutes />
+    </NavigationContainer>
   );
 };
