@@ -23,6 +23,7 @@
     "expo-auth-session": "~3.7.1",
     "expo-font": "~10.2.0",
     "expo-localization": "~13.1.0",
+    "expo-location": "~14.3.0",
     "expo-random": "~12.3.0",
     "expo-status-bar": "~1.4.0",
     "i18n-js": "^3.8.0",

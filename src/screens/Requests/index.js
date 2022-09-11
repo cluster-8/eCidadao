@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { StyleSheet, View, Dimensions, TextInput } from "react-native";
 
 import MapView, { Marker } from "react-native-maps";
 
 import ModalDetails from "../../components/ModalDetails";
+
+import { useLocation } from "../../hooks/useLocation";
+
+import { Entypo } from "@expo/vector-icons";
 
 let mockSolicitacoes = [
   {
@@ -66,44 +70,69 @@ let mockSolicitacoes = [
 ];
 
 const Requests = () => {
+  const { coords } = useLocation();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const [currentSolicitacao, setCurrentSolicitacao] = useState({});
 
   const [currentRegion, setCurrentRegion] = useState({
-    latitude: -23.374296179999995,
-    longitude: -45.671764369999984,
+    latitude: coords.latitude,
+    longitude: coords.longitude,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const solicitacoes = useMemo(() => {
+    if (!searchTerm) return mockSolicitacoes;
+    return mockSolicitacoes.filter((el) => {
+      el.tipo.includes(searchTerm) ||
+        el.endereco.logradouro.includes(searchTerm) ||
+        el.endereco.bairro.includes(searchTerm);
+    });
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (coords.latitude && coords.longitude) {
+      setCurrentRegion({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        latitudeDelta: 0.00001,
+        longitudeDelta: 0.00001,
+      });
+    }
+  }, [coords]);
 
   return (
     <View style={styles.container}>
       {/* MAPA */}
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: -23.374296179999995,
-          longitude: -45.671764369999984,
-          latitudeDelta: 1.1022,
-          longitudeDelta: 1.0921,
-        }}
+        showsUserLocation={true}
+        userLocationUpdateInterval={5000}
+        followsUserLocation={true}
+        // showsMyLocationButton={true}
+        // showsCompass={true}
+        loadingEnabled={true}
+        moveOnMarkerPress={true}
+        initialRegion={currentRegion}
         region={currentRegion}
       >
-        {mockSolicitacoes.map((solicitacao, index) => (
+        {solicitacoes.map((solicitacao, index) => (
           <Marker
             key={index}
             coordinate={solicitacao.coordinate}
             title={solicitacao.tipo}
-            // description={solicitacao.descricao}
             pinColor={solicitacao.status === "fechado" ? "#02842a" : "#cd0019"}
             onPress={() => {
               setCurrentSolicitacao(solicitacao);
               setCurrentRegion({
                 latitude: solicitacao.coordinate.latitude,
                 longitude: solicitacao.coordinate.longitude,
-                // latitudeDelta: currentRegion.latitudeDelta,
-                // longitudeDelta: currentRegion.longitudeDelta,
+                latitudeDelta: currentRegion.latitudeDelta,
+                longitudeDelta: currentRegion.longitudeDelta,
               });
               setModalVisible(true);
             }}
@@ -112,10 +141,17 @@ const Requests = () => {
       </MapView>
       {/* BARRA DE PESQUISA */}
       <View style={{ position: "absolute", top: 10, width: "100%" }}>
+        <Entypo
+          name="magnifying-glass"
+          size={25}
+          style={styles.icon}
+          color={"#004997"}
+        />
         <TextInput
           style={styles.searchBar}
           placeholder={"Buscar"}
           placeholderTextColor={"#666"}
+          onChangeText={(text) => setSearchTerm(text)}
         />
       </View>
       {/* MODAL DETALHES */}
@@ -140,15 +176,21 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
   searchBar: {
-    borderRadius: 20,
+    borderRadius: 10,
     margin: 20,
     color: "#000",
     borderColor: "#004997",
-    backgroundColor: "#FFF",
+    backgroundColor: "#F6F6F6",
     borderWidth: 1,
     height: 45,
     paddingHorizontal: 10,
     fontSize: 18,
+  },
+  icon: {
+    position: "absolute",
+    top: 30,
+    zIndex: 1,
+    right: 35,
   },
 });
 

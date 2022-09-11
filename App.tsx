@@ -10,6 +10,8 @@ import { useApp } from "./src/hooks/useApp";
 import { AuthProvider } from "./src/hooks/useAuth";
 import { Routes } from "./src/routes";
 
+import { LocationProvider } from "./src/hooks/useLocation";
+
 export default function App() {
   const { getStoredTheme, fontsLoaded, selectedTheme } = useApp();
 
@@ -25,18 +27,20 @@ export default function App() {
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
       {/* <AuthProvider> */}
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <StatusBar
-            barStyle={
-              selectedTheme === "dark" ? "light-content" : "dark-content"
-            }
-            backgroundColor="transparent"
-            translucent
-          />
-          <Routes />
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
+      <LocationProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <SafeAreaProvider>
+            <StatusBar
+              barStyle={
+                selectedTheme === "dark" ? "light-content" : "dark-content"
+              }
+              backgroundColor="transparent"
+              translucent
+            />
+            <Routes />
+          </SafeAreaProvider>
+        </GestureHandlerRootView>
+      </LocationProvider>
       {/* </AuthProvider> */}
     </ThemeProvider>
   );
