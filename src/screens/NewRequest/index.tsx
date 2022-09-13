@@ -3,12 +3,12 @@ import { Text } from "react-native";
 
 import { Container } from './styles';
 
-const Home: React.FC = () => {
+const NewRequest: React.FC = () => {
   return (
     <Container>
-      <Text>Home</Text>
+      <Text>Nova Solicitação</Text>
     </Container>
   );
 };
 
-export default Home;
+export default NewRequest;
