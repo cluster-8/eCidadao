@@ -87,11 +87,13 @@ const Requests = () => {
 
   const solicitacoes = useMemo(() => {
     if (!searchTerm) return mockSolicitacoes;
-    return mockSolicitacoes.filter((el) => {
-      el.tipo.includes(searchTerm) ||
+
+    return mockSolicitacoes.filter(
+      (el) =>
+        el.tipo.includes(searchTerm) ||
         el.endereco.logradouro.includes(searchTerm) ||
-        el.endereco.bairro.includes(searchTerm);
-    });
+        el.endereco.bairro.includes(searchTerm)
+    );
   }, [searchTerm]);
 
   useEffect(() => {
@@ -105,14 +107,17 @@ const Requests = () => {
     }
   }, [coords]);
 
+  useEffect(() => {
+    console.log(solicitacoes);
+  }, [solicitacoes]);
+
   return (
     <View style={styles.container}>
-      {/* MAPA */}
       <MapView
         style={styles.map}
         showsUserLocation={true}
-        userLocationUpdateInterval={5000}
-        followsUserLocation={true}
+        // userLocationUpdateInterval={5000}
+        // followsUserLocation={true}
         // showsMyLocationButton={true}
         // showsCompass={true}
         loadingEnabled={true}
@@ -139,7 +144,6 @@ const Requests = () => {
           />
         ))}
       </MapView>
-      {/* BARRA DE PESQUISA */}
       <View style={{ position: "absolute", top: 10, width: "100%" }}>
         <Entypo
           name="magnifying-glass"
@@ -154,7 +158,6 @@ const Requests = () => {
           onChangeText={(text) => setSearchTerm(text)}
         />
       </View>
-      {/* MODAL DETALHES */}
       <ModalDetails
         data={currentSolicitacao}
         modalVisible={modalVisible}
