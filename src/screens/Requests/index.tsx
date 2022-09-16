@@ -3,13 +3,13 @@ import { Dimensions } from "react-native";
 
 import MapView, { Marker } from "react-native-maps";
 
-import { Container, SearchbarContent, SearchBar, Icon } from './styles'
+import { Container, SearchbarContent, SearchBar, Icon } from "./styles";
 
 import ModalDetails from "../../components/ModalDetails";
 
 import { useLocation } from "../../hooks/useLocation";
 
-import { mockSolicitacoes } from '../../utils/data';
+import { mockSolicitacoes } from "../../utils/data";
 
 const Requests: React.FC = () => {
   const { coords } = useLocation();
@@ -29,11 +29,12 @@ const Requests: React.FC = () => {
 
   const solicitacoes = useMemo(() => {
     if (!searchTerm) return mockSolicitacoes;
-    return mockSolicitacoes.filter((el) => {
-      el.tipo.includes(searchTerm) ||
+    return mockSolicitacoes.filter(
+      (el) =>
+        el.tipo.includes(searchTerm) ||
         el.endereco.logradouro.includes(searchTerm) ||
-        el.endereco.bairro.includes(searchTerm);
-    });
+        el.endereco.bairro.includes(searchTerm)
+    );
   }, [searchTerm]);
 
   useEffect(() => {
@@ -86,11 +87,7 @@ const Requests: React.FC = () => {
       </MapView>
       {/* BARRA DE PESQUISA */}
       <SearchbarContent>
-        <Icon
-          name="magnifying-glass"
-          size={25}
-          color={"#004997"}
-        />
+        <Icon name="magnifying-glass" size={25} color={"#004997"} />
         <SearchBar
           placeholder={"Buscar"}
           placeholderTextColor={"#666"}
