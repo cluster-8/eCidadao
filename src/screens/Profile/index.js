@@ -25,16 +25,25 @@ const Profile = () => {
       email,
       password,
     };
-    console.log(data);
 
     Alert.alert("Salvar alterações", "Alterações salvas com sucesso!", [
-      // {
-      //   text: "Cancel",
-      //   onPress: () => console.log("Cancel Pressed"),
-      //   style: "cancel",
-      // },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("Ok pressed") },
     ]);
+  }
+
+  async function deleteAccount() {
+    Alert.alert(
+      "Excluir conta",
+      "Tem certeza que deseja excluir essa conta? Essa ação não pode ser desfeita.",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancelar"),
+          style: "cancel",
+        },
+        { text: "Excluir", onPress: () => console.log("Excluir") },
+      ]
+    );
   }
 
   return (
@@ -85,7 +94,7 @@ const Profile = () => {
       </View>
       <View style={styles.footer}>
         <Button
-          onPress={console.log("Excluir conta")}
+          onPress={deleteAccount}
           title="Exluir conta"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
@@ -102,13 +111,13 @@ const styles = StyleSheet.create({
   headerContainer: {
     alignItems: "center",
     justifyContent: "center",
-    height: "25%",
+    height: "20%",
     // margin: 10,
   },
   headerTitle: {
     fontSize: 38,
     fontFamily: "Poppins_600SemiBold",
-    marginTop: 10,
+    marginTop: 0,
   },
   headeText: {
     fontSize: 18,
