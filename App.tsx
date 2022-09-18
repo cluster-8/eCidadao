@@ -11,6 +11,7 @@ import { AuthProvider } from "./src/hooks/useAuth";
 import { Routes } from "./src/routes";
 
 import { LocationProvider } from "./src/hooks/useLocation";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const { getStoredTheme, fontsLoaded, selectedTheme } = useApp();
@@ -37,7 +38,9 @@ export default function App() {
               backgroundColor="transparent"
               translucent
             />
-            <Routes />
+            <SafeAreaView style={{ flex: 1 }}>
+              <Routes />
+            </SafeAreaView>
           </SafeAreaProvider>
         </GestureHandlerRootView>
       </LocationProvider>

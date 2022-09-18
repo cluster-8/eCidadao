@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Container, Title } from './styles';
 
-const SignUp: React.FC = () => {
+const MyRequests = () => {
   return (
     <Container>
-      <Title>Sign Up</Title>
+      <Title>Minhas Solicitações</Title>
     </Container>
   );
 }
 
-export default SignUp;
+export default MyRequests;
