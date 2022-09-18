@@ -12,6 +12,7 @@ import { Routes } from "./src/routes";
 
 import { LocationProvider } from "./src/hooks/useLocation";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { RequestsProvider } from "./src/hooks/useRequests";
 
 export default function App() {
   const { getStoredTheme, fontsLoaded, selectedTheme } = useApp();
@@ -28,22 +29,24 @@ export default function App() {
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
       {/* <AuthProvider> */}
-      <LocationProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <SafeAreaProvider>
-            <StatusBar
-              barStyle={
-                selectedTheme === "dark" ? "light-content" : "dark-content"
-              }
-              backgroundColor="transparent"
-              translucent
-            />
-            <SafeAreaView style={{ flex: 1 }}>
-              <Routes />
-            </SafeAreaView>
-          </SafeAreaProvider>
-        </GestureHandlerRootView>
-      </LocationProvider>
+      <RequestsProvider>
+        <LocationProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <SafeAreaProvider>
+              <StatusBar
+                barStyle={
+                  selectedTheme === "dark" ? "light-content" : "dark-content"
+                }
+                backgroundColor="transparent"
+                translucent
+              />
+              <SafeAreaView style={{ flex: 1 }}>
+                <Routes />
+              </SafeAreaView>
+            </SafeAreaProvider>
+          </GestureHandlerRootView>
+        </LocationProvider>
+      </RequestsProvider>
       {/* </AuthProvider> */}
     </ThemeProvider>
   );
