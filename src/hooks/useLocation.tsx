@@ -1,4 +1,3 @@
-import * as Location from "expo-location";
 import React, {
   createContext,
   ReactNode,
@@ -8,12 +7,21 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import * as Location from "expo-location";
 
 // import getLocation from "../utils/getLocation";
 
-const LocationContext = createContext({});
+interface LocationContextData {
+  coords: any;
+};
 
-const LocationProvider = ({ children }) => {
+type LocationContextProps = {
+  children: ReactNode;
+};
+
+const LocationContext = createContext({} as LocationContextData);
+
+const LocationProvider: React.FC<LocationContextProps> = ({ children }) => {
   const [coords, setCoords] = useState({});
 
   //   const getPermission = async () => {
@@ -80,7 +88,8 @@ const LocationProvider = ({ children }) => {
       let { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        // setErrorMsg("Permission to access location was denied");
+        console.log("Permission to access location was denied");
         return;
       }
 
