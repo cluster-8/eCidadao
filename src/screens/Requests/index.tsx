@@ -95,8 +95,6 @@ const Requests: React.FC = () => {
         longitudeDelta: 0.00001,
       });
     }
-
-    console.log(requests?.length, requests[0]);
   }, [requests]);
 
   return (
