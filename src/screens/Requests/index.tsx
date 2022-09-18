@@ -8,45 +8,96 @@ import { Container, SearchbarContent, SearchBar, Icon } from "./styles";
 import ModalDetails from "../../components/ModalDetails";
 
 import { useLocation } from "../../hooks/useLocation";
+import { useRequests } from "../../hooks/useRequests";
 
-import { mockSolicitacoes } from "../../utils/data";
+import formatReqType from "../../utils/formatReqType";
+import formatReqStatus from "../../utils/formatReqStatus";
 
 const Requests: React.FC = () => {
   const { coords } = useLocation();
+
+  const { getRequests } = useRequests();
+
+  const [data, setData] = useState<any[]>();
 
   const [modalVisible, setModalVisible] = useState(false);
 
   const [currentSolicitacao, setCurrentSolicitacao] = useState({});
 
   const [currentRegion, setCurrentRegion] = useState({
-    latitude: coords.latitude,
-    longitude: coords.longitude,
+    latitude: Number(coords.latitude),
+    longitude: Number(coords.longitude),
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const solicitacoes = useMemo(() => {
-    if (!searchTerm) return mockSolicitacoes;
-    return mockSolicitacoes.filter(
+  const requests: any = useMemo(() => {
+    if (!searchTerm) return data;
+    return data?.filter(
       (el) =>
-        el.tipo.includes(searchTerm) ||
-        el.endereco.logradouro.includes(searchTerm) ||
-        el.endereco.bairro.includes(searchTerm)
+        formatReqType(el.type).includes(searchTerm) ||
+        el.adress.formattedAdress.includes(searchTerm)
     );
-  }, [searchTerm]);
+  }, [searchTerm, data]);
+
+  const getData = async () => {
+    // const query = {
+    //   select: "name city state picture",
+    //   populate: [{ path: "cultives", select: "id" }],
+    //   filter: [{ path: "userId", operator: "equals", value: authUser.id }],
+    // };
+    const data: any = await getRequests();
+
+    if (data) setData(data);
+
+    return;
+  };
+
+  const handleSelect = (request: any) => {
+    setCurrentSolicitacao({
+      createdAt: request.createdAt,
+      identifier: request.identifier,
+      image: request.image,
+      status: request.status,
+      type: request.type,
+      adress: request.adress.formattedAdress,
+      description: request.description,
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
+  useEffect(() => {
+    (async () => await getData())();
+  }, []);
 
   useEffect(() => {
     if (coords.latitude && coords.longitude) {
       setCurrentRegion({
-        latitude: coords.latitude,
-        longitude: coords.longitude,
+        latitude: Number(coords.latitude),
+        longitude: Number(coords.longitude),
         latitudeDelta: 0.00001,
         longitudeDelta: 0.00001,
       });
     }
   }, [coords]);
+
+  useEffect(() => {
+    if (requests?.length && searchTerm) {
+      setCurrentRegion({
+        latitude: Number(requests[0].adress.lat),
+        longitude: Number(requests[0].adress.long),
+        latitudeDelta: 0.00001,
+        longitudeDelta: 0.00001,
+      });
+    }
+
+    console.log(requests?.length, requests[0]);
+  }, [requests]);
 
   return (
     <Container>
@@ -57,8 +108,8 @@ const Requests: React.FC = () => {
           height: Dimensions.get("window").height,
         }}
         showsUserLocation={true}
-        userLocationUpdateInterval={5000}
-        followsUserLocation={true}
+        // userLocationUpdateInterval={5000}
+        // followsUserLocation={true}
         // showsMyLocationButton={true}
         // showsCompass={true}
         loadingEnabled={true}
@@ -66,17 +117,25 @@ const Requests: React.FC = () => {
         initialRegion={currentRegion}
         region={currentRegion}
       >
-        {solicitacoes.map((solicitacao, index) => (
+        {requests?.map((request: any, index: any) => (
           <Marker
             key={index}
-            coordinate={solicitacao.coordinate}
-            title={solicitacao.tipo}
-            pinColor={solicitacao.status === "fechado" ? "#02842a" : "#cd0019"}
+            coordinate={{
+              latitude: Number(request.adress.lat),
+              longitude: Number(request.adress.long),
+            }}
+            title={formatReqType(request.type)}
+            pinColor={
+              formatReqStatus(request.status) === "Fechada"
+                ? "#02842a"
+                : "#cd0019"
+            }
             onPress={() => {
-              setCurrentSolicitacao(solicitacao);
+              handleSelect(request);
+              // setCurrentSolicitacao(request);
               setCurrentRegion({
-                latitude: solicitacao.coordinate.latitude,
-                longitude: solicitacao.coordinate.longitude,
+                latitude: Number(request.adress.lat),
+                longitude: Number(request.adress.long),
                 latitudeDelta: currentRegion.latitudeDelta,
                 longitudeDelta: currentRegion.longitudeDelta,
               });
