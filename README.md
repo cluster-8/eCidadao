@@ -40,7 +40,7 @@ Entre no link e acesse a branch referente a sprint:
 |         `Sprint 2`          | Solicitações do usuário, Submissão de solicitação | 19/09/2022 a 09/10/2022 |    🚧     |
 |         `Sprint 3`          |  Exclusão de conta, Cadastro e acesso de usuário  | 13/10/2022 a 06/11/2022 |    🚧     |
 |         `Sprint 4`          |            Finalização de solicitação             | 07/11/2022 a 27/11/2022 |    🚧     |
-|     `Feira de Soluções`     |   Apresentação dos vídeos criados pelas equipes   |      08/12/2022         |    🚧     |
+|     `Feira de Soluções`     |   Apresentação dos vídeos criados pelas equipes   |       08/12/2022        |    🚧     |
 
 ---
 
@@ -54,14 +54,14 @@ Entre no link e acesse a branch referente a sprint:
 
 Acesse o link para visualizar:
 
-> - [Protótipo interativo]()
+> - [Protótipo interativo](https://www.figma.com/proto/Z9tFxvXDa5ntOBZ4g77Ubh/Cluster-8---API-5-SEMESTRE?scaling=min-zoom&page-id=0%3A1&starting-point-node-id=491%3A324&node-id=491%3A324)
 
 ---
 
 ### 📃 Código - Ambiente de Desenvolvimento
 
-> - [Código Frontend]()
-> - [Código Backend]()
+> - [Código Frontend](https://github.com/cluster-8/eCidadao/tree/development)
+> - [Código Backend](https://github.com/cluster-8/eCidadao-api)
 
 ---
 
@@ -106,7 +106,7 @@ Figma é um editor gráfico de vetor e prototipagem de projetos de design basead
 
 | Aluno(a)              | Função             | GitHub                                                              | LinkedIn                                                                                          |
 | --------------------- | ------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **Eduarda**           | _Scrum Master_     | [![](https://bit.ly/3f9Xo0P)](https://github.com/EduardaGiudice)    | ![](https://bit.ly/2P1ZogM)                                            |
+| **Eduarda**           | _Scrum Master_     | [![](https://bit.ly/3f9Xo0P)](https://github.com/EduardaGiudice)    | ![](https://bit.ly/2P1ZogM)                                                                       |
 | **Hariel Thums**      | _TechLead Backend_ | [![](https://bit.ly/3f9Xo0P)](https://github.com/HarielThums)       | [![](https://bit.ly/2P1ZogM)](https://bit.ly/3f9bjUH)                                             |
 | **Ana Paula**         | _Developer Team_   | [![](https://bit.ly/3f9Xo0P)](https://github.com/AnaPaulaSOliveira) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/ana-paula-santos-de-oliveira-237a401ab) |
 | **Vinícius Oliveira** | _Product Owner_    | [![](https://bit.ly/3f9Xo0P)](https://github.com/vinicius-hso)      | [![](https://bit.ly/2P1ZogM)](https://bit.ly/3fdl0BE)                                             |
