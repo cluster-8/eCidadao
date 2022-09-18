@@ -1,5 +1,5 @@
-import { ImageBackground } from 'react-native';
-import styled from 'styled-components/native';
+import { ImageBackground } from "react-native";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1%;
@@ -23,7 +23,7 @@ export const ModalContent = styled.View`
   height: 90%;
   margin-top: auto;
   margin-bottom: 0;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   align-items: center;
@@ -31,7 +31,7 @@ export const ModalContent = styled.View`
 `;
 
 export const CloseButton = styled.Pressable`
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   opacity: 0.5;
   position: absolute;
   top: 10px;
@@ -58,16 +58,17 @@ export const Image = styled(ImageBackground)`
 `;
 
 export const Title = styled.Text`
-  color: #3F3E40;
+  color: #3f3e40;
   font-size: 30px;
   line-height: 84px;
   font-weight: bold;
   text-align: center;
-  font-family: 'Poppins_600SemiBold';
+  font-family: "Poppins_600SemiBold";
 `;
 
 export const InfoRow = styled.View`
-  padding: 6px;
+  /* padding: 6px; */
+  padding-bottom: 6px;
   flex-direction: row;
 `;
 
@@ -81,5 +82,5 @@ export const Info = styled.Text`
   justify-content: center;
   width: 85%;
   font-size: 14px;
-  font-family: 'Poppins_400Regular';
+  font-family: "Poppins_400Regular";
 `;
