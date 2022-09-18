@@ -95,7 +95,7 @@ const Profile = () => {
       <View style={styles.footer}>
         <Button
           onPress={deleteAccount}
-          title="Exluir conta"
+          title="Excluir conta"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
