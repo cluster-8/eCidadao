@@ -46,7 +46,7 @@ Entre no link e acesse a branch referente a sprint:
 
 ### 📃 Product Backlog
 
-> [**Product Backlog**]()
+> [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf)
 
 ---
 
@@ -67,7 +67,7 @@ Acesse o link para visualizar:
 
 ## 🎲 Modelagem do Banco de Dados
 
-> - [Esquemas de banco de dados]()
+> - [Esquemas de banco de dados](https://github.com/cluster-8/eCidadao/blob/main/docs/images/modelo-de-dados.jpeg)
 
 ---
 
