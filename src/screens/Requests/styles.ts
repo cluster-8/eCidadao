@@ -1,10 +1,10 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 import { Entypo } from "@expo/vector-icons";
-import { RFHeight } from '../../utils/getResponsiveSizes';
+import { RFHeight } from "../../utils/getResponsiveSizes";
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   align-items: center;
   justify-content: center;
   padding-top: ${RFHeight(60)}px;
@@ -18,10 +18,10 @@ export const SearchbarContent = styled.View`
 
 export const SearchBar = styled.TextInput`
   border-radius: 10px;
-  margin: 45px 20px;
+  margin: 5px 20px;
   color: #000000;
   border-color: #004997;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-width: 1px;
   height: 45px;
   padding: 0 10px;
@@ -30,7 +30,7 @@ export const SearchBar = styled.TextInput`
 
 export const Icon = styled(Entypo)`
   position: absolute;
-  top: 55px;
+  top: 15px;
   z-index: 1;
   right: 35px;
 `;
