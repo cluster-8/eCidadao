@@ -31,7 +31,7 @@ export const AppRoutes = () => {
         component={Home}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Entypo name="home" size={size} color={color} />
+            <Feather name="home" size={size} color={color} />
           ),
           headerShown: false,
         }}
@@ -41,7 +41,7 @@ export const AppRoutes = () => {
         component={Requests}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Entypo name="location" size={size} color={color} />
+            <Feather name="map-pin" size={size} color={color} />
           ),
           headerShown: false,
         }}
@@ -51,7 +51,7 @@ export const AppRoutes = () => {
         component={NewRequest}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Entypo name="circle-with-plus" size={size} color={color} />
+            <Feather name="plus-circle" size={size} color={color} />
           ),
           headerShown: false,
         }}
@@ -61,7 +61,7 @@ export const AppRoutes = () => {
         component={Profile}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Entypo name="user" size={size} color={color} />
+            <Feather name="user" size={size} color={color} />
           ),
           headerShown: false,
         }}

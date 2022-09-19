@@ -7,7 +7,7 @@ import fonts from './fonts';
 export default {
   light: {
     colors: {
-      primary: '#EAB221',
+      primary: '#004997',
       text: '#3F3E40',
       text_secondary: '#777777',
       background: '#F6F6F6',
