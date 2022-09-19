@@ -29,7 +29,7 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf) em ordem de prioridade referentes a Sprint 1:
 
-!()[https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint1.png]
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint1.png)
 
 ## 📂 Documentação do Projeto
 
