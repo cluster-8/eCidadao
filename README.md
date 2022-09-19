@@ -8,106 +8,70 @@
   
 </h2>
 
-## 📌 Desafio
+<h1 align="center"> 
+🏁 Sprint 1 
+</h1>
 
-<p>
-O desafio do projeto é criar um aplicativo colaborativo para a sociedade e através desse aplicativo os usuários poderão reportar "problemas" da cidade para a "prefeitura". Podendo tirar foto do problema, adicionar uma descrição, a localização do problema para que a prefeitura possa saber sobre o problema e ir consertá-lo.
-<p>
-<p>
+Abaixo encontram-se todos os itens produzidos durante a Sprint 1 conforme estabelecido previamente por meio do planejamento:
 
----
+## 💹 Planejamento da Sprint
 
-## 🏁 Projeto
+### 👤 User Stories
 
-eCidadão é o nome do aplicativo proposto pela equipe para solucionar o desafio, esse aplicativo ele deve entregar as seguintes funcionalidades:
+A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem desenvolvidas durante a Sprint 1:
 
-- Submissão de problemas identificados;
-- Visualização de problemas identificados;
-- Informações de problemas informados pelo usuário;
-- Visualização e download dos dados do usuário;
-- Exclusão dos dados do usuário;
+| ID    | Prioridade | User Story                                                                                           | Funcionalidades                                                                                                       |
+| ----- | ---------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| US_01 | Importante | Eu, como usuário, gostaria de visualizar os probelmas identificados em área pública na minha região. | 1. Mapa exibindo os problemas baseado na localização do usuário; 2. Visualização de detalhes do problema selecionado; |
+| US_02 | Essencial  | Eu, como usuário, gostaria de visualizar e e alterar meus dados pessoais.                            | 1. Tela de Perfil do usuário para exibir os dados do usuário; 2. Edição dos dados;                                    |
 
----
+### 📝 Sprint Backlog
 
-### 💹 Planejamento
+A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf) em ordem de prioridade referentes a Sprint 1:
 
-Entre no link e acesse a branch referente a sprint:
+!()[https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint1.png]
 
-| Sprints/Entregas do Projeto |                   Deliverables                    |          Data           | Concluído |
-| :-------------------------: | :-----------------------------------------------: | :---------------------: | :-------: |
-|          `Kik-off`          |              Apresentação do desafio              | 29/08/2022 a 29/08/2022 |    ✅     |
-|       [`Sprint 1`]()        |      Solicitações gerais, Perfil do usuário       | 29/08/2022 a 18/09/2022 |    ✅     |
-|         `Sprint 2`          | Solicitações do usuário, Submissão de solicitação | 19/09/2022 a 09/10/2022 |    🚧     |
-|         `Sprint 3`          |  Exclusão de conta, Cadastro e acesso de usuário  | 13/10/2022 a 06/11/2022 |    🚧     |
-|         `Sprint 4`          |            Finalização de solicitação             | 07/11/2022 a 27/11/2022 |    🚧     |
-|     `Feira de Soluções`     |   Apresentação dos vídeos criados pelas equipes   |       08/12/2022        |    🚧     |
+## 📂 Documentação do Projeto
 
----
+Acesse os documentos clicando nos links abaixo:
 
-### 📃 Product Backlog
+> - [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf)
 
-> [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf)
+## 📉 Burndown da Sprint
 
----
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/burndown-sprint1.png)
 
-### 💻 Wireframe
+## 🖥️ Wireframe
 
 Acesse o link para visualizar:
 
-> - [Protótipo interativo](https://www.figma.com/proto/Z9tFxvXDa5ntOBZ4g77Ubh/Cluster-8---API-5-SEMESTRE?scaling=min-zoom&page-id=0%3A1&starting-point-node-id=491%3A324&node-id=491%3A324)
+> - [Protótipo interativo](https://www.figma.com/proto/Z9tFxvXDa5ntOBZ4g77Ubh/Cluster-8-API-5-SEMESTRE?node-id=0%3A1)
 
----
+## 🎲 Modelagem do Banco de Dados
 
-### 📃 Código - Ambiente de Desenvolvimento
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/modelo-de-dados.jpeg)
+
+## 📃 Código - Ambiente de Desenvolvimento
+
+Acesse o link para visualizar:
 
 > - [Código Frontend](https://github.com/cluster-8/eCidadao/tree/development)
 > - [Código Backend](https://github.com/cluster-8/eCidadao-api)
 
----
+## 💫 Funcionalidades implementadas
 
-## 🎲 Modelagem do Banco de Dados
+### 📍 Solicitações gerais
 
-> - [Esquemas de banco de dados](https://github.com/cluster-8/eCidadao/blob/main/docs/images/modelo-de-dados.jpeg)
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/requests-screen.gif)
 
----
+### 👤 Perfil
 
-### 🛠 Tecnologias
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/profile-screen.gif)
 
-Para a construção do projeto, estão sendo usadas as seguintes ferramentas:
+### ⚙️ Backend - CRUD de Solicitações
 
----
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/backend-requests-crud.gif)
 
-#### **Front-end**
+### 🔗 Backend - Controllers, Services e Geolocation
 
-<img src= "https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
-O React Native é um framework baseado no já aclamado React, desenvolvido pela equipe do Facebook, que possibilita o desenvolvimento de aplicações mobile, tanto para Android, como para iOS, utilizando apenas Javascript.
-  
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-#### **Back-end**  
-<img src= "https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white">
-Nest.js é um framework node.js progressivo feito para criar aplicações de backend eficientes, escaláveis e confiáveis.
-  
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-#### **Data-base** 
-<img src= "https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
-MongoDB um software de banco de dados orientado a documentos livre, de código aberto e multiplataforma, escrito na linguagem C++.
-  
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-#### **Wireframe** 
-<img src= "https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
-Figma é um editor gráfico de vetor e prototipagem de projetos de design baseado principalmente no navegador web, com ferramentas offline adicionais para aplicações desktop para GNU/Linux, macOS e Windows.
-  
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-### 👨‍💻 Equipe
-
-| Aluno(a)              | Função             | GitHub                                                              | LinkedIn                                                                                          |
-| --------------------- | ------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **Eduarda**           | _Scrum Master_     | [![](https://bit.ly/3f9Xo0P)](https://github.com/EduardaGiudice)    | ![](https://bit.ly/2P1ZogM)                                                                       |
-| **Hariel Thums**      | _TechLead Backend_ | [![](https://bit.ly/3f9Xo0P)](https://github.com/HarielThums)       | [![](https://bit.ly/2P1ZogM)](https://bit.ly/3f9bjUH)                                             |
-| **Ana Paula**         | _Developer Team_   | [![](https://bit.ly/3f9Xo0P)](https://github.com/AnaPaulaSOliveira) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/ana-paula-santos-de-oliveira-237a401ab) |
-| **Vinícius Oliveira** | _Product Owner_    | [![](https://bit.ly/3f9Xo0P)](https://github.com/vinicius-hso)      | [![](https://bit.ly/2P1ZogM)](https://bit.ly/3fdl0BE)                                             |
-| **Luis Verola**       | _Developer Team_   | [![](https://bit.ly/3f9Xo0P)](https://github.com/LVerola)           | [![](https://bit.ly/2P1ZogM)](http://www.linkedin.com/in/LVerola)                                 |
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/backend-controllers-services-geolocation.gif)
