@@ -36,7 +36,7 @@ Entre no link e acesse a branch referente a sprint:
 | Sprints/Entregas do Projeto |                   Deliverables                    |          Data           | Concluído |
 | :-------------------------: | :-----------------------------------------------: | :---------------------: | :-------: |
 |          `Kik-off`          |              Apresentação do desafio              | 29/08/2022 a 29/08/2022 |    ✅     |
-|       [`Sprint 1`]()        |      Solicitações gerais, Perfil do usuário       | 29/08/2022 a 18/09/2022 |    ✅     |
+|       [`Sprint 1`](https://github.com/cluster-8/eCidadao/tree/Sprint-1)        |      Solicitações gerais, Perfil do usuário       | 29/08/2022 a 18/09/2022 |    ✅     |
 |         `Sprint 2`          | Solicitações do usuário, Submissão de solicitação | 19/09/2022 a 09/10/2022 |    🚧     |
 |         `Sprint 3`          |  Exclusão de conta, Cadastro e acesso de usuário  | 13/10/2022 a 06/11/2022 |    🚧     |
 |         `Sprint 4`          |            Finalização de solicitação             | 07/11/2022 a 27/11/2022 |    🚧     |
