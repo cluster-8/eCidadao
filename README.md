@@ -22,8 +22,9 @@ O desafio do projeto é criar um aplicativo colaborativo para a sociedade e atra
 eCidadão é o nome do aplicativo proposto pela equipe para solucionar o desafio, esse aplicativo ele deve entregar as seguintes funcionalidades:
 
 - Submissão de problemas identificados;
-- Visualização de problemas identificados;
+- Visualização geral de problemas identificados;
 - Informações de problemas informados pelo usuário;
+- Finalização de problemas de problema informad;
 - Visualização e download dos dados do usuário;
 - Exclusão dos dados do usuário;
 
