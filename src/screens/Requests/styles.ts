@@ -12,25 +12,27 @@ export const Container = styled.View`
 
 export const SearchbarContent = styled.View`
   position: absolute;
-  top: 10px;
+  top: 0px;
   width: 100%;
 `;
 
 export const SearchBar = styled.TextInput`
-  border-radius: 10px;
-  margin: 5px 20px;
-  color: #000000;
-  border-color: #004997;
-  background-color: #ffffff;
-  border-width: 1px;
-  height: 45px;
-  padding: 0 10px;
-  font-size: 18px;
+border-radius: 10px;
+margin: 5px 20px;
+margin-left:10px;
+color: #000000;
+border-color: #004997;
+background-color: #ffffff;
+border-width: 1px;
+height: 45px;
+padding: 0 10px;
+font-size: 18px;
+width: 350px;
 `;
 
 export const Icon = styled(Entypo)`
   position: absolute;
   top: 15px;
   z-index: 1;
-  right: 35px;
+  right: 80px;
 `;

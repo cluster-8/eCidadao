@@ -47,7 +47,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                 resizeMode="cover"
               >
                 <CloseButton onPress={props.handleClose}>
-                  <Entypo name="cross" size={20} />
+                  <Entypo name="cross" size={30} />
                 </CloseButton>
               </Image>
             </ImageContent>

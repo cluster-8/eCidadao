@@ -18,24 +18,26 @@ export const Content = styled.View`
 `;
 
 export const ModalContent = styled.View`
-  margin: 20px;
-  width: 100%;
-  height: 90%;
-  margin-top: auto;
-  margin-bottom: 0;
-  background-color: #f6f6f6;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  align-items: center;
-  /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2); */
+margin: 20px;
+width: 100%;
+height: 75%;
+margin-top: auto;
+margin-bottom: 0;
+background-color: #f6f6f6;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+align-items: center;
+/* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2); */
 `;
 
 export const CloseButton = styled.Pressable`
-  background-color: #f6f6f6;
-  opacity: 0.5;
-  position: absolute;
-  top: 10px;
-  left: 90%;
+background-color: #f6f6f6;
+opacity: 0.7;
+position: absolute;
+top: 10px;
+left: 90%;
+width:30px;
+height:30px;
 `;
 
 export const ImageContent = styled.View`
@@ -44,16 +46,17 @@ export const ImageContent = styled.View`
 `;
 
 export const DescriptionContainer = styled.View`
-  flex: 2;
-  width: 90%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 10px;
+flex: 2;
+width: 90%;
+justify-content: flex-start;
+align-items: flex-start;
+padding: 10px;
+margin-top: 100px;
 `;
 
 export const Image = styled(ImageBackground)`
   width: 100%;
-  height: 100%;
+  height: 280px;
   /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);   */
 `;
 
@@ -78,9 +81,10 @@ export const IconContainer = styled.View`
 `;
 
 export const Info = styled.Text`
-  align-items: center;
-  justify-content: center;
-  width: 85%;
-  font-size: 14px;
-  font-family: "Poppins_400Regular";
+align-items: center;
+justify-content: center;
+width: 85%;
+font-size: 14px;
+font-family: "Poppins_400Regular";
+margin-bottom: 10px;
 `;
