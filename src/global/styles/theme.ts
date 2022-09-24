@@ -2,7 +2,7 @@
 // import backgroundDark from '../../assets/images/background-dark.png';
 // import LogoDarkImg from '../../assets/images/logo-dark.png';
 // import LogoLightImg from '../../assets/images/logo-light.png';
-import fonts from './fonts';
+import fonts from './fonts'
 
 export default {
   light: {
@@ -18,13 +18,13 @@ export default {
       yellow: '#FCA600',
       white: '#FFFFFF',
       // success: '#66cc00',
-      success: '#77B309'
+      success: '#77B309',
     },
     // images: {
     //   logo: EsojaLogoDarkImg,
     //   background: backgroundLight
     // },
-    ...fonts
+    ...fonts,
   },
   dark: {
     colors: {
@@ -39,12 +39,12 @@ export default {
       yellow: '#FCA600',
       white: '#FFFFFF',
       // success: '#66cc00',    },
-      success: '#77B309'
+      success: '#77B309',
     },
     // images: {
     //   logo: EsojaLogoDarkImg,
     //   background: backgroundDark
     // },
-    ...fonts
-  }
-};
+    ...fonts,
+  },
+}

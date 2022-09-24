@@ -172,3 +172,17 @@
 // });
 
 // export default SignIn;
+
+import React from 'react'
+
+import { Container, Title } from './styles'
+
+const SignIn: React.FC = () => {
+  return (
+    <Container>
+      <Title>Sign In</Title>
+    </Container>
+  )
+}
+
+export default SignIn

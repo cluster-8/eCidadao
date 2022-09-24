@@ -1,26 +1,32 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Control, FieldError, FieldErrorsImpl, Merge, useController } from 'react-hook-form';
-import { TextInputProps as RNTextInputProps } from 'react-native';
-import { useTheme } from 'styled-components';
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  Control,
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  useController,
+} from 'react-hook-form'
+import { TextInputProps as RNTextInputProps } from 'react-native'
+import { useTheme } from 'styled-components'
 // import { translate } from '../../data/I18n';
-import { RFFontSize } from '../../utils/getResponsiveSizes';
+import { RFFontSize } from '../../utils/getResponsiveSizes'
 import {
   Container,
   ErrorMessage,
   FeatherIcon,
   InnerContainer,
   InputLabel,
-  RNTextInput
-} from './styles';
+  RNTextInput,
+} from './styles'
 
 interface TextInputProps extends RNTextInputProps {
-  icon?: string;
-  containerStyle?: Record<string, unknown>;
-  name: string;
-  label?: string;
-  control?: Control;
-  errorMessage?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
-  disabled?: boolean;
+  icon?: string
+  containerStyle?: Record<string, unknown>
+  name: string
+  label?: string
+  control?: Control
+  errorMessage?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+  disabled?: boolean
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
@@ -34,33 +40,33 @@ export const TextInput: React.FC<TextInputProps> = ({
   disabled = false,
   ...rest
 }) => {
-  const theme = useTheme();
+  const theme = useTheme()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inputElementRef = useRef<any>(null);
+  const inputElementRef = useRef<any>(null)
 
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
+  const [isFocused, setIsFocused] = useState(false)
+  const [isFilled, setIsFilled] = useState(false)
 
   const { field } = useController({
     name,
     control,
-    defaultValue
-  });
+    defaultValue,
+  })
 
   const handleInputFocus = useCallback(() => {
-    setIsFocused(true);
-  }, []);
+    setIsFocused(true)
+  }, [])
 
   const handleInputBlur = useCallback((value: string) => {
-    setIsFocused(false);
-    setIsFilled(!!value);
-  }, []);
+    setIsFocused(false)
+    setIsFilled(!!value)
+  }, [])
 
   useEffect(() => {
     if (defaultValue) {
-      handleInputBlur(defaultValue);
+      handleInputBlur(defaultValue)
     }
-  }, [defaultValue, handleInputBlur]);
+  }, [defaultValue, handleInputBlur])
 
   return (
     <Container>
@@ -97,5 +103,5 @@ export const TextInput: React.FC<TextInputProps> = ({
 
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Container>
-  );
-};
+  )
+}

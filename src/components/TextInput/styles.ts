@@ -1,22 +1,22 @@
-import { Feather } from '@expo/vector-icons';
-import styled, { css } from 'styled-components/native';
-import { RFFontSize, RFHeight, RFWidth } from '../../utils/getResponsiveSizes';
+import { Feather } from '@expo/vector-icons'
+import styled, { css } from 'styled-components/native'
+import { RFFontSize, RFHeight, RFWidth } from '../../utils/getResponsiveSizes'
 
 interface ContainerProps {
-  isFocused: boolean;
-  isErrored: boolean;
-  editable: boolean;
+  isFocused: boolean
+  isErrored: boolean
+  editable: boolean
 }
 
 interface FeatherIconProps {
-  isFocusedOrFilled: boolean;
-  isErrored: boolean;
+  isFocusedOrFilled: boolean
+  isErrored: boolean
 }
 
 export const Container = styled.View`
   width: 100%;
   margin-bottom: ${RFWidth(8)}px;
-`;
+`
 
 export const InnerContainer = styled.View<ContainerProps>`
   width: 100%;
@@ -30,7 +30,7 @@ export const InnerContainer = styled.View<ContainerProps>`
   flex-direction: row;
   align-items: center;
   position: relative;
-  ${props =>
+  ${(props) =>
     props.isErrored
       ? css`
           border-color: ${({ theme }) => theme.colors.attention};
@@ -39,7 +39,7 @@ export const InnerContainer = styled.View<ContainerProps>`
         css`
           border-color: ${({ theme }) => theme.colors.primary};
         `}
-`;
+`
 
 export const RNTextInput = styled.TextInput`
   flex: 1;
@@ -48,7 +48,7 @@ export const RNTextInput = styled.TextInput`
   font-family: ${({ theme }) => theme.fonts.regular};
   padding-left: 0px;
   padding-right: 0px;
-`;
+`
 
 export const FeatherIcon = styled(Feather)<FeatherIconProps>`
   margin-right: ${RFWidth(16)}px;
@@ -63,18 +63,18 @@ export const FeatherIcon = styled(Feather)<FeatherIconProps>`
     css`
       color: ${theme.colors.attention};
     `}
-`;
+`
 
 export const InputLabel = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-size: ${RFFontSize(14)}px;
   margin-top: ${RFHeight(12)}px;
   margin-bottom: ${RFHeight(8)}px;
-`;
+`
 
 export const ErrorMessage = styled.Text`
   color: ${({ theme }) => theme.colors.attention};
   font-size: ${RFFontSize(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   margin-top: ${RFHeight(4)}px;
-`;
+`
