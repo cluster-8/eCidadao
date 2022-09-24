@@ -5,11 +5,11 @@ import MapView, { Marker } from 'react-native-maps'
 
 import {
   Container,
-  SearchbarContent,
-  SearchBar,
-  Icon,
   GetLocationButton,
   GetLocationIcon,
+  Icon,
+  SearchBar,
+  SearchbarContent,
 } from './styles'
 
 import ModalDetails from '../../components/ModalDetails'
@@ -17,8 +17,14 @@ import ModalDetails from '../../components/ModalDetails'
 import { useLocation } from '../../hooks/useLocation'
 import { useRequests } from '../../hooks/useRequests'
 
-import formatReqType from '../../utils/formatReqType'
 import formatReqStatus from '../../utils/formatReqStatus'
+import formatReqType from '../../utils/formatReqType'
+
+const { height, width } = Dimensions.get('window')
+const delta = {
+  latitudeDelta: 0.001,
+  longitudeDelta: 0.001 * (width / height),
+}
 
 const Requests: React.FC = () => {
   const mapRef = useRef<MapView | null>(null)
@@ -36,14 +42,14 @@ const Requests: React.FC = () => {
   const [currentRegion, setCurrentRegion] = useState({
     latitude: Number(coords.latitude),
     longitude: Number(coords.longitude),
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
+    ...delta,
   })
 
   const [searchTerm, setSearchTerm] = useState('')
 
   const requests: any = useMemo(() => {
     if (!searchTerm) return data
+
     return data?.filter(
       (el) =>
         formatReqType(el.type).includes(searchTerm) ||
@@ -85,7 +91,7 @@ const Requests: React.FC = () => {
   }
 
   // useEffect(() => {
-  //   console.log(data);
+  //   console.log(data);``
   // }, [data]);
 
   useEffect(() => {
@@ -99,6 +105,7 @@ const Requests: React.FC = () => {
         longitude: Number(coords.longitude),
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
+        ...delta,
       })
     }
   }, [coords])
@@ -110,6 +117,7 @@ const Requests: React.FC = () => {
         longitude: Number(requests[0].adress.long),
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
+        ...delta,
       })
     }
   }, [requests, searchTerm])

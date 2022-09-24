@@ -1,12 +1,12 @@
+import * as Location from 'expo-location'
 import React, {
   createContext,
   ReactNode,
   useContext,
+  useEffect,
   useMemo,
   useState,
-  useEffect,
 } from 'react'
-import * as Location from 'expo-location'
 
 // import getLocation from "../utils/getLocation";
 
@@ -21,66 +21,10 @@ type LocationContextProps = {
 const LocationContext = createContext({} as LocationContextData)
 
 const LocationProvider: React.FC<LocationContextProps> = ({ children }) => {
-  const [coords, setCoords] = useState({})
-
-  //   const getPermission = async () => {
-  //     try {
-  //       const { status } = await Location.requestForegroundPermissionsAsync();
-  //       return status === "granted";
-  //     } catch (error) {
-  //       return false;
-  //     }
-  //   };
-
-  //   const getCoordinates = useCallback(async () => {
-  //     if (coords?.latitude) {
-  //       return coords;
-  //     }
-  //     const permited = await getPermission();
-
-  //     if (permited) {
-  //       const geolocation = await Location.getCurrentPositionAsync({
-  //         accuracy: Location.Accuracy.Highest,
-  //       });
-  //       setCoords(geolocation.coords);
-  //       return {
-  //         latitude: geolocation.coords.latitude,
-  //         longitude: geolocation.coords.longitude,
-  //       };
-  //     }
-  //     // return { latitude: 47, longitude: 20 };
-  //   }, [coords]);
-
-  //   const getZipcode = useCallback(async (coordinates) => {
-  //     if (coordinates?.latitude) {
-  //       const local = await Location.reverseGeocodeAsync(coordinates);
-  //       if (local.length > 0) {
-  //         return local[0].postalCode || "";
-  //       }
-  //     }
-  //     return "";
-  //   }, []);
-
-  //   const getGeoCode = useCallback(async (cep) => {
-  //     const coordinates = await Location.geocodeAsync(cep);
-  //     if (coordinates?.length) {
-  //       return {
-  //         latitude: coordinates[0].latitude,
-  //         longitude: coordinates[0].longitude,
-  //       };
-  //     }
-  //     return { latitude: -23, longitude: -45 };
-  //   }, []);
-
-  //   const getCity = useCallback(async (coordinates) => {
-  //     if (coordinates?.latitude) {
-  //       const local = await Location.reverseGeocodeAsync(coordinates);
-  //       if (local.length > 0) {
-  //         return `${local[0].subregion} - ${local[0].region}`;
-  //       }
-  //     }
-  //     return "";
-  //   }, []);
+  const [coords, setCoords] = useState({
+    latitude: -23.211820056667055,
+    longitude: -45.891863188855105,
+  })
 
   useEffect(() => {
     ;(async function getLocation() {
@@ -109,19 +53,9 @@ const LocationProvider: React.FC<LocationContextProps> = ({ children }) => {
 
   const providerValue = useMemo(
     () => ({
-      //   getCoordinates,
-      //   getZipcode,
-      //   getGeoCode,
-      //   getCity,
       coords,
     }),
-    [
-      coords,
-      // getCoordinates,
-      // getZipcode,
-      // getGeoCode,
-      // getCity
-    ],
+    [coords],
   )
   return (
     <LocationContext.Provider value={providerValue}>
