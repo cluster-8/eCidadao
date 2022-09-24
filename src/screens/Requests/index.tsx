@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { Dimensions } from 'react-native'
 
 import MapView, { Marker } from 'react-native-maps'
@@ -9,6 +9,7 @@ import {
   SearchBar,
   Icon,
   GetLocationButton,
+  GetLocationIcon,
 } from './styles'
 
 import ModalDetails from '../../components/ModalDetails'
@@ -20,6 +21,8 @@ import formatReqType from '../../utils/formatReqType'
 import formatReqStatus from '../../utils/formatReqStatus'
 
 const Requests: React.FC = () => {
+  const mapRef = useRef<MapView | null>(null)
+
   const { coords } = useLocation()
 
   const { getRequests } = useRequests()
@@ -48,6 +51,7 @@ const Requests: React.FC = () => {
     )
   }, [searchTerm, data])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getData = async () => {
     // const query = {
     //   select: "name city state picture",
@@ -71,21 +75,30 @@ const Requests: React.FC = () => {
     })
   }
 
+  const handleGoToMyLocation = () => {
+    mapRef.current?.animateCamera({
+      center: {
+        latitude: Number(coords.latitude),
+        longitude: Number(coords.longitude),
+      },
+    })
+  }
+
   // useEffect(() => {
   //   console.log(data);
   // }, [data]);
 
   useEffect(() => {
     ;(async () => await getData())()
-  }, [])
+  }, [getData])
 
   useEffect(() => {
     if (coords.latitude && coords.longitude) {
       setCurrentRegion({
         latitude: Number(coords.latitude),
         longitude: Number(coords.longitude),
-        latitudeDelta: 0.00001,
-        longitudeDelta: 0.00001,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
       })
     }
   }, [coords])
@@ -95,16 +108,17 @@ const Requests: React.FC = () => {
       setCurrentRegion({
         latitude: Number(requests[0].adress.lat),
         longitude: Number(requests[0].adress.long),
-        latitudeDelta: 0.00001,
-        longitudeDelta: 0.00001,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
       })
     }
-  }, [requests])
+  }, [requests, searchTerm])
 
   return (
     <Container>
       {/* MAPA */}
       <MapView
+        ref={mapRef}
         style={{
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
@@ -117,7 +131,7 @@ const Requests: React.FC = () => {
         loadingEnabled={true}
         moveOnMarkerPress={true}
         initialRegion={currentRegion}
-        region={currentRegion}
+        // region={currentRegion}
       >
         {requests?.map((request: any, index: any) => (
           <Marker
@@ -156,7 +170,9 @@ const Requests: React.FC = () => {
         />
       </SearchbarContent>
       {/* BOTÃO LOCALIZAÇÃO ATUAL */}
-      <GetLocationButton></GetLocationButton>
+      <GetLocationButton onPress={handleGoToMyLocation}>
+        <GetLocationIcon name="crosshair" size={25} />
+      </GetLocationButton>
       {/* MODAL DETALHES */}
       <ModalDetails
         data={currentSolicitacao}
