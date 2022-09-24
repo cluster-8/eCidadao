@@ -105,7 +105,6 @@ const Requests: React.FC = () => {
         longitude: Number(coords.longitude),
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
-        ...delta,
       })
     }
   }, [coords])
@@ -117,7 +116,6 @@ const Requests: React.FC = () => {
         longitude: Number(requests[0].adress.long),
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
-        ...delta,
       })
     }
   }, [requests, searchTerm])

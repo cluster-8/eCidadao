@@ -1,4 +1,4 @@
-import AppLoading from 'expo-app-loading'
+import * as SplashScreen from 'expo-splash-screen'
 import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -13,6 +13,8 @@ import { Routes } from './src/routes'
 import { LocationProvider } from './src/hooks/useLocation'
 import { RequestsProvider } from './src/hooks/useRequests'
 
+SplashScreen.preventAutoHideAsync()
+
 export default function App() {
   const { getStoredTheme, fontsLoaded, selectedTheme } = useApp()
 
@@ -21,8 +23,8 @@ export default function App() {
     getStoredTheme()
   }, [getStoredTheme])
 
-  if (!fontsLoaded) {
-    return <AppLoading />
+  if (fontsLoaded) {
+    SplashScreen.hideAsync()
   }
 
   return (
