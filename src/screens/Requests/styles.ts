@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import { Entypo } from '@expo/vector-icons'
+import { Entypo, Feather } from '@expo/vector-icons'
 import { RFHeight } from '../../utils/getResponsiveSizes'
 
 export const Container = styled.View`
@@ -37,4 +37,21 @@ export const Icon = styled(Entypo)`
   right: 80px;
 `
 
-export const GetLocationButton = styled.View``
+export const GetLocationButton = styled.TouchableOpacity`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: ${({ theme }) => theme.colors.background};
+  border-color: ${({ theme }) => theme.colors.text};
+  border-width: 2px;
+  height: 50px;
+  width: 50px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+`
+
+export const GetLocationIcon = styled(Feather)``
