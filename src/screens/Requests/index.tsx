@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Dimensions } from 'react-native'
 
 import MapView, { Marker } from 'react-native-maps'
 
 import {
   Container,
-  SearchbarContent,
-  SearchBar,
-  Icon,
   GetLocationButton,
+  Icon,
+  SearchBar,
+  SearchbarContent,
 } from './styles'
 
 import ModalDetails from '../../components/ModalDetails'
@@ -16,8 +16,14 @@ import ModalDetails from '../../components/ModalDetails'
 import { useLocation } from '../../hooks/useLocation'
 import { useRequests } from '../../hooks/useRequests'
 
-import formatReqType from '../../utils/formatReqType'
 import formatReqStatus from '../../utils/formatReqStatus'
+import formatReqType from '../../utils/formatReqType'
+
+const { height, width } = Dimensions.get('window')
+const delta = {
+  latitudeDelta: 0.001,
+  longitudeDelta: 0.001 * (width / height),
+}
 
 const Requests: React.FC = () => {
   const { coords } = useLocation()
@@ -33,14 +39,14 @@ const Requests: React.FC = () => {
   const [currentRegion, setCurrentRegion] = useState({
     latitude: Number(coords.latitude),
     longitude: Number(coords.longitude),
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
+    ...delta,
   })
 
   const [searchTerm, setSearchTerm] = useState('')
 
   const requests: any = useMemo(() => {
     if (!searchTerm) return data
+
     return data?.filter(
       (el) =>
         formatReqType(el.type).includes(searchTerm) ||
@@ -72,7 +78,7 @@ const Requests: React.FC = () => {
   }
 
   // useEffect(() => {
-  //   console.log(data);
+  //   console.log(data);``
   // }, [data]);
 
   useEffect(() => {
@@ -84,8 +90,7 @@ const Requests: React.FC = () => {
       setCurrentRegion({
         latitude: Number(coords.latitude),
         longitude: Number(coords.longitude),
-        latitudeDelta: 0.00001,
-        longitudeDelta: 0.00001,
+        ...delta,
       })
     }
   }, [coords])
@@ -95,8 +100,7 @@ const Requests: React.FC = () => {
       setCurrentRegion({
         latitude: Number(requests[0].adress.lat),
         longitude: Number(requests[0].adress.long),
-        latitudeDelta: 0.00001,
-        longitudeDelta: 0.00001,
+        ...delta,
       })
     }
   }, [requests])
