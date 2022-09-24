@@ -1,47 +1,48 @@
-import { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+/* eslint-disable camelcase */
+import { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { useFonts } from 'expo-font';
+import { useFonts } from 'expo-font'
 import {
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_600SemiBold,
-  Poppins_700Bold
-} from '@expo-google-fonts/poppins';
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins'
 
-import { useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native'
 
-type Theme = 'dark' | 'light';
+type Theme = 'dark' | 'light'
 
 export const useApp = () => {
-  const deviceTheme = useColorScheme();
+  const deviceTheme = useColorScheme()
   const [selectedTheme, setSelectedTheme] = useState<Theme>(
-    deviceTheme || 'dark'
-  );
+    deviceTheme || 'dark',
+  )
 
   const handleChageTheme = async (changeTheme: Theme = 'dark') => {
-    setSelectedTheme(changeTheme);
-    AsyncStorage.setItem('@ecidadao:theme', changeTheme);
-  };
+    setSelectedTheme(changeTheme)
+    AsyncStorage.setItem('@ecidadao:theme', changeTheme)
+  }
 
   const getStoredTheme = async () => {
-    const storedTheme = await AsyncStorage.getItem('@ecidadao:theme');
+    const storedTheme = await AsyncStorage.getItem('@ecidadao:theme')
     if (storedTheme) {
-      setSelectedTheme(storedTheme as Theme);
+      setSelectedTheme(storedTheme as Theme)
     }
-  };
+  }
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_600SemiBold,
-    Poppins_700Bold
-  });
+    Poppins_700Bold,
+  })
 
   return {
     handleChageTheme,
     getStoredTheme,
     fontsLoaded,
-    selectedTheme
-  };
-};
+    selectedTheme,
+  }
+}

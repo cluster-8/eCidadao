@@ -1,14 +1,14 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Home from "../screens/Home";
-import NewRequest from "../screens/NewRequest";
-import Profile from "../screens/Profile";
-import Requests from "../screens/Requests";
+import Home from '../screens/Home'
+import NewRequest from '../screens/NewRequest'
+import Profile from '../screens/Profile'
+import Requests from '../screens/Requests'
 
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Feather } from '@expo/vector-icons'
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export const AppRoutes = () => {
   return (
@@ -16,11 +16,11 @@ export const AppRoutes = () => {
       screenOptions={{
         style: {
           // backgroundColor:
-          borderTopColor: "transparent",
+          borderTopColor: 'transparent',
         },
-        tabBarActiveTintColor: "#004997",
+        tabBarActiveTintColor: '#004997',
         tabBarStyle: {
-          height: "8%",
+          height: '8%',
           paddingBottom: 5,
           paddingTop: 5,
         },
@@ -67,8 +67,8 @@ export const AppRoutes = () => {
         }}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
 // import { useNavigation } from "@react-navigation/core";
 // import {

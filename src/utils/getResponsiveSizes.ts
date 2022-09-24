@@ -1,7 +1,7 @@
 import {
   widthPercentageToDP,
-  heightPercentageToDP
-} from 'react-native-responsive-screen';
+  heightPercentageToDP,
+} from 'react-native-responsive-screen'
 
 /**
  * Converts width passed dimension into a responsive dimension.
@@ -10,7 +10,7 @@ import {
  * @returns the dimension in pixels
  */
 export function RFWidth(width: number): number {
-  return widthPercentageToDP(`${(width / 375) * 100}%`);
+  return widthPercentageToDP(`${(width / 375) * 100}%`)
 }
 
 /**
@@ -20,7 +20,7 @@ export function RFWidth(width: number): number {
  * @returns the dimension in pixels
  */
 export function RFHeight(height: number): number {
-  return heightPercentageToDP(`${(height / 812) * 100}%`);
+  return heightPercentageToDP(`${(height / 812) * 100}%`)
 }
 
 /**
@@ -30,5 +30,5 @@ export function RFHeight(height: number): number {
  * @returns the dimension in pixels
  */
 export function RFFontSize(size: number): number {
-  return heightPercentageToDP(`${(size / 812) * 100}%`);
+  return heightPercentageToDP(`${(size / 812) * 100}%`)
 }

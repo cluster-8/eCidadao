@@ -1,5 +1,6 @@
-import React from "react";
-import { Modal } from "react-native";
+/* eslint-disable jsx-a11y/alt-text */
+import React from 'react'
+import { Modal } from 'react-native'
 
 import {
   Container,
@@ -13,17 +14,17 @@ import {
   InfoRow,
   IconContainer,
   Info,
-} from "./styles";
+} from './styles'
 
-import { Entypo } from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons'
 
-import formatReqStatus from "../../utils/formatReqStatus";
-import formatReqType from "../../utils/formatReqType";
+import formatReqStatus from '../../utils/formatReqStatus'
+import formatReqType from '../../utils/formatReqType'
 
 interface IModalDetails {
-  data: any;
-  modalVisible: boolean;
-  handleClose: any;
+  data: any
+  modalVisible: boolean
+  handleClose: any
 }
 
 const ModalDetails: React.FC<IModalDetails> = (props) => {
@@ -57,7 +58,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
               <InfoRow>
                 <IconContainer>
-                  <Entypo name="location-pin" size={22} color={"#d1345b"} />
+                  <Entypo name="location-pin" size={22} color={'#d1345b'} />
                 </IconContainer>
 
                 <Info>{props?.data.adress}</Info>
@@ -65,17 +66,17 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
               <InfoRow>
                 <IconContainer>
-                  <Entypo name="calendar" size={22} color={"#d1345b"} />
+                  <Entypo name="calendar" size={22} color={'#d1345b'} />
                 </IconContainer>
 
                 <Info>{`Submetido em ${new Date(
-                  props?.data.createdAt
+                  props?.data.createdAt,
                 ).toLocaleDateString()}`}</Info>
               </InfoRow>
 
               <InfoRow>
                 <IconContainer>
-                  <Entypo name="tag" size={22} color={"#d1345b"} />
+                  <Entypo name="tag" size={22} color={'#d1345b'} />
                 </IconContainer>
 
                 <Info>{formatReqType(props?.data.type)}</Info>
@@ -83,7 +84,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
               <InfoRow>
                 <IconContainer>
-                  <Entypo name="text" size={22} color={"#d1345b"} />
+                  <Entypo name="text" size={22} color={'#d1345b'} />
                 </IconContainer>
 
                 <Info>{props?.data.description}</Info>
@@ -91,7 +92,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
               <InfoRow>
                 <IconContainer>
-                  <Entypo name="warning" size={22} color={"#d1345b"} />
+                  <Entypo name="warning" size={22} color={'#d1345b'} />
                 </IconContainer>
 
                 <Info>{formatReqStatus(props?.data.status)}</Info>
@@ -101,7 +102,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
         </Content>
       </Modal>
     </Container>
-  );
-};
+  )
+}
 
-export default ModalDetails;
+export default ModalDetails

@@ -1,16 +1,16 @@
 function formatReqType(type: String) {
-  if (!type) return "";
+  if (!type) return ''
 
-  let label = "";
+  let label = ''
   switch (type) {
-    case "arvoreCaindo":
-      label = "Árvore caindo";
-      break;
+    case 'arvoreCaindo':
+      label = 'Árvore caindo'
+      break
     default:
-      break;
+      break
   }
 
-  return label;
+  return label
 }
 
-export default formatReqType;
+export default formatReqType

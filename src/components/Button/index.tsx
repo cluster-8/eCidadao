@@ -1,14 +1,14 @@
-import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import { useTheme } from 'styled-components';
-import { ButtonText, RectButton, TouchableOpacity } from './styles';
+import React from 'react'
+import { ActivityIndicator } from 'react-native'
+import { useTheme } from 'styled-components'
+import { ButtonText, RectButton, TouchableOpacity } from './styles'
 
 interface ButtonProps {
-  title: string;
-  type?: 'primary' | 'secondary' | 'tertiary';
-  showLoadingIndicator?: boolean;
-  onPress: () => void;
-  style?: Record<string, unknown>;
+  title: string
+  type?: 'primary' | 'secondary' | 'tertiary'
+  showLoadingIndicator?: boolean
+  onPress: () => void
+  style?: Record<string, unknown>
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -16,9 +16,9 @@ export const Button: React.FC<ButtonProps> = ({
   type = 'primary',
   showLoadingIndicator,
   onPress,
-  style = {}
+  style = {},
 }) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   if (type === 'primary') {
     return (
@@ -29,7 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
           <ButtonText type={type}>{title}</ButtonText>
         )}
       </RectButton>
-    );
+    )
   }
 
   return (
@@ -40,5 +40,5 @@ export const Button: React.FC<ButtonProps> = ({
         <ButtonText type={type}>{title}</ButtonText>
       )}
     </TouchableOpacity>
-  );
-};
+  )
+}

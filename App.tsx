@@ -1,29 +1,28 @@
-import AppLoading from "expo-app-loading";
-import React, { useEffect } from "react";
-import { StatusBar } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ThemeProvider } from "styled-components";
-import { i18nConfig } from "./src/data/I18n";
-import theme from "./src/global/styles/theme";
-import { useApp } from "./src/hooks/useApp";
-import { AuthProvider } from "./src/hooks/useAuth";
-import { Routes } from "./src/routes";
+import AppLoading from 'expo-app-loading'
+import React, { useEffect } from 'react'
+import { StatusBar } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { ThemeProvider } from 'styled-components'
+import { i18nConfig } from './src/data/I18n'
+import theme from './src/global/styles/theme'
+import { useApp } from './src/hooks/useApp'
+// import { AuthProvider } from './src/hooks/useAuth'
+import { Routes } from './src/routes'
 
-import { LocationProvider } from "./src/hooks/useLocation";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { RequestsProvider } from "./src/hooks/useRequests";
+import { LocationProvider } from './src/hooks/useLocation'
+import { RequestsProvider } from './src/hooks/useRequests'
 
 export default function App() {
-  const { getStoredTheme, fontsLoaded, selectedTheme } = useApp();
+  const { getStoredTheme, fontsLoaded, selectedTheme } = useApp()
 
   useEffect(() => {
-    i18nConfig();
-    getStoredTheme();
-  }, [getStoredTheme]);
+    i18nConfig()
+    getStoredTheme()
+  }, [getStoredTheme])
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   }
 
   return (
@@ -35,7 +34,7 @@ export default function App() {
             <SafeAreaProvider>
               <StatusBar
                 barStyle={
-                  selectedTheme === "dark" ? "light-content" : "dark-content"
+                  selectedTheme === 'dark' ? 'light-content' : 'dark-content'
                 }
                 backgroundColor="transparent"
                 translucent
@@ -49,5 +48,5 @@ export default function App() {
       </RequestsProvider>
       {/* </AuthProvider> */}
     </ThemeProvider>
-  );
+  )
 }
