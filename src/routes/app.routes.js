@@ -1,10 +1,11 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Home from '../screens/Home'
+// import Home from '../screens/Home'
 import NewRequest from '../screens/NewRequest'
 import Profile from '../screens/Profile'
 import Requests from '../screens/Requests'
+import MyRequests from '../screens/MyRequests'
 
 import { Feather } from '@expo/vector-icons'
 
@@ -28,7 +29,7 @@ export const AppRoutes = () => {
     >
       <Tab.Screen
         name="Início"
-        component={Home}
+        component={MyRequests}
         options={{
           tabBarIcon: ({ size, color }) => (
             <Feather name="home" size={size} color={color} />
