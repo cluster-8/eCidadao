@@ -90,10 +90,6 @@ const Requests: React.FC = () => {
     })
   }
 
-  // useEffect(() => {
-  //   console.log(data);``
-  // }, [data]);
-
   useEffect(() => {
     ;(async () => await getData())()
   }, [getData])
