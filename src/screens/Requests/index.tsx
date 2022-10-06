@@ -129,7 +129,6 @@ const Requests: React.FC = () => {
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
         }}
-        showsUserLocation={true}
         // userLocationUpdateInterval={5000}
         // followsUserLocation={true}
         // showsMyLocationButton={true}
@@ -168,11 +167,12 @@ const Requests: React.FC = () => {
       </MapView>
       {/* BARRA DE PESQUISA */}
       <SearchbarContent>
-        <Icon name="magnifying-glass" size={25} color={'#004997'} />
+      <Icon name="magnifying-glass" size={25} color={'#004997'} />
         <SearchBar
           placeholder={'Buscar'}
           placeholderTextColor={'#666'}
           onChangeText={(text: any) => setSearchTerm(text)}
+          
         />
       </SearchbarContent>
       {/* BOTÃO LOCALIZAÇÃO ATUAL */}
