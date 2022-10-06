@@ -3,6 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import * as Animatable from 'react-native-animatable'
+import { TouchableOpacity } from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 
 
 import { TextInput } from '../../components/TextInput'
@@ -16,6 +18,7 @@ import {
   SubscribeButton,
   ForgotPasswdButton,
 } from './styles'
+
 
 const userData = yup.object().shape({
   name: yup.string().required('Nome obrigatório'),
@@ -68,12 +71,15 @@ const SignIn: React.FC = () => {
               defaultValue={password}
               errorMessage={errors?.password?.message}
             />
-
+            <TouchableOpacity onPress={() => console.log("asdas")}>
             <ForgotPasswdButton>Esqueci minha senha</ForgotPasswdButton>
+            </TouchableOpacity>
 
-            <Button title="Entrar"  />
+            <Button title="Entrar" onPress={() => console.log("asdas")}/>
 
-            <SubscribeButton>Inscreva-se</SubscribeButton>
+            <TouchableOpacity> 
+            <SubscribeButton onPress={() => console.log("asdas")}>Cadastre-se</SubscribeButton>
+            </TouchableOpacity>
 
           </BodyContainer>
       </Container>

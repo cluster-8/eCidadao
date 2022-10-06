@@ -25,34 +25,31 @@ export const BodyContainer = styled.View`
   `
 
 export const Title = styled.Text`
-color:${({ theme }) => theme.colors.text};
-font-size: ${RFFontSize(28)}px;
-font-family: ${({ theme }) => theme.fonts.bold};
-margin-top: ${RFHeight(10)}px;
-margin-bottom:${RFHeight(20)}px;
-text-align: center;
-`
+  color:${({ theme }) => theme.colors.text};
+  font-size: ${RFFontSize(28)}px;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  margin-top: ${RFHeight(10)}px;
+  margin-bottom:${RFHeight(20)}px;
+  text-align: center;
+  `
 
 export const ForgotPasswdButton = styled.Text`
-font-family: ${({ theme }) => theme.fonts.regular};
-color:${({ theme }) => theme.colors.primary};
-margin-top: ${RFHeight(10)}px;
-margin-bottom: ${RFHeight(20)}px;
-
-font-size: ${RFFontSize(13)}px;
-`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color:${({ theme }) => theme.colors.primary};
+  margin-top: ${RFHeight(10)}px;
+  margin-bottom: ${RFHeight(20)}px;
+  font-size: ${RFFontSize(14)}px;
+  `
 
 export const ContainerButton = styled.View`
-margin-top:${RFHeight(30)}px;
-width: 100%;
-`
+  margin-top:${RFHeight(30)}px;
+  width: 100%;
+  `
 
 export const SubscribeButton = styled.Text`
-font-family: ${({ theme }) => theme.fonts.bold};
-color: ${({ theme }) => theme.colors.primary};
-font-size: ${RFFontSize(18)}px;
-align-self: center;
-margin-top: ${RFHeight(15)}px;
-`
-
-
+  font-family: ${({ theme }) => theme.fonts.bold};
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${RFFontSize(14)}px;
+  align-self: center;
+  margin-top: ${RFHeight(15)}px;
+  `

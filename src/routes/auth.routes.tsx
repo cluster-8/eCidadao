@@ -45,8 +45,8 @@ export const AuthRoutes: React.FC<NavigatorProps> = ({ screenOptions }) => {
   )
 
   return (
-    <Stack.Navigator
-      screenOptions={{
+      <Stack.Navigator
+        screenOptions={{
         ...screenOptions,
         headerShown: true,
         headerTintColor: theme.colors.white,
@@ -57,7 +57,15 @@ export const AuthRoutes: React.FC<NavigatorProps> = ({ screenOptions }) => {
         component={SignIn}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="SignUp" component={SignUp} options={options} />
+
+      <Stack.Screen 
+      name="SignUp" 
+      component={SignUp} 
+      options={options} 
+      />
+
     </Stack.Navigator>
+
+    
   )
 }

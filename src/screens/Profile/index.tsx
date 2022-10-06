@@ -12,9 +12,10 @@ import {
   HeaderContainer,
   HeaderTitle,
   HeaderText,
-  FormContainer,
   ExcludeButton,
 } from './styles'
+
+import { BodyContainer } from '../SignUp/styles'
 
 const userData = yup.object().shape({
   name: yup.string().required('Nome obrigatório'),
@@ -78,11 +79,12 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <FormContainer>
         <HeaderContainer>
           <HeaderTitle>Meu Perfil</HeaderTitle>
           <HeaderText>Visualize ou altere seus dados</HeaderText>
         </HeaderContainer>
+
+      <BodyContainer>
 
         <TextInput
           label="Nome"
@@ -127,9 +129,14 @@ const Profile: React.FC = () => {
         />
 
         <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton>
-      </FormContainer>
 
-      <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
+        <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
+
+
+        </BodyContainer>
+
+
+      
     </Container>
   )
 }

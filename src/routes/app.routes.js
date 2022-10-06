@@ -9,6 +9,7 @@ import MyRequests from '../screens/MyRequests'
 import SignIn from '../screens/SignIn'
 
 import { Feather } from '@expo/vector-icons'
+import SignUp from '../screens/SignUp'
 
 const Tab = createBottomTabNavigator()
 
@@ -38,6 +39,17 @@ export const AppRoutes = () => {
           headerShown: false,
         }}
       />
+            <Tab.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="map-pin" size={size} color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+
       <Tab.Screen
         name="Início"
         component={MyRequests}
