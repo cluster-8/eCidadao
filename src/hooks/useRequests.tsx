@@ -32,6 +32,7 @@ export interface Request {
 
 interface RequestsContextData {
   getRequests: () => Promise<any>
+  createRequest: (data: any) => Promise<any>
 }
 
 type RequestsContextProps = {
@@ -48,11 +49,18 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     return data
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const createRequest = async (data: any) => {
+    const response = await api.post(`/requests`, data)
+    return response
+  }
+
   const providerValue = useMemo(
     () => ({
       getRequests,
+      createRequest,
     }),
-    [getRequests],
+    [getRequests, createRequest],
   )
 
   return (

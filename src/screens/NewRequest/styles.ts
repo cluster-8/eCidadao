@@ -9,17 +9,7 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   height: 100%;
-
-  /* align-items: center; */
-  /* padding-top: ${RFHeight(60)}px; */
-  /* padding: ${RFHeight(24)}px; */
 `
-
-// export const Container = styled.View`
-//   padding: 0px ${RFHeight(24)}px ${getBottomSpace() + RFHeight(24)}px
-//     ${RFHeight(24)}px;
-//   justify-content: space-between;
-// `;
 
 export const HeaderContainer = styled.View`
   align-items: center;
@@ -45,9 +35,6 @@ export const HeaderText = styled.Text`
 export const PictureContainer = styled.View`
   flex: 1;
   align-items: center;
-
-  /* justify-content: center; */
-  /* margin: ${RFHeight(24)}px auto; */
 `
 
 export const FormContainer = styled.View`
@@ -58,10 +45,6 @@ export const FormContainer = styled.View`
   border-top-left-radius: ${RFHeight(32)}px;
   border-top-right-radius: ${RFHeight(32)}px;
   padding: ${RFHeight(24)}px;
-  /* padding: ${RFHeight(24)}px ${RFWidth(24)}px; */
-  /* background: ${({ theme }) => theme.colors.background}; */
-  /* justify-content: center; */
-  /* margin-bottom: ${RFHeight(32)}px; */
 `
 
 export const CancelButtonContainer = styled.View`
@@ -100,9 +83,15 @@ export const CamBtnContainer = styled.View`
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: ${RFHeight(50)}px;
+`
 
-  /* align-items: center;
-  justify-content: center; */
+export const RotateCamContainer = styled.View`
+  flex: 1;
+  background-color: 'transparent';
+  background-color: '#123567'
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: ${RFHeight(50)}px;
 `
 
 export const CamButton = styled.TouchableOpacity`
@@ -122,6 +111,29 @@ export const TouchableOpacity = styled.TouchableOpacity<TypeProps>`
       border-color: ${({ theme }) => theme.colors.primary};
     `}
 `
+
+export const TouchableOpacityCam = styled.TouchableOpacity<TypeProps>`
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(90deg);
+  ${(props) =>
+    props.type === 'secondary' &&
+    css`
+      border-width: ${RFWidth(2)}px;
+      border-color: ${({ theme }) => theme.colors.primary};
+    `}
+`
+
+export const RotateCamMessage = styled.View`
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 5s;
+`
+
 export const ButtonText = styled.Text<TypeProps>`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFFontSize(18)}px;
@@ -139,18 +151,18 @@ export const ButtonText = styled.Text<TypeProps>`
 
 export const ModalBody = styled.View`
   flex: 1;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   margin: ${RFHeight(20)}px;
 `
 
 export const ModalImage = styled.Image`
   width: 100%;
-  height: 80%;
+  height: 40%
   border-radius: ${RFHeight(10)}px;
 `
 export const ModalFooter = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100%;
 `

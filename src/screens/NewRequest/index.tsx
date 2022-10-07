@@ -1,10 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Alert, ScrollView, Dimensions, Text, Modal } from 'react-native'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
+import {
+  Alert,
+  ScrollView,
+  Dimensions,
+  Text,
+  Modal,
+  Platform,
+} from 'react-native'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 
-import { Camera, CameraType } from 'expo-camera'
+import { Camera } from 'expo-camera'
 
 import { PictureInput } from '../../components/PictureInput'
 import { SelectInput } from '../../components/SelectInput'
@@ -15,6 +22,7 @@ import ModalTypes from '../../components/ModalTypes'
 import { useLocation } from '../../hooks/useLocation'
 import { useCamera } from '../../hooks/useCamera'
 import { useTypes } from '../../hooks/useTypes'
+import { useRequests } from '../../hooks/useRequests'
 
 import { Feather } from '@expo/vector-icons'
 
@@ -32,7 +40,12 @@ import {
   ModalBody,
   ModalImage,
   ModalFooter,
+  TouchableOpacityCam,
+  RotateCamMessage,
+  RotateCamContainer,
 } from './styles'
+
+import { firebase } from '../../../config'
 
 const { height } = Dimensions.get('window')
 
@@ -47,20 +60,27 @@ const requestData = yup.object().shape({
 })
 
 const NewRequest: React.FC = () => {
+  const { createRequest } = useRequests()
   const { getAddress } = useLocation()
-  const { openCamera, setOpenCamera } = useCamera()
+  const {
+    openCamera,
+    setOpenCamera,
+    // hasCameraPermission,
+    // setHasCameraPermission,
+    getCameraPermissions,
+    camType,
+    orientation,
+  } = useCamera()
   const { openModalType, setOpenModalType, selectedType } = useTypes()
-
-  const camType = CameraType.back
 
   // const [location, setLocation] = useState()
   const [type, setType] = useState()
   const [description, setDescription] = useState()
-  const [address, setAddress] = useState<String | undefined>()
-  const [photo, setPhoto] = useState(null)
+  const [address, setAddress] = useState<string | undefined>()
+  const [photo, setPhoto] = useState<any>(null)
 
-  const cameraRef = useRef()
-  const [hasCameraPermission, setHasCameraPermission] = useState<any>()
+  const cameraRef: any = useRef()
+  // const [hasCameraPermission, setHasCameraPermission] = useState<any>()
   const [modalVisible, setModalVisible] = useState(false)
 
   const {
@@ -72,10 +92,11 @@ const NewRequest: React.FC = () => {
   })
 
   useEffect(() => {
-    ;(async () => {
-      const cameraPermission = await Camera.requestCameraPermissionsAsync()
-      setHasCameraPermission(cameraPermission.status === 'granted')
-    })()
+    // ;(async () => {
+    //   const cameraPermission = await Camera.requestCameraPermissionsAsync()
+    //   setHasCameraPermission(cameraPermission.status === 'granted')
+    // })()
+    getCameraPermissions()
   }, [])
 
   async function takePicture() {
@@ -87,7 +108,6 @@ const NewRequest: React.FC = () => {
 
     if (cameraRef) {
       const data = await cameraRef?.current?.takePictureAsync()
-      console.log(data)
       if (data) {
         setPhoto(data.uri)
         const res = await getAddress()
@@ -109,22 +129,31 @@ const NewRequest: React.FC = () => {
     setModalVisible(false)
   }
 
-  function submitRequest() {
-    console.log('Enviando solicitação...')
+  async function uploadPicture(photo: any) {
+    const response = await fetch(photo)
+    const blob = await response.blob()
+    const filename = photo.substring(photo.lastIndexOf('/') + 1)
+    // const ref = firebase.storage().ref().child(filename).put(blob)
+    const ref = firebase.storage().ref().child(filename)
+
+    try {
+      // await ref
+      return ref.put(blob)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function submitRequest() {
     const data = {
-      // location,
       selectedType,
       description,
       address,
       photo,
     }
 
-    console.log(data)
-
-    // setLocation(data.location)
-    setType(data.selectedType)
-    setDescription(data.description)
-    setAddress(data.address)
+    const res = await uploadPicture(photo)
+    console.log('OOOOOppppaa', res)
 
     Alert.alert('Enviar', 'Solicitação de manutenção realizada com sucesso!', [
       {
@@ -141,9 +170,44 @@ const NewRequest: React.FC = () => {
     ])
   }
 
+  const CamButton = useMemo(() => {
+    return (
+      <>
+        {orientation === 'LANDSCAPE' ? (
+          <CamBtnContainer>
+            <TouchableOpacityCam onPress={takePicture}>
+              <Feather name="camera" size={33} color={'#fff'} />
+              <Text
+                style={{ color: 'white', fontFamily: 'Poppins_600SemiBold' }}
+              >
+                capturar
+              </Text>
+            </TouchableOpacityCam>
+          </CamBtnContainer>
+        ) : (
+          <RotateCamContainer>
+            <RotateCamMessage>
+              <Feather name="rotate-cw" size={33} color={'#fff'} />
+              <Text
+                style={{ color: 'white', fontFamily: 'Poppins_600SemiBold' }}
+              >
+                Vire a camera
+              </Text>
+            </RotateCamMessage>
+          </RotateCamContainer>
+        )}
+      </>
+    )
+  }, [orientation])
+
   useEffect(() => {
     setPhoto(null)
   }, [])
+
+  useEffect(() => {
+    console.log(orientation)
+    console.log(description)
+  }, [orientation, description])
 
   return (
     <ScrollView style={{ height: '100%' }}>
@@ -154,16 +218,8 @@ const NewRequest: React.FC = () => {
             type={camType}
             style={{ height, flexDirection: 'row' }}
           >
-            <CamBtnContainer>
-              <TouchableOpacity onPress={takePicture}>
-                <Feather name="camera" size={33} color={'#fff'} />
-                <Text
-                  style={{ color: 'white', fontFamily: 'Poppins_400Regular' }}
-                >
-                  capturar
-                </Text>
-              </TouchableOpacity>
-            </CamBtnContainer>
+            {CamButton}
+            {/* <CamBtnContainer>{CamButton}</CamBtnContainer> */}
           </Camera>
           {photo && (
             <Modal
@@ -172,6 +228,13 @@ const NewRequest: React.FC = () => {
               visible={modalVisible}
             >
               <ModalBody>
+                <HeaderContainer>
+                  <HeaderTitle>Confirmar foto</HeaderTitle>
+                  <HeaderText>
+                    Verifique atentamente a foto registrada para garantir a
+                    identificação do problema
+                  </HeaderText>
+                </HeaderContainer>
                 <ModalImage source={{ uri: photo }} />
                 <ModalFooter>
                   <CancelButtonContainer>
@@ -191,7 +254,10 @@ const NewRequest: React.FC = () => {
         </>
       ) : (
         <>
-          <Container>
+          <Container
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={60}
+          >
             <HeaderContainer>
               <HeaderTitle>Nova solicitação</HeaderTitle>
               <HeaderText>
