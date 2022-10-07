@@ -20,7 +20,7 @@ export const Content = styled.View`
 export const ModalContent = styled.View`
   margin: 20px;
   width: 100%;
-  height: 50%;
+  height: 35%;
   margin-top: auto;
   margin-bottom: 0;
   background-color: #f6f6f6;
@@ -92,6 +92,7 @@ export const Info = styled.Text`
 export const TypesList = styled.ScrollView`
   flex: 1;
   margin: ${RFHeight(16)}px;
+  margin-left: ${RFWidth(24)}px;
   width: 100%;
 
   /* background-color: #f6f6; */
