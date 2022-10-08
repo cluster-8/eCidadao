@@ -1,53 +1,67 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { TextInput } from '../../components/TextInput'
 import { TouchableOpacity } from 'react-native'
-import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import CheckBox from 'expo-checkbox'
-import { TextInput } from '../../components/TextInput'
-import { Button } from '../../components/Button'
+import * as yup from 'yup'
 
+import { Button } from '../../components/Button'
 import {
-  Container,
   HeaderContainer,
-  Title,
-  TextHeader,
   BodyContainer,
   TermsUseView,
   TermsUseText,
   TermsUseLink,
+  TextHeader,
+  Container,
   LoginView,
   LoginText,
   LoginLink,
+  Title,
 } from './styles'
 
-const userData = yup.object().shape({
-  name: yup.string().required('Nome obrigatório'),
-  email: yup.string().required('Email obrigatório'),
-  document: yup.string(),
+const schema = yup.object().shape({
+  confirmPassword: yup.string().oneOf([yup.ref('password'), null]),
   password: yup.string().min(6, 'Mínimo de 6 caracteres'),
+  email: yup.string().required('Email obrigatório'),
+  name: yup.string().required('Nome obrigatório'),
   cpf: yup.string().required('CPF obrigatório'),
 })
 
 const SignUp: React.FC = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cpf, setcpf] = useState('')
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [cpf, setCpf] = useState('')
 
   const [isChecked, setChecked] = useState(false)
 
   const {
-    control,
     handleSubmit,
+    register,
+    setValue,
+    control,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(userData),
+    resolver: yupResolver(schema),
   })
 
   useEffect(() => {
     console.log(new Date())
   }, [isChecked])
+
+  async function signUp(data: any) {
+    console.log(data)
+  }
+
+  useEffect(() => {
+    register('confirmPassword')
+    register('password')
+    register('email')
+    register('name')
+    register('cpf')
+  }, [])
 
   return (
     <Container>
@@ -59,56 +73,61 @@ const SignUp: React.FC = () => {
       </HeaderContainer>
       <BodyContainer>
         <TextInput
+          onChangeText={(text: string) => setValue('name', text)}
+          errorMessage={errors?.name?.message}
+          defaultValue={name}
+          control={control}
+          placeholder="Digite seu Nome"
           label="Nome"
           name="name"
           icon="user"
-          placeholder="Digite seu Nome"
-          control={control}
-          defaultValue={name}
-          errorMessage={errors?.name?.message}
         />
 
         <TextInput
+          onChangeText={(text: string) => setValue('email', text)}
+          errorMessage={errors?.name?.message}
+          defaultValue={email}
+          control={control}
+          placeholder="Digite seu Email"
           label="Email"
           name="email"
           icon="mail"
-          placeholder="Digite seu Email"
-          control={control}
-          defaultValue={email}
-          errorMessage={errors?.name?.message}
         />
 
         <TextInput
-          label="CPF"
-          name="document"
-          icon="credit-card"
-          placeholder="Digite seu CPF"
-          control={control}
-          editable={false}
-          defaultValue={cpf}
+          onChangeText={(text: string) => setValue('cpf', text)}
           errorMessage={errors?.document?.message}
+          defaultValue={cpf}
+          control={control}
+          placeholder="Digite seu CPF"
+          icon="credit-card"
+          editable={false}
+          name="document"
+          label="CPF"
         />
 
         <TextInput
-          label="Senha"
-          name="password"
-          icon="lock"
+          onChangeText={(text: string) => setValue('password', text)}
+          errorMessage={errors?.password?.message}
+          defaultValue={password}
+          control={control}
           placeholder="Digite a senha"
           secureTextEntry
-          control={control}
-          defaultValue={password}
-          errorMessage={errors?.password?.message}
+          name="password"
+          label="Senha"
+          icon="lock"
         />
 
         <TextInput
-          label="Confirme sua Senha"
-          name="password"
-          icon="lock"
-          placeholder="Digite a senha novamente"
-          secureTextEntry
-          control={control}
-          defaultValue={password}
+          onChangeText={(text: string) => setValue('confirmPassword', text)}
           errorMessage={errors?.password?.message}
+          defaultValue={password}
+          control={control}
+          placeholder="Digite a senha novamente"
+          label="Confirme sua Senha"
+          name="confirmPassword"
+          secureTextEntry
+          icon="lock"
         />
 
         <TermsUseView>
@@ -121,7 +140,7 @@ const SignUp: React.FC = () => {
           </TouchableOpacity>
         </TermsUseView>
 
-        <Button title="Confirmar" onPress={() => console.log('asdas')} />
+        <Button title="Confirmar" onPress={handleSubmit(signUp)} />
 
         <LoginView>
           <LoginText>Já tem uma conta?</LoginText>

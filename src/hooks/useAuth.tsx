@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNetInfo } from '@react-native-community/netinfo'
-import * as AuthSession from 'expo-auth-session'
+// import * as AuthSession from 'expo-auth-session'
 import * as WebBrowser from 'expo-web-browser'
 import React, {
   createContext,
@@ -19,8 +19,8 @@ import { api } from '../data/services/api'
 interface AuthContextData {
   signInWithPassword: (data: FieldValues) => Promise<void>
   signUp: (data: FieldValues) => Promise<void>
-  signInWithGoogle: () => Promise<void>
-  sigInWithFacebook: () => Promise<void>
+  // signInWithGoogle: () => Promise<void>
+  // sigInWithFacebook: () => Promise<void>
   signOut: () => Promise<void>
   authUser: User
   isLoading: boolean
@@ -41,18 +41,18 @@ type SignUpRequestProps = {
   token: string
 }
 
-type SocialAuthProps = {
-  params: { access_token: string }
-  type: string
-}
+// type SocialAuthProps = {
+//   params: { access_token: string }
+//   type: string
+// }
 
 WebBrowser.maybeCompleteAuthSession()
 
 const AuthContext = createContext({} as AuthContextData)
 
 const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
-  const [isLoading, setLoading] = useState(true)
   const [authUser, setAuthUser] = useState<User>({} as User)
+  const [isLoading, setLoading] = useState(true)
   const info = useNetInfo()
 
   const isConnected = useMemo(() => {
@@ -98,77 +98,77 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     [],
   )
 
-  const signInWithGoogle = useCallback(async () => {
-    const clientId = process.env.CLIENT_ID_GOOGLE
-    const redirectUri = process.env.REDIRECT_URI
-    const scope = encodeURI('profile email')
-    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`
+  // const signInWithGoogle = useCallback(async () => {
+  //   const clientId = process.env.CLIENT_ID_GOOGLE
+  //   const redirectUri = process.env.REDIRECT_URI
+  //   const scope = encodeURI('profile email')
+  //   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`
 
-    try {
-      const { type, params } = (await AuthSession.startAsync({
-        authUrl,
-      })) as SocialAuthProps
+  //   try {
+  //     const { type, params } = (await AuthSession.startAsync({
+  //       authUrl,
+  //     })) as SocialAuthProps
 
-      if (type === 'success') {
-        try {
-          const {
-            data: { user, token },
-          } = await api.post<SignInRequestProps>('/auth/social-sign-in', {
-            token: params.access_token,
-            provider: 'google',
-          })
-          await storeUser(user, token)
-        } catch (err) {
-          Alert.alert(
-            'Erro',
-            'Não foi possível fazer o login, tente novamente mais tarde',
-          )
-        }
-      } else {
-        throw new Error('rejected signIn')
-      }
-    } catch (err) {
-      Alert.alert(
-        'Erro',
-        'Não foi possível fazer o login, tente novamente mais tarde',
-      )
-    }
-  }, [])
+  //     if (type === 'success') {
+  //       try {
+  //         const {
+  //           data: { user, token },
+  //         } = await api.post<SignInRequestProps>('/auth/social-sign-in', {
+  //           token: params.access_token,
+  //           provider: 'google',
+  //         })
+  //         await storeUser(user, token)
+  //       } catch (err) {
+  //         Alert.alert(
+  //           'Erro',
+  //           'Não foi possível fazer o login, tente novamente mais tarde',
+  //         )
+  //       }
+  //     } else {
+  //       throw new Error('rejected signIn')
+  //     }
+  //   } catch (err) {
+  //     Alert.alert(
+  //       'Erro',
+  //       'Não foi possível fazer o login, tente novamente mais tarde',
+  //     )
+  //   }
+  // }, [])
 
-  const sigInWithFacebook = useCallback(async () => {
-    const clientId = Number(process.env.CLIENT_ID_FACEBOOK)
-    const redirectUri = process.env.REDIRECT_URI
-    const authUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=email&response_type=token`
+  // const sigInWithFacebook = useCallback(async () => {
+  //   const clientId = Number(process.env.CLIENT_ID_FACEBOOK)
+  //   const redirectUri = process.env.REDIRECT_URI
+  //   const authUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=email&response_type=token`
 
-    try {
-      const { type, params } = (await AuthSession.startAsync({
-        authUrl,
-      })) as SocialAuthProps
-      if (type === 'success') {
-        try {
-          const {
-            data: { user, token },
-          } = await api.post<SignInRequestProps>('/auth/social-sign-in', {
-            token: params.access_token,
-            provider: 'facebook',
-          })
-          await storeUser(user, token)
-        } catch (err) {
-          Alert.alert(
-            'Erro',
-            'Não foi possível fazer o login, tente novamente mais tarde',
-          )
-        }
-      } else {
-        throw new Error('rejected signIn')
-      }
-    } catch (err) {
-      Alert.alert(
-        'Erro',
-        'Não foi possível fazer o login, tente novamente mais tarde',
-      )
-    }
-  }, [])
+  //   try {
+  //     const { type, params } = (await AuthSession.startAsync({
+  //       authUrl,
+  //     })) as SocialAuthProps
+  //     if (type === 'success') {
+  //       try {
+  //         const {
+  //           data: { user, token },
+  //         } = await api.post<SignInRequestProps>('/auth/social-sign-in', {
+  //           token: params.access_token,
+  //           provider: 'facebook',
+  //         })
+  //         await storeUser(user, token)
+  //       } catch (err) {
+  //         Alert.alert(
+  //           'Erro',
+  //           'Não foi possível fazer o login, tente novamente mais tarde',
+  //         )
+  //       }
+  //     } else {
+  //       throw new Error('rejected signIn')
+  //     }
+  //   } catch (err) {
+  //     Alert.alert(
+  //       'Erro',
+  //       'Não foi possível fazer o login, tente novamente mais tarde',
+  //     )
+  //   }
+  // }, [])
 
   const signUp = useCallback(async (data: FieldValues) => {
     try {
@@ -208,6 +208,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       setLoading(false)
     }
     loadStoragedData()
+    console.log('AuthUser: ', authUser)
   }, [])
 
   const providerValue = useMemo(
@@ -216,8 +217,8 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       signOut,
       authUser,
       isLoading,
-      signInWithGoogle,
-      sigInWithFacebook,
+      // signInWithGoogle,
+      // sigInWithFacebook,
       signUp,
       isConnected,
     }),
@@ -226,8 +227,8 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       signOut,
       authUser,
       isLoading,
-      signInWithGoogle,
-      sigInWithFacebook,
+      // signInWithGoogle,
+      // sigInWithFacebook,
       signUp,
       isConnected,
     ],
