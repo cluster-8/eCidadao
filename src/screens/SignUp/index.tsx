@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { TouchableOpacity } from 'react-native'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
-import CheckBox from "expo-checkbox";
+import CheckBox from 'expo-checkbox'
 import { TextInput } from '../../components/TextInput'
 import { Button } from '../../components/Button'
 
@@ -19,7 +19,6 @@ import {
   LoginView,
   LoginText,
   LoginLink,
-  
 } from './styles'
 
 const userData = yup.object().shape({
@@ -36,8 +35,7 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState('')
   const [cpf, setcpf] = useState('')
 
-  const [isChecked, setChecked] = useState(false);
-
+  const [isChecked, setChecked] = useState(false)
 
   const {
     control,
@@ -47,99 +45,93 @@ const SignUp: React.FC = () => {
     resolver: yupResolver(userData),
   })
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(new Date())
-  },[isChecked])
+  }, [isChecked])
 
   return (
+    <Container>
+      <HeaderContainer>
+        <Title>Vamos Começar!</Title>
+        <TextHeader>
+          Crie uma conta no eCidadão para ter acesso à todas as funcionalidades
+        </TextHeader>
+      </HeaderContainer>
+      <BodyContainer>
+        <TextInput
+          label="Nome"
+          name="name"
+          icon="user"
+          placeholder="Digite seu Nome"
+          control={control}
+          defaultValue={name}
+          errorMessage={errors?.name?.message}
+        />
 
-      <Container>
+        <TextInput
+          label="Email"
+          name="email"
+          icon="mail"
+          placeholder="Digite seu Email"
+          control={control}
+          defaultValue={email}
+          errorMessage={errors?.name?.message}
+        />
 
-          <HeaderContainer>
-          <Title>Vamos Começar!</Title>
-          <TextHeader>Crie uma conta no eCidadão para ter acesso à todas as funcionalidades</TextHeader>
+        <TextInput
+          label="CPF"
+          name="document"
+          icon="credit-card"
+          placeholder="Digite seu CPF"
+          control={control}
+          editable={false}
+          defaultValue={cpf}
+          errorMessage={errors?.document?.message}
+        />
 
-          </HeaderContainer>
-          <BodyContainer>
+        <TextInput
+          label="Senha"
+          name="password"
+          icon="lock"
+          placeholder="Digite a senha"
+          secureTextEntry
+          control={control}
+          defaultValue={password}
+          errorMessage={errors?.password?.message}
+        />
 
-              <TextInput
-              label="Nome"
-              name="name"
-              icon="user"
-              placeholder="Digite seu Nome"
-              control={control}
-              defaultValue={name}
-              errorMessage={errors?.name?.message}
-            />
+        <TextInput
+          label="Confirme sua Senha"
+          name="password"
+          icon="lock"
+          placeholder="Digite a senha novamente"
+          secureTextEntry
+          control={control}
+          defaultValue={password}
+          errorMessage={errors?.password?.message}
+        />
 
-              <TextInput
-              label="Email"
-              name="email"
-              icon="mail"
-              placeholder="Digite seu Email"
-              control={control}
-              defaultValue={email}
-              errorMessage={errors?.name?.message}
-            />
+        <TermsUseView>
+          <CheckBox value={isChecked} onValueChange={setChecked} />
 
-              <TextInput
-              label="CPF"
-              name="document"
-              icon="credit-card"
-              placeholder="Digite seu CPF"
-              control={control}
-              editable={false}
-              defaultValue={cpf}
-              errorMessage={errors?.document?.message}
-            />
+          <TermsUseText>Concordo com os </TermsUseText>
 
-              <TextInput
-              label="Senha"
-              name="password"
-              icon="lock" 
-              placeholder="Digite a senha"
-              secureTextEntry
-              control={control}
-              defaultValue={password}
-              errorMessage={errors?.password?.message}
-            />
+          <TouchableOpacity onPress={() => console.log('asdas')}>
+            <TermsUseLink>Termos de Uso</TermsUseLink>
+          </TouchableOpacity>
+        </TermsUseView>
 
-              <TextInput
-              label="Confirme sua Senha"
-              name="password"
-              icon="lock"
-              placeholder="Digite a senha novamente"
-              secureTextEntry
-              control={control}
-              defaultValue={password}
-              errorMessage={errors?.password?.message}
-            />
-            
-            <TermsUseView>
-              <CheckBox value={isChecked} onValueChange={setChecked}
-        />   
+        <Button title="Confirmar" onPress={() => console.log('asdas')} />
 
-              <TermsUseText>Concordo com os </TermsUseText>
+        <LoginView>
+          <LoginText>Já tem uma conta?</LoginText>
 
-              <TouchableOpacity onPress={() => console.log("asdas")}>
-              <TermsUseLink>Termos de Uso</TermsUseLink>
-              </TouchableOpacity>
-
-            </TermsUseView>
-
-              <Button title="Confirmar" onPress={() => console.log("asdas")}/>
-
-              <LoginView>
-             <LoginText>Já tem uma conta?</LoginText>
-
-              <TouchableOpacity onPress={() => console.log("asdas")}>
-              <LoginLink>Faça o login</LoginLink>
-              </TouchableOpacity>
-
-              </LoginView>
-
-          </BodyContainer>
-      </Container>
+          <TouchableOpacity onPress={() => console.log('asdas')}>
+            <LoginLink>Faça o login</LoginLink>
+          </TouchableOpacity>
+        </LoginView>
+      </BodyContainer>
+    </Container>
   )
 }
 

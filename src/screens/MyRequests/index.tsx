@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { RequestCard } from '../../components/RequestCard'
@@ -26,7 +26,10 @@ const filterData = yup.object().shape({
   filter: yup.string(),
 })
 
-const MyRequests = () => {
+const MyRequests: React.FC = () => {
+  const [opened, setOpened] = useState(true)
+  const [closed, setClosed] = useState(false)
+
   const {
     control,
     // handleSubmit,
@@ -35,14 +38,51 @@ const MyRequests = () => {
     resolver: yupResolver(filterData),
   })
 
-  const request = {
-    id: '#0005',
-    title: 'Poste Caido',
-    type: 'open',
-    description:
-      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-    date: '19/09/2022 · 20h00',
+  const request = [
+    {
+      id: '#0001',
+      title: 'Poste Caido',
+      type: 'open',
+      description:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      date: '19/09/2022 · 20h00',
+    },
+    {
+      id: '#0002',
+      title: 'Poste Caido',
+      type: 'open',
+      description:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      date: '19/09/2022 · 20h00',
+    },
+    {
+      id: '#0003',
+      title: 'Poste Caido',
+      type: 'open',
+      description:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      date: '19/09/2022 · 20h00',
+    },
+    {
+      id: '#0004',
+      title: 'Poste Caido',
+      type: 'open',
+      description:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      date: '19/09/2022 · 20h00',
+    },
+  ]
+
+  const handleChangeTab = (selectedTab: 'opened' | 'closed') => {
+    if (selectedTab === 'opened') {
+      setOpened(true)
+      setClosed(false)
+    } else {
+      setClosed(true)
+      setOpened(false)
+    }
   }
+
   return (
     <Container>
       <TitleContainer>
@@ -53,12 +93,22 @@ const MyRequests = () => {
 
       <Content>
         <TabSelectorContainer>
-          <TabSelectorButton>
-            <TabSelectorButtonTitle>EM ABERTO</TabSelectorButtonTitle>
+          <TabSelectorButton
+            active={opened}
+            onPress={() => handleChangeTab('opened')}
+          >
+            <TabSelectorButtonTitle active={opened}>
+              EM ABERTO
+            </TabSelectorButtonTitle>
           </TabSelectorButton>
 
-          <TabSelectorButton>
-            <TabSelectorButtonTitle>FINALIZADAS</TabSelectorButtonTitle>
+          <TabSelectorButton
+            active={closed}
+            onPress={() => handleChangeTab('closed')}
+          >
+            <TabSelectorButtonTitle active={closed}>
+              FINALIZADAS
+            </TabSelectorButtonTitle>
           </TabSelectorButton>
         </TabSelectorContainer>
 
@@ -90,12 +140,16 @@ const MyRequests = () => {
           </FilterButtonsContainer>
         </FilterContainer>
 
-        <CardsContainer>
-          <RequestCard
-            onPress={(id) => console.log('foi', id)}
-            request={request}
-          />
-        </CardsContainer>
+        <CardsContainer
+          data={request}
+          keyExtractor={(item: any) => item?.id}
+          renderItem={({ item }: any) => (
+            <RequestCard
+              onPress={(id) => console.log('foi', id)}
+              request={item}
+            />
+          )}
+        />
       </Content>
     </Container>
   )
