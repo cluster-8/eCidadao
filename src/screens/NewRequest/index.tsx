@@ -1,117 +1,108 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react'
+import { firebase } from '../../../config'
 import {
-  Alert,
+  ActivityIndicator,
   ScrollView,
   Dimensions,
-  Text,
-  Modal,
   Platform,
+  Alert,
+  Modal,
+  Text,
 } from 'react-native'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
 
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Feather } from '@expo/vector-icons'
+import { useForm } from 'react-hook-form'
 import { Camera } from 'expo-camera'
+import * as yup from 'yup'
 
 import { PictureInput } from '../../components/PictureInput'
 import { SelectInput } from '../../components/SelectInput'
 import { TextInput } from '../../components/TextInput'
-import { Button } from '../../components/Button'
 import ModalTypes from '../../components/ModalTypes'
+import { Button } from '../../components/Button'
 
 import { useLocation } from '../../hooks/useLocation'
+import { useRequests } from '../../hooks/useRequests'
 import { useCamera } from '../../hooks/useCamera'
 import { useTypes } from '../../hooks/useTypes'
-import { useRequests } from '../../hooks/useRequests'
-
-import { Feather } from '@expo/vector-icons'
 
 import {
-  Container,
-  HeaderContainer,
-  HeaderTitle,
-  HeaderText,
-  FormContainer,
-  PictureContainer,
-  CancelButtonContainer,
   ConfirmButtonContainer,
-  CamBtnContainer,
-  TouchableOpacity,
-  ModalBody,
-  ModalImage,
-  ModalFooter,
+  ActivityIndicatorView,
+  CancelButtonContainer,
   TouchableOpacityCam,
-  RotateCamMessage,
   RotateCamContainer,
+  PictureContainer,
+  RotateCamMessage,
+  TouchableOpacity,
+  HeaderContainer,
+  CamBtnContainer,
+  FormContainer,
+  HeaderTitle,
+  ModalFooter,
+  HeaderText,
+  ModalImage,
+  Container,
+  ModalBody,
 } from './styles'
-
-import { firebase } from '../../../config'
 
 const { height } = Dimensions.get('window')
 
-// import ModalTypes from '../../components/ModalTypes'
-
-const requestData = yup.object().shape({
-  // image: yup.string().required('Imagem obrigatório'),
-  // location: yup.string().required('Email obrigatório'),
+const schema = yup.object().shape({
   selectedType: yup.string(),
   description: yup.string(),
-  addres: yup.string(),
+  imageUrl: yup.string(),
+  address: yup.string(),
 })
 
 const NewRequest: React.FC = () => {
-  const { createRequest } = useRequests()
-  const { getAddress } = useLocation()
-  const {
-    openCamera,
-    setOpenCamera,
-    // hasCameraPermission,
-    // setHasCameraPermission,
-    getCameraPermissions,
-    camType,
-    orientation,
-  } = useCamera()
   const { openModalType, setOpenModalType, selectedType } = useTypes()
 
-  // const [location, setLocation] = useState()
-  const [type, setType] = useState()
-  const [description, setDescription] = useState()
-  const [address, setAddress] = useState<string | undefined>()
-  const [photo, setPhoto] = useState<any>(null)
-
-  const cameraRef: any = useRef()
-  // const [hasCameraPermission, setHasCameraPermission] = useState<any>()
-  const [modalVisible, setModalVisible] = useState(false)
-
   const {
-    control,
+    register,
+    setValue,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(requestData),
+    resolver: yupResolver(schema),
   })
 
-  useEffect(() => {
-    // ;(async () => {
-    //   const cameraPermission = await Camera.requestCameraPermissionsAsync()
-    //   setHasCameraPermission(cameraPermission.status === 'granted')
-    // })()
-    getCameraPermissions()
-  }, [])
+  const { getAddress, coords } = useLocation()
+  const { createRequest } = useRequests()
+  const {
+    // setHasCameraPermission,
+    // hasCameraPermission,
+    getCameraPermissions,
+    setOpenCamera,
+    orientation,
+    openCamera,
+    camType,
+  } = useCamera()
+
+  const [description, setDescription] = useState<string | undefined>('')
+  const [modalVisible, setModalVisible] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [address, setAddress] = useState<string | undefined>()
+  const [location, setLocation] = useState<any>()
+  const [photo, setPhoto] = useState<any>(null)
+  const [type, setType] = useState(null)
+  const [image, setImage] = useState('')
+  const [data, setData] = useState<any>()
+
+  const cameraRef: any = useRef()
 
   async function takePicture() {
-    // const options = {
-    //   quality: 1,
-    //   base64: true,
-    //   exif: false,
-    // }
-
     if (cameraRef) {
       const data = await cameraRef?.current?.takePictureAsync()
       if (data) {
         setPhoto(data.uri)
         const res = await getAddress()
-        if (res) setAddress(res)
+        if (res) {
+          setAddress(res.formattedAdress)
+          setLocation(res)
+        }
         setModalVisible(true)
       }
     }
@@ -129,45 +120,82 @@ const NewRequest: React.FC = () => {
     setModalVisible(false)
   }
 
-  async function uploadPicture(photo: any) {
-    const response = await fetch(photo)
-    const blob = await response.blob()
+  const uploadImage = async () => {
+    const blob: any = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+
+      xhr.onload = function () {
+        resolve(xhr.response)
+      }
+
+      xhr.onerror = function () {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.responseType = 'blob'
+
+      xhr.open('GET', photo, true)
+
+      xhr.send(null)
+    })
+
     const filename = photo.substring(photo.lastIndexOf('/') + 1)
-    // const ref = firebase.storage().ref().child(filename).put(blob)
+
     const ref = firebase.storage().ref().child(filename)
 
-    try {
-      // await ref
-      return ref.put(blob)
-    } catch (error) {
-      console.log(error)
-    }
+    const snapshot = ref.put(blob)
+
+    snapshot.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      () => {
+        setUploading(true)
+        console.log('Uploading image...')
+      },
+      (error) => {
+        setUploading(false)
+        console.log(error)
+        blob.close()
+      },
+      () => {
+        snapshot.snapshot.ref.getDownloadURL().then((url) => {
+          console.log('Download URL: ', url)
+          setUploading(false)
+          setImage(url)
+          blob.close()
+          return url
+        })
+      },
+    )
   }
 
-  async function submitRequest() {
-    const data = {
-      selectedType,
-      description,
-      address,
-      photo,
-    }
-
-    const res = await uploadPicture(photo)
-    console.log('OOOOOppppaa', res)
-
-    Alert.alert('Enviar', 'Solicitação de manutenção realizada com sucesso!', [
-      {
-        text: 'OK',
-        onPress: () => {
-          console.log('Ok pressed')
-          // setImage('image')
-          // setLocation(data.location)
-          setType(data.selectedType)
-          setDescription(data.description)
-          setAddress(data.address)
-        },
+  async function submitRequest(data: any) {
+    await uploadImage()
+    setData({
+      type: selectedType?.key,
+      description: data.description,
+      image,
+      address: {
+        lat: coords.latitude,
+        long: coords.longitude,
+        city: location.city,
+        formattedAdress: location.formattedAdress,
+        number: location.number,
+        state: location.state,
+        street: location.street,
+        zipcode: location.zipcode,
       },
-    ])
+    })
+
+    // setData({ ...data, image })
+
+    // Alert.alert('Enviar', 'Solicitação de manutenção realizada com sucesso!', [
+    //   {
+    //     text: 'OK',
+    //     onPress: () => {
+    //       console.log('Ok pressed')
+    //     },
+    //   },
+    // ])
   }
 
   const CamButton = useMemo(() => {
@@ -201,126 +229,165 @@ const NewRequest: React.FC = () => {
   }, [orientation])
 
   useEffect(() => {
+    getCameraPermissions()
+  }, [])
+
+  useEffect(() => {
     setPhoto(null)
   }, [])
 
   useEffect(() => {
-    console.log(orientation)
-    console.log(description)
-  }, [orientation, description])
+    register('description')
+  }, [register])
+
+  useEffect(() => {
+    console.log('useEffect() -> image')
+    if (!selectedType || image.length === 0) return
+    setData({ ...data, type: selectedType.key, image })
+
+    createRequest(data)
+
+    // setData({
+    //   selectedType: selectedType?.key,
+    //   description: data.description,
+    //   image,
+    //   location,
+    // })
+  }, [image])
+
+  useEffect(() => {
+    console.log('useEffect() -> data')
+    console.log(data)
+  }, [data])
 
   return (
-    <ScrollView style={{ height: '100%' }}>
-      {openCamera ? (
-        <>
-          <Camera
-            ref={cameraRef}
-            type={camType}
-            style={{ height, flexDirection: 'row' }}
-          >
-            {CamButton}
-            {/* <CamBtnContainer>{CamButton}</CamBtnContainer> */}
-          </Camera>
-          {photo && (
-            <Modal
-              animationType="slide"
-              transparent={false}
-              visible={modalVisible}
-            >
-              <ModalBody>
+    <>
+      {uploading ? (
+        <ActivityIndicatorView>
+          <HeaderContainer>
+            <HeaderTitle>Enviando solicitação</HeaderTitle>
+            <HeaderText>
+              Aguarde enquanto registramos sua soliticação
+            </HeaderText>
+          </HeaderContainer>
+          <ActivityIndicator size="large" color="#004997" />
+        </ActivityIndicatorView>
+      ) : (
+        <ScrollView style={{ height: '100%' }}>
+          {openCamera ? (
+            <>
+              <Camera
+                ref={cameraRef}
+                type={camType}
+                style={{ height, flexDirection: 'row' }}
+              >
+                {CamButton}
+                {/* <CamBtnContainer>{CamButton}</CamBtnContainer> */}
+              </Camera>
+              {photo && (
+                <Modal
+                  animationType="slide"
+                  transparent={false}
+                  visible={modalVisible}
+                >
+                  <ModalBody>
+                    <HeaderContainer>
+                      <HeaderTitle>Confirmar foto</HeaderTitle>
+                      <HeaderText>
+                        Verifique atentamente a foto registrada para garantir a
+                        identificação do problema
+                      </HeaderText>
+                    </HeaderContainer>
+                    <ModalImage source={{ uri: photo }} />
+                    <ModalFooter>
+                      <CancelButtonContainer>
+                        <TouchableOpacity onPress={discardPicture}>
+                          <Feather name="x" size={33} color={'#fff'} />
+                        </TouchableOpacity>
+                      </CancelButtonContainer>
+                      <ConfirmButtonContainer>
+                        <TouchableOpacity onPress={confirmPicture}>
+                          <Feather name="check" size={33} color={'#fff'} />
+                        </TouchableOpacity>
+                      </ConfirmButtonContainer>
+                    </ModalFooter>
+                  </ModalBody>
+                </Modal>
+              )}
+            </>
+          ) : (
+            <>
+              <Container
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={60}
+              >
                 <HeaderContainer>
-                  <HeaderTitle>Confirmar foto</HeaderTitle>
+                  <HeaderTitle>Nova solicitação</HeaderTitle>
                   <HeaderText>
-                    Verifique atentamente a foto registrada para garantir a
-                    identificação do problema
+                    Adicione uma foto, um tipo e uma breve descrição do problema
                   </HeaderText>
                 </HeaderContainer>
-                <ModalImage source={{ uri: photo }} />
-                <ModalFooter>
-                  <CancelButtonContainer>
-                    <TouchableOpacity onPress={discardPicture}>
-                      <Feather name="x" size={33} color={'#fff'} />
-                    </TouchableOpacity>
-                  </CancelButtonContainer>
-                  <ConfirmButtonContainer>
-                    <TouchableOpacity onPress={confirmPicture}>
-                      <Feather name="check" size={33} color={'#fff'} />
-                    </TouchableOpacity>
-                  </ConfirmButtonContainer>
-                </ModalFooter>
-              </ModalBody>
-            </Modal>
+
+                <FormContainer>
+                  <PictureContainer>
+                    <PictureInput
+                      uri={photo}
+                      placeholder="Foto"
+                      updatePictureLabel="Foto selecionada"
+                      onPress={() => setOpenCamera(true)}
+                    ></PictureInput>
+                  </PictureContainer>
+                  <TextInput
+                    errorMessage={errors?.address?.message}
+                    defaultValue={address}
+                    control={control}
+                    placeholder="Endereço"
+                    label="Endereço"
+                    name="address"
+                    icon="map-pin"
+                    disabled
+                  />
+
+                  <SelectInput
+                    onPress={() => setOpenModalType(!openModalType)}
+                    errorMessage={errors?.type?.message}
+                    defaultValue={selectedType?.value}
+                    control={control}
+                    icon="chevron-down"
+                    placeholder="Tipo"
+                    label="Tipo"
+                    name="type"
+                  />
+
+                  <TextInput
+                    onChangeText={(text: string) =>
+                      setValue('description', text)
+                    }
+                    errorMessage={errors?.description?.message}
+                    control={control}
+                    defaultValue={description}
+                    placeholder="Descrição"
+                    label="Descrição"
+                    name="description"
+                    icon="info"
+                  />
+
+                  <Button
+                    onPress={handleSubmit(submitRequest)}
+                    style={{ marginTop: 24 }}
+                    title="Enviar"
+                  />
+                </FormContainer>
+              </Container>
+              <ModalTypes
+                modalVisible={openModalType}
+                handleClose={(val: boolean) => setOpenModalType(!val)}
+              />
+            </>
           )}
-        </>
-      ) : (
-        <>
-          <Container
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={60}
-          >
-            <HeaderContainer>
-              <HeaderTitle>Nova solicitação</HeaderTitle>
-              <HeaderText>
-                Adicione uma foto, um tipo e uma breve descrição do problema
-              </HeaderText>
-            </HeaderContainer>
-
-            <FormContainer>
-              <PictureContainer>
-                <PictureInput
-                  uri={photo}
-                  placeholder="Foto"
-                  updatePictureLabel="Foto selecionada"
-                  onPress={() => setOpenCamera(true)}
-                ></PictureInput>
-              </PictureContainer>
-              <TextInput
-                label="Endereço"
-                name="address"
-                icon="map-pin"
-                placeholder="Endereço"
-                control={control}
-                disabled
-                defaultValue={address}
-                errorMessage={errors?.address?.message}
-              />
-
-              <SelectInput
-                label="Tipo"
-                name="type"
-                icon="chevron-down"
-                placeholder="Tipo"
-                control={control}
-                defaultValue={selectedType?.value}
-                errorMessage={errors?.type?.message}
-                onPress={() => setOpenModalType(!openModalType)}
-              />
-
-              <TextInput
-                label="Descrição"
-                name="description"
-                icon="info"
-                placeholder="Descrição"
-                control={control}
-                // editable={false}
-                defaultValue={description}
-                errorMessage={errors?.description?.message}
-              />
-
-              <Button
-                style={{ marginTop: 24 }}
-                title="Enviar"
-                onPress={handleSubmit(submitRequest)}
-              />
-            </FormContainer>
-          </Container>
-          <ModalTypes
-            modalVisible={openModalType}
-            handleClose={(val: boolean) => setOpenModalType(!val)}
-          />
-        </>
+        </ScrollView>
       )}
-    </ScrollView>
+    </>
   )
 }
 

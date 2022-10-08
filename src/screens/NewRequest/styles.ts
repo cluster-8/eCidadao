@@ -166,3 +166,9 @@ export const ModalFooter = styled.View`
   justify-content: space-evenly;
   width: 100%;
 `
+
+export const ActivityIndicatorView = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding: ${RFHeight(10)}px;
+`

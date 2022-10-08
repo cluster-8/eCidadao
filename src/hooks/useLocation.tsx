@@ -32,7 +32,7 @@ const LocationProvider: React.FC<LocationContextProps> = ({ children }) => {
     const res: any = await api.get(`/requests/address${queryStr}`)
     if (!res) return
 
-    return res.data.formattedAdress
+    return res.data
   }
 
   useEffect(() => {
