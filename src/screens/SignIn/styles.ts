@@ -12,7 +12,7 @@ export const HeaderContainer = styled.View`
   resizeMode: contain;
   width: 100%;
   justify-content: center;
-  height: 40%
+  height: 40%;
 `
 
 export const BodyContainer = styled.View`
