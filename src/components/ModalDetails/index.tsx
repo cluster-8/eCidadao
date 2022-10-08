@@ -61,7 +61,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                   <Entypo name="location-pin" size={22} color={'#d1345b'} />
                 </IconContainer>
 
-                <Info>{props?.data.adress}</Info>
+                <Info>{props?.data.address}</Info>
               </InfoRow>
 
               <InfoRow>

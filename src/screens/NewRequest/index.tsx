@@ -100,7 +100,8 @@ const NewRequest: React.FC = () => {
         setPhoto(data.uri)
         const res = await getAddress()
         if (res) {
-          setAddress(res.formattedAdress)
+          console.log(res)
+          setAddress(res.formattedAddress)
           setLocation(res)
         }
         setModalVisible(true)
@@ -178,7 +179,7 @@ const NewRequest: React.FC = () => {
         lat: coords.latitude,
         long: coords.longitude,
         city: location.city,
-        formattedAdress: location.formattedAdress,
+        formattedAddress: location.formattedAddress,
         number: location.number,
         state: location.state,
         street: location.street,
@@ -242,10 +243,22 @@ const NewRequest: React.FC = () => {
 
   useEffect(() => {
     console.log('useEffect() -> image')
+
     if (!selectedType || image.length === 0) return
+
     setData({ ...data, type: selectedType.key, image })
 
-    createRequest(data)
+    createRequest(data).then((res) => {
+      console.log(res)
+      Alert.alert('Enviar', 'Solicitação registrada com sucesso!', [
+        {
+          text: 'OK',
+          onPress: () => {
+            console.log('Ok pressed')
+          },
+        },
+      ])
+    })
 
     // setData({
     //   selectedType: selectedType?.key,
@@ -254,6 +267,10 @@ const NewRequest: React.FC = () => {
     //   location,
     // })
   }, [image])
+
+  useEffect(() => {
+    console.log('address: ', address)
+  }, [address])
 
   useEffect(() => {
     console.log('useEffect() -> data')

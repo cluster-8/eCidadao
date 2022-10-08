@@ -61,6 +61,7 @@ const TypesProvider: React.FC<TypesContextProps> = ({ children }) => {
       value: 'Pista de caminhada/manutenção',
       key: 'pistaDeCaminhada_manutencao',
     },
+    { value: 'Outros', key: 'outros' },
   ]
 
   const [selectedType, setSelectedType] = useState<any>()

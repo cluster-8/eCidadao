@@ -7,7 +7,7 @@ interface RequestType {
   label: string
 }
 
-interface Adress {
+interface Address {
   lat: number
   long: number
   number: number
@@ -16,14 +16,14 @@ interface Adress {
   street: string
   zipcode: string
   neighborhood: string
-  formattedAdress: string
+  formattedAddress: string
 }
 
 export interface Request {
   id: string
   identifier?: number
   image?: string
-  adress?: Adress
+  address?: Address
   type?: RequestType
   status?: string
   description?: string
@@ -44,7 +44,8 @@ const RequestsContext = createContext({} as RequestsContextData)
 const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getRequests = async (queryParams: String = '') => {
-    const queryStr = 'identifier image adress type status createdAt description'
+    const queryStr =
+      'identifier image address type status createdAt description'
     const { data } = await api.get(`/requests?select=${queryStr}`)
     return data
   }

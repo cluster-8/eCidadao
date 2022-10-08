@@ -53,7 +53,7 @@ const Requests: React.FC = () => {
     return data?.filter(
       (el) =>
         formatReqType(el.type).includes(searchTerm) ||
-        el.adress.formattedAdress.includes(searchTerm),
+        el.address.formattedAddress.includes(searchTerm),
     )
   }, [searchTerm, data])
 
@@ -76,7 +76,7 @@ const Requests: React.FC = () => {
       image: request.image,
       status: request.status,
       type: request.type,
-      adress: request.adress.formattedAdress,
+      address: request.address.formattedAddress,
       description: request.description,
     })
   }
@@ -108,8 +108,8 @@ const Requests: React.FC = () => {
   useEffect(() => {
     if (requests?.length && searchTerm) {
       setCurrentRegion({
-        latitude: Number(requests[0].adress.lat),
-        longitude: Number(requests[0].adress.long),
+        latitude: Number(requests[0].address.lat),
+        longitude: Number(requests[0].address.long),
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       })
@@ -139,8 +139,8 @@ const Requests: React.FC = () => {
           <Marker
             key={index}
             coordinate={{
-              latitude: Number(request.adress.lat),
-              longitude: Number(request.adress.long),
+              latitude: Number(request.address.lat),
+              longitude: Number(request.address.long),
             }}
             title={formatReqType(request.type)}
             pinColor={
@@ -152,8 +152,8 @@ const Requests: React.FC = () => {
               handleSelect(request)
               // setCurrentSolicitacao(request);
               setCurrentRegion({
-                latitude: Number(request.adress.lat),
-                longitude: Number(request.adress.long),
+                latitude: Number(request.address.lat),
+                longitude: Number(request.address.long),
                 latitudeDelta: currentRegion.latitudeDelta,
                 longitudeDelta: currentRegion.longitudeDelta,
               })
