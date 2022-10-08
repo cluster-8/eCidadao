@@ -79,13 +79,12 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-        <HeaderContainer>
-          <HeaderTitle>Meu Perfil</HeaderTitle>
-          <HeaderText>Visualize ou altere seus dados</HeaderText>
-        </HeaderContainer>
+      <HeaderContainer>
+        <HeaderTitle>Meu Perfil</HeaderTitle>
+        <HeaderText>Visualize ou altere seus dados</HeaderText>
+      </HeaderContainer>
 
       <BodyContainer>
-
         <TextInput
           label="Nome"
           name="name"
@@ -131,12 +130,7 @@ const Profile: React.FC = () => {
         <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton>
 
         <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
-
-
-        </BodyContainer>
-
-
-      
+      </BodyContainer>
     </Container>
   )
 }

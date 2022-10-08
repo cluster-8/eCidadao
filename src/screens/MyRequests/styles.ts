@@ -1,9 +1,15 @@
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { Feather } from '@expo/vector-icons'
-import { RFHeight } from '../../utils/getResponsiveSizes'
+import { RFHeight, RFWidth } from '../../utils/getResponsiveSizes'
+
+interface TabSelectorProps {
+  active: boolean
+}
 
 export const Container = styled.View`
+  flex: 1;
+  background: ${({ theme }) => theme.colors.background};
   padding: 0px ${RFHeight(24)}px ${getBottomSpace() + RFHeight(24)}px
     ${RFHeight(24)}px;
   justify-content: space-between;
@@ -36,21 +42,37 @@ export const TabSelectorContainer = styled.View`
   justify-content: space-between;
 `
 
-export const TabSelectorButton = styled.View`
-  height: 70px;
-  align-items: center;
+export const TabSelectorButton = styled.TouchableOpacity<TabSelectorProps>`
+  height: ${RFHeight(56)}px;
+  width: 50%;
+  background: ${({ theme }) => theme.colors.background};
   justify-content: center;
+  align-items: center;
+
+  ${(props) =>
+    props.active &&
+    css`
+      border-bottom-width: ${RFWidth(2)}px;
+      border-color: ${({ theme }) => theme.colors.primary};
+    `}
 `
 
-export const TabSelectorButtonTitle = styled.Text`
+export const TabSelectorButtonTitle = styled.Text<TabSelectorProps>`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.text};
   margin-left: 25px;
   margin-right: 25px;
   font-size: 15px;
+
+  ${(props) =>
+    props.active &&
+    css`
+      color: ${({ theme }) => theme.colors.primary};
+    `}
 `
 
 export const FilterContainer = styled.View`
+  margin-top: ${RFHeight(15)}px;
   flex-direction: column;
 `
 
@@ -60,14 +82,15 @@ export const FilterButtonsContainer = styled.View`
   margin-top: 10px;
 `
 
-export const FilterButton = styled.View`
+export const FilterButton = styled.TouchableOpacity`
+  height: ${RFHeight(46)}px;
+  width: 25%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0 20px;
-  background-color: ${({ theme }) => theme.colors.background};
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+  margin: 0 10px;
+  background-color: ${({ theme }) => theme.colors.background_over};
+  border-radius: 50px;
 `
 
 export const Icon = styled(Feather)``
@@ -77,4 +100,7 @@ export const FilterButtonText = styled.Text`
   margin-left: 5px;
 `
 
-export const CardsContainer = styled.View``
+export const CardsContainer = styled.FlatList`
+  margin-top: 10px;
+  height: 50%;
+`

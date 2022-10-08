@@ -40,6 +40,7 @@ export const RequestCard: React.FC<RequestCardProps> = ({
           <Icon
             name={request.type === 'open' ? 'more-horizontal' : 'check'}
             color={request.type === 'open' ? '#4AEF10' : '#F89521'}
+            size={20}
           />
         </HeaderContainer>
 
