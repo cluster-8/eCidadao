@@ -9,7 +9,7 @@
 </h2>
 
 <h1 align="center"> 
-🏁 Sprint 1 
+🏁 Sprint 2
 </h1>
 
 Abaixo encontram-se todos os itens produzidos durante a Sprint 1 conforme estabelecido previamente por meio do planejamento:
@@ -29,7 +29,7 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf) em ordem de prioridade referentes a Sprint 1:
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint1.png)
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint2.png)
 
 ## 📂 Documentação do Projeto
 
@@ -39,7 +39,7 @@ Acesse os documentos clicando nos links abaixo:
 
 ## 📉 Burndown da Sprint
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/burndown-sprint1.png)
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/burndown-sprint2.png)
 
 ## 🖥️ Wireframe
 
@@ -47,9 +47,9 @@ Acesse o link para visualizar:
 
 > - [Protótipo interativo](https://www.figma.com/proto/Z9tFxvXDa5ntOBZ4g77Ubh/Cluster-8-API-5-SEMESTRE?node-id=0%3A1)
 
-## 🎲 Modelagem do Banco de Dados
+## 📃 Termos de uso
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/modelo-de-dados.jpeg)
+![Termos de uso](https://github.com/cluster-8/eCidadao/blob/main/docs/Termos%20de%20uso%20-%20Versa%CC%83o%201.0.pdf)
 
 ## 📃 Código - Ambiente de Desenvolvimento
 
@@ -60,18 +60,10 @@ Acesse o link para visualizar:
 
 ## 💫 Funcionalidades implementadas
 
-### 📍 Solicitações gerais
+### ➕ Nova solicitação
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/requests-screen.gif)
+![]()
 
-### 👤 Perfil
+### 👤 Minhas solicitações
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/profile-screen.gif)
-
-### ⚙️ Backend - CRUD de Solicitações
-
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/backend-requests-crud.gif)
-
-### 🔗 Backend - Controllers, Services e Geolocation
-
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/backend-controllers-services-geolocation.gif)
+![]()
