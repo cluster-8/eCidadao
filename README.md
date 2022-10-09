@@ -62,7 +62,7 @@ Acesse o link para visualizar:
 
 ### ➕ Nova solicitação
 
-![]()
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/nova-solicitacao.gif)
 
 ### 👤 Minhas solicitações
 
