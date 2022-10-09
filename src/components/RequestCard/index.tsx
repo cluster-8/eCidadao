@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ModalDetails from '../ModalDetails'
 // import { translate } from '../../data/I18n'
 import {
   RequestInformationContainer,
@@ -18,8 +19,14 @@ interface RequestCardProps {
     id: string
     title: string
     type: string
+    status: string
+    createdAt: string
+    image: string
     description: string
     date: string
+    adress: {
+      formattedAdress: string
+    }
   }
   onPress: (requestId: string) => void
 }
@@ -28,8 +35,29 @@ export const RequestCard: React.FC<RequestCardProps> = ({
   request,
   onPress,
 }) => {
+  const [visible, setVisible] = useState(false)
+  const [modalInfo, setModalInfo] = useState({})
+
+  const handleModalShow = () => {
+    setVisible(true)
+    setModalInfo({
+      createdAt: request.createdAt,
+      identifier: request.id,
+      image: request.image,
+      status: request.status,
+      type: request.type,
+      adress: request.adress.formattedAdress,
+      description: request.description,
+    })
+  }
+
   return (
-    <RequestInformationContainer onPress={() => onPress(request.id)}>
+    <RequestInformationContainer
+      onPress={() => {
+        onPress(request.id)
+        handleModalShow()
+      }}
+    >
       <TestContainer>
         <HeaderContainer>
           <TitleContainer>
@@ -38,8 +66,8 @@ export const RequestCard: React.FC<RequestCardProps> = ({
           </TitleContainer>
 
           <Icon
-            name={request.type === 'open' ? 'more-horizontal' : 'check'}
-            color={request.type === 'open' ? '#4AEF10' : '#F89521'}
+            name={request.status === 'open' ? 'more-horizontal' : 'check'}
+            color={request.status === 'open' ? '#F89521' : '#4AEF10'}
             size={20}
           />
         </HeaderContainer>
@@ -50,6 +78,12 @@ export const RequestCard: React.FC<RequestCardProps> = ({
           <RequestDate>{request.date || ''}</RequestDate>
         </InformationContainer>
       </TestContainer>
+
+      <ModalDetails
+        data={modalInfo}
+        modalVisible={visible}
+        handleClose={() => setVisible(false)}
+      />
     </RequestInformationContainer>
   )
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import { getBottomSpace } from 'react-native-iphone-x-helper'
+// import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { RFHeight, RFFontSize } from '../../utils/getResponsiveSizes'
 
 export const Container = styled.View`
@@ -11,7 +11,7 @@ export const Container = styled.View`
 export const HeaderContainer = styled.View`
   align-items: center;
   justify-content: center;
-  resizeMode: contain;
+  resizemode: contain;
   width: 100%;
   height: 20%;
 `
@@ -25,7 +25,7 @@ export const HeaderTitle = styled.Text`
 export const HeaderText = styled.Text`
   font-size: ${RFFontSize(15)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  `
+`
 
 export const ExcludeButton = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};

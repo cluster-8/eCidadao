@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import { getBottomSpace } from 'react-native-iphone-x-helper'
+// import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { RFHeight, RFFontSize } from '../../utils/getResponsiveSizes'
 
 export const Container = styled.ScrollView``

@@ -42,34 +42,78 @@ const MyRequests: React.FC = () => {
     {
       id: '#0001',
       title: 'Poste Caido',
-      type: 'open',
+      type: 'Poda',
+      createdAt: new Date(),
+      status: 'closed',
       description:
         'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
       date: '19/09/2022 · 20h00',
+      image:
+        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
+      adress: {
+        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+        street: '',
+        number: '',
+        neighborhood: '',
+        zipcode: '',
+      },
     },
     {
       id: '#0002',
       title: 'Poste Caido',
-      type: 'open',
+      type: 'Poda',
+      createdAt: new Date(),
+      status: 'open',
       description:
         'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
       date: '19/09/2022 · 20h00',
+      image:
+        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
+      adress: {
+        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+        street: '',
+        number: '',
+        neighborhood: '',
+        zipcode: '',
+      },
     },
     {
       id: '#0003',
       title: 'Poste Caido',
-      type: 'open',
+      type: 'Poda',
+      createdAt: new Date(),
+      status: 'open',
       description:
         'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
       date: '19/09/2022 · 20h00',
+      image:
+        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
+      adress: {
+        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+        street: '',
+        number: '',
+        neighborhood: '',
+        zipcode: '',
+      },
     },
     {
       id: '#0004',
       title: 'Poste Caido',
-      type: 'open',
+      type: 'Poda',
+      createdAt: new Date(),
+      status: 'open',
       description:
         'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
       date: '19/09/2022 · 20h00',
+      image:
+        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
+      adress: {
+        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+        street: '',
+        number: '',
+        neighborhood: '',
+        zipcode: '',
+      },
     },
   ]
 
@@ -140,16 +184,37 @@ const MyRequests: React.FC = () => {
           </FilterButtonsContainer>
         </FilterContainer>
 
-        <CardsContainer
-          data={request}
-          keyExtractor={(item: any) => item?.id}
-          renderItem={({ item }: any) => (
-            <RequestCard
-              onPress={(id) => console.log('foi', id)}
-              request={item}
-            />
-          )}
-        />
+        {opened && (
+          <CardsContainer
+            data={request}
+            keyExtractor={(item: any) => item?.id}
+            renderItem={({ item }: any) =>
+              item.status === 'open' &&
+              opened && (
+                <RequestCard
+                  onPress={(id) => console.log('foi', id)}
+                  request={item}
+                />
+              )
+            }
+          />
+        )}
+
+        {closed && (
+          <CardsContainer
+            data={request}
+            keyExtractor={(item: any) => item?.id}
+            renderItem={({ item }: any) =>
+              item.status === 'closed' &&
+              closed && (
+                <RequestCard
+                  onPress={(id) => console.log('foi', id)}
+                  request={item}
+                />
+              )
+            }
+          />
+        )}
       </Content>
     </Container>
   )

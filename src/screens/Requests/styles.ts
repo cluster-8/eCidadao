@@ -12,7 +12,7 @@ export const Container = styled.View`
 
 export const SearchbarContent = styled.View`
   position: absolute;
-  top: ${RFHeight(20)}px; ;
+  top: ${RFHeight(20)}px;
   width: 100%;
   margin-left: ${RFHeight(20)}px;
   margin-right: ${RFHeight(20)}px;
@@ -26,7 +26,7 @@ export const SearchBar = styled.TextInput`
   background-color: ${({ theme }) => theme.colors.white};
   border-width: ${RFHeight(1)}px;
   height: ${RFHeight(45)}px;
-  padding: ${RFHeight(10)}px
+  padding: ${RFHeight(10)}px;
   font-size: ${RFFontSize(18)}px;
   width: 90%;
 `
