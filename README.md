@@ -66,4 +66,4 @@ Acesse o link para visualizar:
 
 ### 👤 Minhas solicitações
 
-![]()
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/minhas-requisicoes.gif)
