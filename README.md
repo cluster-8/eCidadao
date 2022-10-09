@@ -46,7 +46,7 @@ Entre no link e acesse a branch referente a sprint:
 
 ---
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/planejamento-sprints.png)
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/planejamento-sprint.png)
 
 ### 📃 Product Backlog
 
