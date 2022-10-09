@@ -22,8 +22,8 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 | ID    | Prioridade | User Story                                                                                           | Funcionalidades                                                                                                       |
 | ----- | ---------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| US_01 | Importante | Eu, como usuário, gostaria de visualizar os probelmas identificados em área pública na minha região. | 1. Mapa exibindo os problemas baseado na localização do usuário; 2. Visualização de detalhes do problema selecionado; |
-| US_02 | Essencial  | Eu, como usuário, gostaria de visualizar e e alterar meus dados pessoais.                            | 1. Tela de Perfil do usuário para exibir os dados do usuário; 2. Edição dos dados;                                    |
+| US_02 | Importante | Eu, como usuário, gostaria de submeter um problema identificado em área pública. | 1. Imagem; 2. Localização via GPS; 3. Texto descritivo; 4. Problema identificado (select); 5. Data. |
+| US_03 | Essencial  | Eu, como usuário, gostaria de visualizar os problemas informados por mim e seus respectivos status.                            | 1. Lista de problemas segmentados por status exibidos em cards; 2. Visualização de detalhes do problema.                                    |
 
 ### 📝 Sprint Backlog
 
