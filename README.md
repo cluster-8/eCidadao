@@ -12,13 +12,13 @@
 🏁 Sprint 2
 </h1>
 
-Abaixo encontram-se todos os itens produzidos durante a Sprint 1 conforme estabelecido previamente por meio do planejamento:
+Abaixo encontram-se todos os itens produzidos durante a Sprint 2 conforme estabelecido previamente por meio do planejamento:
 
 ## 💹 Planejamento da Sprint
 
 ### 👤 User Stories
 
-A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem desenvolvidas durante a Sprint 1:
+A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem desenvolvidas durante a Sprint 2:
 
 | ID    | Prioridade | User Story                                                                                           | Funcionalidades                                                                                                       |
 | ----- | ---------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -27,7 +27,7 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 ### 📝 Sprint Backlog
 
-A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf) em ordem de prioridade referentes a Sprint 1:
+A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf) em ordem de prioridade referentes a Sprint 2:
 
 ![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint2.png)
 
@@ -49,7 +49,7 @@ Acesse o link para visualizar:
 
 ## 📃 Termos de uso
 
-![Termos de uso](https://github.com/cluster-8/eCidadao/blob/main/docs/Termos%20de%20uso%20-%20Versa%CC%83o%201.0.pdf)
+> - ![Termos de uso](https://github.com/cluster-8/eCidadao/blob/main/docs/Termos%20de%20uso%20-%20Versa%CC%83o%201.0.pdf)
 
 ## 📃 Código - Ambiente de Desenvolvimento
 
