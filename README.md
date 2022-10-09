@@ -50,7 +50,7 @@ Entre no link e acesse a branch referente a sprint:
 
 ### 📃 Product Backlog
 
-> [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf)
+> [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8-1.pdf)
 
 ---
 
