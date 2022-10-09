@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import { Modal } from 'react-native'
+import { Modal, ScrollView } from 'react-native'
 
 import {
   Container,
@@ -54,49 +54,51 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
             </ImageContent>
 
             <DescriptionContainer>
-              <Title>{`Solicitação: #${props?.data.identifier}`}</Title>
+              <ScrollView>
+                <Title>{`Solicitação: #${props?.data.identifier}`}</Title>
 
-              <InfoRow>
-                <IconContainer>
-                  <Entypo name="location-pin" size={22} color={'#d1345b'} />
-                </IconContainer>
+                <InfoRow>
+                  <IconContainer>
+                    <Entypo name="location-pin" size={22} color={'#d1345b'} />
+                  </IconContainer>
 
-                <Info>{props?.data.adress}</Info>
-              </InfoRow>
+                  <Info>{props?.data.adress}</Info>
+                </InfoRow>
 
-              <InfoRow>
-                <IconContainer>
-                  <Entypo name="calendar" size={22} color={'#d1345b'} />
-                </IconContainer>
+                <InfoRow>
+                  <IconContainer>
+                    <Entypo name="calendar" size={22} color={'#d1345b'} />
+                  </IconContainer>
 
-                <Info>{`Submetido em ${new Date(
-                  props?.data.createdAt,
-                ).toLocaleDateString()}`}</Info>
-              </InfoRow>
+                  <Info>{`Submetido em ${new Date(
+                    props?.data.createdAt,
+                  ).toLocaleDateString()}`}</Info>
+                </InfoRow>
 
-              <InfoRow>
-                <IconContainer>
-                  <Entypo name="tag" size={22} color={'#d1345b'} />
-                </IconContainer>
+                <InfoRow>
+                  <IconContainer>
+                    <Entypo name="tag" size={22} color={'#d1345b'} />
+                  </IconContainer>
 
-                <Info>{formatReqType(props?.data.type)}</Info>
-              </InfoRow>
+                  <Info>{formatReqType(props?.data.type)}</Info>
+                </InfoRow>
 
-              <InfoRow>
-                <IconContainer>
-                  <Entypo name="text" size={22} color={'#d1345b'} />
-                </IconContainer>
+                <InfoRow>
+                  <IconContainer>
+                    <Entypo name="text" size={22} color={'#d1345b'} />
+                  </IconContainer>
 
-                <Info>{props?.data.description}</Info>
-              </InfoRow>
+                  <Info>{props?.data.description}</Info>
+                </InfoRow>
 
-              <InfoRow>
-                <IconContainer>
-                  <Entypo name="warning" size={22} color={'#d1345b'} />
-                </IconContainer>
+                <InfoRow>
+                  <IconContainer>
+                    <Entypo name="warning" size={22} color={'#d1345b'} />
+                  </IconContainer>
 
-                <Info>{formatReqStatus(props?.data.status)}</Info>
-              </InfoRow>
+                  <Info>{formatReqStatus(props?.data.status)}</Info>
+                </InfoRow>
+              </ScrollView>
             </DescriptionContainer>
           </ModalContent>
         </Content>

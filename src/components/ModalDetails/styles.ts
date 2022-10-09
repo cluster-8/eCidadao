@@ -1,5 +1,6 @@
 import { ImageBackground } from 'react-native'
 import styled from 'styled-components/native'
+import { RFHeight } from '../../utils/getResponsiveSizes'
 
 export const Container = styled.View`
   flex: 1%;
@@ -56,7 +57,7 @@ export const DescriptionContainer = styled.View`
 
 export const Image = styled(ImageBackground)`
   width: 100%;
-  height: 280px;
+  height: ${RFHeight(280)}px;
   /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);   */
 `
 
