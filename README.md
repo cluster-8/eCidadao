@@ -24,9 +24,10 @@ eCidadão é o nome do aplicativo proposto pela equipe para solucionar o desafio
 - Submissão de problemas identificados;
 - Visualização geral de problemas identificados;
 - Informações de problemas informados pelo usuário;
-- Finalização de problemas de problema informad;
-- Visualização e download dos dados do usuário;
+- Finalização de problemas de problema informado;
+- Visualização dos dados do usuário;
 - Exclusão dos dados do usuário;
+- Dashboard de indicativos;
 
 ---
 
@@ -38,12 +39,14 @@ Entre no link e acesse a branch referente a sprint:
 | :-------------------------: | :-----------------------------------------------: | :---------------------: | :-------: |
 |          `Kik-off`          |              Apresentação do desafio              | 29/08/2022 a 29/08/2022 |    ✅     |
 |       [`Sprint 1`](https://github.com/cluster-8/eCidadao/tree/Sprint-1)        |      Solicitações gerais, Perfil do usuário       | 29/08/2022 a 18/09/2022 |    ✅     |
-|         `Sprint 2`          | Solicitações do usuário, Submissão de solicitação | 19/09/2022 a 09/10/2022 |    🚧     |
-|         `Sprint 3`          |  Exclusão de conta, Cadastro e acesso de usuário  | 13/10/2022 a 06/11/2022 |    🚧     |
-|         `Sprint 4`          |            Finalização de solicitação             | 07/11/2022 a 27/11/2022 |    🚧     |
+|         [`Sprint 2`](https://github.com/cluster-8/eCidadao/tree/Sprint-2)          | Solicitações do usuário, Submissão de solicitação | 19/09/2022 a 09/10/2022 |    ✅     |
+|         `Sprint 3`          |  Finalização de solicitação, Cadastro e acesso de usuário  | 13/10/2022 a 06/11/2022 |    🚧     |
+|         `Sprint 4`          |            Exclusão de conta, Dashboard             | 07/11/2022 a 27/11/2022 |    🚧     |
 |     `Feira de Soluções`     |   Apresentação dos vídeos criados pelas equipes   |       08/12/2022        |    🚧     |
 
 ---
+
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/planejamento-sprints.png)
 
 ### 📃 Product Backlog
 
