@@ -27,7 +27,7 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 ### 📝 Sprint Backlog
 
-A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf) em ordem de prioridade referentes a Sprint 2:
+A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8-1.pdf) em ordem de prioridade referentes a Sprint 2:
 
 ![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint2.png)
 
@@ -35,7 +35,7 @@ A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/clus
 
 Acesse os documentos clicando nos links abaixo:
 
-> - [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8.pdf)
+> - [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8-1.pdf)
 
 ## 📉 Burndown da Sprint
 
