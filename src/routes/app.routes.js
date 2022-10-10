@@ -6,10 +6,10 @@ import NewRequest from '../screens/NewRequest'
 import Profile from '../screens/Profile'
 import Requests from '../screens/Requests'
 import MyRequests from '../screens/MyRequests'
-import SignIn from '../screens/SignIn'
+// import SignIn from '../screens/SignIn'
 
 import { Feather } from '@expo/vector-icons'
-import SignUp from '../screens/SignUp'
+// import SignUp from '../screens/SignUp'
 
 const Tab = createBottomTabNavigator()
 
@@ -18,7 +18,6 @@ export const AppRoutes = () => {
     <Tab.Navigator
       screenOptions={{
         style: {
-          // backgroundColor:
           borderTopColor: 'transparent',
         },
         tabBarActiveTintColor: '#004997',
@@ -29,27 +28,6 @@ export const AppRoutes = () => {
         },
       }}
     >
-      <Tab.Screen
-        name="SignIn"
-        component={SignIn}
-        options={{
-          tabBarIcon: ({ size, color }) => (
-            <Feather name="map-pin" size={size} color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{
-          tabBarIcon: ({ size, color }) => (
-            <Feather name="map-pin" size={size} color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
-
       <Tab.Screen
         name="Início"
         component={MyRequests}

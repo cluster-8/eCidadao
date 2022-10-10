@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation, NavigationContainer } from '@react-navigation/core'
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
@@ -52,11 +52,11 @@ export const AuthRoutes: React.FC<NavigatorProps> = ({ screenOptions }) => {
         headerTintColor: theme.colors.white,
       }}
     >
-      <Stack.Screen
+      {/* <Stack.Screen
         name="SignIn"
         component={SignIn}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       <Stack.Screen name="SignUp" component={SignUp} options={options} />
     </Stack.Navigator>

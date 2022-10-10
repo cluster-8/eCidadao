@@ -22,11 +22,14 @@ import {
 } from './styles'
 
 const schema = yup.object().shape({
-  confirmPassword: yup.string().oneOf([yup.ref('password'), null]),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null]),
   password: yup.string().min(6, 'Mínimo de 6 caracteres'),
   email: yup.string().required('Email obrigatório'),
   name: yup.string().required('Nome obrigatório'),
-  cpf: yup.string().required('CPF obrigatório'),
+  cpf: yup
+    .string()
+    .test('len', 'Precisa ter 11 números', (val) => val?.length === 11)
+    .required('CPF obrigatório'),
 })
 
 const SignUp: React.FC = () => {
@@ -36,6 +39,7 @@ const SignUp: React.FC = () => {
   const [cpf, setCpf] = useState('')
 
   const [isChecked, setChecked] = useState(false)
+  const [agreedAt, setAgreedAt] = useState<any>()
 
   const {
     handleSubmit,
@@ -48,15 +52,22 @@ const SignUp: React.FC = () => {
   })
 
   useEffect(() => {
-    console.log(new Date())
+    setAgreedAt(new Date())
   }, [isChecked])
 
   async function signUp(data: any) {
-    console.log(data)
+    if (!isChecked && !agreedAt) {
+      console.log(
+        'Exibir alerta informando a necessidade de concordar com os termos de uso',
+      )
+      return
+    }
+    const _data = { ...data, usageTermsAcceptedAt: agreedAt }
+    console.log(_data)
   }
 
   useEffect(() => {
-    register('confirmPassword')
+    register('passwordConfirmation')
     register('password')
     register('email')
     register('name')
@@ -96,13 +107,12 @@ const SignUp: React.FC = () => {
 
         <TextInput
           onChangeText={(text: string) => setValue('cpf', text)}
-          errorMessage={errors?.document?.message}
+          errorMessage={errors?.cpf?.message}
           defaultValue={cpf}
           control={control}
           placeholder="Digite seu CPF"
           icon="credit-card"
-          editable={false}
-          name="document"
+          name="cpf"
           label="CPF"
         />
 
@@ -119,13 +129,15 @@ const SignUp: React.FC = () => {
         />
 
         <TextInput
-          onChangeText={(text: string) => setValue('confirmPassword', text)}
-          errorMessage={errors?.password?.message}
+          onChangeText={(text: string) =>
+            setValue('passwordConfirmation', text)
+          }
+          errorMessage={errors?.passwordConfirmation?.message}
           defaultValue={password}
           control={control}
           placeholder="Digite a senha novamente"
           label="Confirme sua Senha"
-          name="confirmPassword"
+          name="passwordConfirmation"
           secureTextEntry
           icon="lock"
         />

@@ -8,6 +8,9 @@ import * as yup from 'yup'
 import { TextInput } from '../../components/TextInput'
 import { Button } from '../../components/Button'
 
+import { useNavigation } from '@react-navigation/native'
+import { useAuth } from '../../hooks/useAuth'
+
 import {
   ForgotPasswdButton,
   HeaderContainer,
@@ -26,9 +29,13 @@ const schema = yup.object().shape({
   // document: yup.string(),
 })
 
-const SignIn: React.FC = () => {
+const SignIn: React.FC = (props: any) => {
   const [password, setPassword] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+
+  const navigation: any = useNavigation()
+
+  const { signInWithPassword, authUser } = useAuth()
 
   const {
     handleSubmit,
@@ -42,7 +49,12 @@ const SignIn: React.FC = () => {
 
   async function signIn(data: any) {
     console.log('TODO: função de signin...\n', data)
+    await signInWithPassword(data)
   }
+
+  useEffect(() => {
+    console.log(authUser)
+  }, [authUser])
 
   useEffect(() => {
     register('email')
@@ -95,11 +107,7 @@ const SignIn: React.FC = () => {
         <Button title="Entrar" onPress={handleSubmit(signIn)} />
 
         <TouchableOpacity>
-          <SubscribeButton
-            onPress={() =>
-              console.log('TODO: direcionar para a tela de Sign Up...')
-            }
-          >
+          <SubscribeButton onPress={() => navigation?.navigate('SingUp')}>
             Cadastre-se
           </SubscribeButton>
         </TouchableOpacity>

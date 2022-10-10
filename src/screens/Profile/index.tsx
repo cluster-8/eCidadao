@@ -1,33 +1,38 @@
 import React, { useState, useMemo } from 'react'
 import { Alert } from 'react-native'
-import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
 
 import { TextInput } from '../../components/TextInput'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../../components/Button'
+import { useForm } from 'react-hook-form'
+
+import { useAuth } from "../../hooks/useAuth"
 
 import {
-  Container,
   HeaderContainer,
+  ExcludeButton,
   HeaderTitle,
   HeaderText,
-  ExcludeButton,
+  Container,
 } from './styles'
 
 import { BodyContainer } from '../SignUp/styles'
 
 const userData = yup.object().shape({
-  name: yup.string().required('Nome obrigatório'),
-  email: yup.string().required('Email obrigatório'),
-  document: yup.string(),
   password: yup.string().min(6, 'Mínimo de 6 caracteres'),
+  email: yup.string().required('Email obrigatório'),
+  name: yup.string().required('Nome obrigatório'),
+  document: yup.string(),
 })
 
 const Profile: React.FC = () => {
-  const [name, setName] = useState('Vinnie')
+
+  const { signOut } = useAuth()  
+
   const [email, setEmail] = useState('vinnie@gmail.com')
   const [password, setPassword] = useState('Abc123#')
+  const [name, setName] = useState('Vinnie')
 
   const {
     control,
@@ -44,9 +49,9 @@ const Profile: React.FC = () => {
 
   async function saveChanges() {
     const data = {
-      name,
-      email,
       password,
+      email,
+      name,
     }
 
     Alert.alert('Salvar alterações', 'Alterações salvas com sucesso!', [
@@ -54,9 +59,9 @@ const Profile: React.FC = () => {
         text: 'OK',
         onPress: () => {
           console.log('Ok pressed', data)
-          setName(data.name)
           setPassword(data.password)
           setEmail(data.email)
+          setName(data.name)
         },
       },
     ])
@@ -77,6 +82,10 @@ const Profile: React.FC = () => {
     )
   }
 
+  async function logout() {
+    await signOut()
+  }
+
   return (
     <Container>
       <HeaderContainer>
@@ -86,53 +95,55 @@ const Profile: React.FC = () => {
 
       <BodyContainer>
         <TextInput
+          errorMessage={errors?.name?.message}
+          defaultValue={name}
+          control={control}
+          placeholder="Nome"
           label="Nome"
           name="name"
           icon="user"
-          placeholder="Nome"
-          control={control}
-          defaultValue={name}
-          errorMessage={errors?.name?.message}
         />
 
         <TextInput
+          errorMessage={errors?.email?.message}
+          defaultValue={email}
+          control={control}
+          placeholder="Email"
           label="Email"
           name="email"
           icon="mail"
-          placeholder="Email"
-          control={control}
-          defaultValue={email}
-          errorMessage={errors?.email?.message}
         />
 
         <TextInput
-          label="CPF"
-          name="document"
-          icon="credit-card"
-          placeholder="CPF"
+          errorMessage={errors?.document?.message}
+          defaultValue={cpf}
           control={control}
           editable={false}
-          defaultValue={cpf}
-          errorMessage={errors?.document?.message}
+          icon="credit-card"
+          placeholder="CPF"
+          name="document"
+          label="CPF"
         />
 
         <TextInput
-          label="Senha"
-          name="password"
-          icon="lock"
-          placeholder="Senha"
-          secureTextEntry
-          control={control}
-          defaultValue={password}
           errorMessage={errors?.password?.message}
+          defaultValue={password}
+          control={control}
+          placeholder="Senha"
+          // secureTextEntry
+          name="password"
+          label="Senha"
+          icon="lock"
         />
 
         <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton>
 
+        <ExcludeButton onPress={logout}>Sair </ExcludeButton>
+
         <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
       </BodyContainer>
     </Container>
-  )
+  );
 }
 
 export default Profile
