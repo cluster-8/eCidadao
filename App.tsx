@@ -7,12 +7,13 @@ import { ThemeProvider } from 'styled-components'
 import { i18nConfig } from './src/data/I18n'
 import theme from './src/global/styles/theme'
 import { useApp } from './src/hooks/useApp'
-// import { AuthProvider } from './src/hooks/useAuth'
 import { Routes } from './src/routes'
 
 import { LocationProvider } from './src/hooks/useLocation'
 import { RequestsProvider } from './src/hooks/useRequests'
 import { AuthProvider } from './src/hooks/useAuth'
+import { TypesProvider } from './src/hooks/useTypes'
+import { CameraProvider } from './src/hooks/useCamera'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -31,24 +32,30 @@ export default function App() {
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
       <AuthProvider>
-        <RequestsProvider>
-          <LocationProvider>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <SafeAreaProvider>
-                <StatusBar
-                  barStyle={
-                    selectedTheme === 'dark' ? 'light-content' : 'dark-content'
-                  }
-                  backgroundColor="transparent"
-                  translucent
-                />
-                <SafeAreaView style={{ flex: 1 }}>
-                  <Routes />
-                </SafeAreaView>
-              </SafeAreaProvider>
-            </GestureHandlerRootView>
-          </LocationProvider>
-        </RequestsProvider>
+        <TypesProvider>
+          <CameraProvider>
+            <RequestsProvider>
+              <LocationProvider>
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                  <SafeAreaProvider>
+                    <StatusBar
+                      barStyle={
+                        selectedTheme === 'dark'
+                          ? 'light-content'
+                          : 'dark-content'
+                      }
+                      backgroundColor="transparent"
+                      translucent
+                    />
+                    <SafeAreaView style={{ flex: 1 }}>
+                      <Routes />
+                    </SafeAreaView>
+                  </SafeAreaProvider>
+                </GestureHandlerRootView>
+              </LocationProvider>
+            </RequestsProvider>
+          </CameraProvider>
+        </TypesProvider>
       </AuthProvider>
     </ThemeProvider>
   )

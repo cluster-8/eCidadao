@@ -8,10 +8,10 @@ import React, {
   useState,
 } from 'react'
 
-// import getLocation from "../utils/getLocation";
-
+import { api } from '../data/services/api'
 interface LocationContextData {
   coords: any
+  getAddress: () => Promise<any>
 }
 
 type LocationContextProps = {
@@ -26,12 +26,20 @@ const LocationProvider: React.FC<LocationContextProps> = ({ children }) => {
     longitude: -45.891863188855105,
   })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getAddress = async () => {
+    const queryStr = `?lat=${coords.latitude}&long=${coords.longitude}`
+    const res: any = await api.get(`/requests/address${queryStr}`)
+    if (!res) return
+
+    return res.data
+  }
+
   useEffect(() => {
     ;(async function getLocation() {
       const { status } = await Location.requestForegroundPermissionsAsync()
 
       if (status !== 'granted') {
-        // setErrorMsg("Permission to access location was denied");
         console.log('Permission to access location was denied')
         return
       }
@@ -47,15 +55,12 @@ const LocationProvider: React.FC<LocationContextProps> = ({ children }) => {
     })()
   }, [])
 
-  useEffect(() => {
-    console.log(coords)
-  }, [coords])
-
   const providerValue = useMemo(
     () => ({
       coords,
+      getAddress,
     }),
-    [coords],
+    [coords, getAddress],
   )
   return (
     <LocationContext.Provider value={providerValue}>

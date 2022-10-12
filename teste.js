@@ -1,14 +1,4 @@
-{
-  "name": "ecidadao",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "dependencies": {
+const dependenciesDevBranch = {
     "@expo-google-fonts/poppins": "^0.2.2",
     "@hookform/resolvers": "^2.9.8",
     "@react-native-async-storage/async-storage": "~1.17.3",
@@ -22,16 +12,13 @@
     "expo": "~46.0.9",
     "expo-app-loading": "~2.1.0",
     "expo-auth-session": "~3.7.1",
-    "expo-camera": "~12.3.0",
     "expo-checkbox": "~2.2.0",
     "expo-font": "~10.2.0",
     "expo-localization": "~13.1.0",
     "expo-location": "~14.3.0",
     "expo-random": "~12.3.0",
-    "expo-sensors": "~11.4.0",
     "expo-splash-screen": "~0.16.2",
     "expo-status-bar": "~1.4.0",
-    "firebase": "^9.12.1",
     "i18n-js": "^3.8.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -50,17 +37,5 @@
     "styled-components": "^5.3.5",
     "yup": "^0.32.11"
   },
-  "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@rocketseat/eslint-config": "^1.1.3",
-    "@types/i18n-js": "^3.8.2",
-    "@types/react": "~18.0.0",
-    "@types/react-native": "~0.69.1",
-    "@types/react-native-maps": "^0.24.2",
-    "@types/styled-components": "^5.1.26",
-    "@types/styled-components-react-native": "^5.1.3",
-    "eslint": "^8.24.0",
-    "typescript": "~4.3.5"
-  },
-  "private": true
-}
+
+  

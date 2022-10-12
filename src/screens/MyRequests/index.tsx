@@ -50,8 +50,8 @@ const MyRequests: React.FC = () => {
       date: '19/09/2022 · 20h00',
       image:
         'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      adress: {
-        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+      address: {
+        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
         street: '',
         number: '',
         neighborhood: '',
@@ -69,8 +69,8 @@ const MyRequests: React.FC = () => {
       date: '19/09/2022 · 20h00',
       image:
         'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      adress: {
-        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+      address: {
+        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
         street: '',
         number: '',
         neighborhood: '',
@@ -88,8 +88,8 @@ const MyRequests: React.FC = () => {
       date: '19/09/2022 · 20h00',
       image:
         'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      adress: {
-        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+      address: {
+        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
         street: '',
         number: '',
         neighborhood: '',
@@ -107,8 +107,8 @@ const MyRequests: React.FC = () => {
       date: '19/09/2022 · 20h00',
       image:
         'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      adress: {
-        formattedAdress: 'Rua Z, Número 99, Bairro X, Cidade Y',
+      adddress: {
+        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
         street: '',
         number: '',
         neighborhood: '',

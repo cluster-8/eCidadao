@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
+import { useCamera } from '../hooks/useCamera'
 // import Home from '../screens/Home'
 import NewRequest from '../screens/NewRequest'
 import Profile from '../screens/Profile'
@@ -14,20 +14,27 @@ import { Feather } from '@expo/vector-icons'
 const Tab = createBottomTabNavigator()
 
 export const AppRoutes = () => {
+  const { openCamera } = useCamera()
+
+  const screenOptions = useMemo(() => {
+    const options = {
+      style: {
+        borderTopColor: 'transparent',
+      },
+      tabBarActiveTintColor: '#004997',
+      tabBarStyle: {
+        height: '8%',
+        paddingBottom: 5,
+        paddingTop: 5,
+      },
+    }
+
+    // eslint-disable-next-line no-unused-expressions
+    openCamera ? (options.tabBarStyle.display = 'none') : null
+    return options
+  }, [openCamera])
   return (
-    <Tab.Navigator
-      screenOptions={{
-        style: {
-          borderTopColor: 'transparent',
-        },
-        tabBarActiveTintColor: '#004997',
-        tabBarStyle: {
-          height: '8%',
-          paddingBottom: 5,
-          paddingTop: 5,
-        },
-      }}
-    >
+    <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name="Início"
         component={MyRequests}

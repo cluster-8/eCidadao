@@ -24,8 +24,8 @@ interface RequestCardProps {
     image: string
     description: string
     date: string
-    adress: {
-      formattedAdress: string
+    address: {
+      formattedAddress: string
     }
   }
   onPress: (requestId: string) => void
@@ -46,7 +46,7 @@ export const RequestCard: React.FC<RequestCardProps> = ({
       image: request.image,
       status: request.status,
       type: request.type,
-      adress: request.adress.formattedAdress,
+      address: request.address.formattedAddress,
       description: request.description,
     })
   }
