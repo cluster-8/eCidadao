@@ -56,7 +56,8 @@ const schema = yup.object().shape({
 })
 
 const NewRequest: React.FC = () => {
-  const { openModalType, setOpenModalType, selectedType } = useTypes()
+  const { openModalType, setOpenModalType, selectedType, setSelectedType } =
+    useTypes()
 
   const {
     register,
@@ -112,6 +113,7 @@ const NewRequest: React.FC = () => {
     setPhoto(null)
     setModalVisible(false)
     setAddress('')
+    setSelectedType(null)
   }
 
   function confirmPicture() {
@@ -235,6 +237,11 @@ const NewRequest: React.FC = () => {
 
   useEffect(() => {
     createRequest(data)
+    setAddress('')
+    setPhoto(null)
+    setValue('description', '')
+    setValue('selectedType', '')
+    setSelectedType(null)
   }, [data])
 
   useEffect(() => {

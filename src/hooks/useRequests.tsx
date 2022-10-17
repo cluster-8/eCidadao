@@ -1,39 +1,49 @@
-import React, { createContext, ReactNode, useContext, useMemo } from 'react'
-import { Alert } from 'react-native'
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useMemo,
+} from 'react'
 
 import { api } from '../data/services/api'
-
+import { useAuth } from '../hooks/useAuth'
+import { Alert } from 'react-native'
 interface RequestType {
   value: string
   label: string
 }
 
 interface Address {
-  lat: number
-  long: number
-  number: number
-  city: string
-  state: string
-  street: string
-  zipcode: string
-  neighborhood: string
   formattedAddress: string
+  neighborhood: string
+  zipcode: string
+  number: number
+  street: string
+  state: string
+  city: string
+  long: number
+  lat: number
 }
 
 export interface Request {
-  id: string
-  identifier?: number
-  image?: string
-  address?: Address
-  type?: RequestType
-  status?: string
   description?: string
+  identifier?: number
   createdAt?: string
+  type?: RequestType
+  address?: Address
+  status?: string
+  image?: string
+  id: string
 }
 
 interface RequestsContextData {
-  getRequests: () => Promise<any>
   createRequest: (data: any) => Promise<any>
+  getUserRequests: () => Promise<any>
+  getRequests: () => Promise<any>
+  userRequests: any
+  getData: any
+  data: any
 }
 
 type RequestsContextProps = {
@@ -43,6 +53,9 @@ type RequestsContextProps = {
 const RequestsContext = createContext({} as RequestsContextData)
 
 const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
+  const [data, setData] = useState<any>()
+
+  const { authUser } = useAuth()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getRequests = async (queryParams: String = '') => {
     const queryStr =
@@ -52,9 +65,20 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getUserRequests = async () => {
+    if (!authUser.id) return
+    const queryStr =
+      'identifier image address type status createdAt description'
+    const { data } = await api.get(
+      `/requests?=id${authUser.id}&select=${queryStr}`,
+    )
+    return data
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const createRequest = async (data: any) => {
     const response = await api.post(`/requests`, data)
-    console.log('Response...', response)
+    console.log('\nResponse...\n', response)
     if (response.status === 201) {
       Alert.alert(
         'Nova solicitação',
@@ -82,15 +106,34 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
         ],
       )
     }
+    await getData()
     return response
+  }
+
+  const userRequests = useMemo(async () => {
+    if (authUser.id) {
+      const data = await getUserRequests()
+      // console.log(JSON.stringify(data, null, 4))
+      return data
+    }
+  }, [authUser])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function getData() {
+    const data = await getUserRequests()
+    setData(data)
   }
 
   const providerValue = useMemo(
     () => ({
-      getRequests,
+      getUserRequests,
       createRequest,
+      userRequests,
+      getRequests,
+      getData,
+      data,
     }),
-    [getRequests, createRequest],
+    [getUserRequests, createRequest, userRequests, getRequests, getData, data],
   )
 
   return (
