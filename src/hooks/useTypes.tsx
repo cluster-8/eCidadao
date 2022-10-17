@@ -1,19 +1,20 @@
 import React, {
   createContext,
-  ReactNode,
   useContext,
-  useMemo,
+  ReactNode,
   useState,
+  useMemo,
 } from 'react'
 
 interface TypesContextData {
-  types: any[]
-  selectedType: any
+  setTypeInputOnFocus: any
+  typeInputOnFocus: any
+  setOpenModalType: any
   setSelectedType: any
   openModalType: any
-  setOpenModalType: any
-  typeInputOnFocus: any
-  setTypeInputOnFocus: any
+  selectedType: any
+  getTypeValue: any
+  types: any[]
 }
 
 type TypesContextProps = {
@@ -29,29 +30,25 @@ const TypesProvider: React.FC<TypesContextProps> = ({ children }) => {
     { value: 'Alambrado/Manutenção', key: 'alambrado_manutencao' },
     { value: 'Área de Preservação Permanente', key: 'APP' },
     { value: 'Árvore', key: 'arvore' },
-    { value: 'Corte de raiz', key: 'corteDeRaiz' },
-    { value: 'Limpeza após poda', key: 'limpezaAposPoda' },
-    { value: 'Poda', key: 'poda' },
-    { value: 'Queda', key: 'queda' },
-    { value: 'Queda de galhos', key: 'quedaDeGalhos' },
-    { value: 'Requadro de calçada', key: 'requadroDeCalcada' },
+    { value: 'Capina/Roçada', key: 'capina_rocada' },
     { value: 'Ciclovia/manutenção', key: 'ciclovia_manutencao' },
+    { value: 'Corte de raiz', key: 'corteDeRaiz' },
     { value: 'Drenagem/diversos', key: 'drenagemDiversos' },
+    { value: 'Entulho em área pública', key: 'entulhoEmAreaPublica' },
     {
       value: 'Fundo do Vale/Capina margens córregos',
       key: 'fundoDoVale_capinaMargensCorregos',
     },
     { value: 'Guias/manutenção e pintura', key: 'guias_manutencaoEPintura' },
+    { value: 'Limpeza após poda', key: 'limpezaAposPoda' },
     {
       value: 'Limpeza/coleta no gramado/Raspagem',
       key: 'limpeza_coletaNoGramado_raspagem',
     },
     { value: 'Lixeiras/áreas rurais', key: 'lixeira_areasRurais' },
     { value: 'Logradouros públicos', key: 'logradourosPublicos' },
-    { value: 'Capina/Roçada', key: 'capina_rocada' },
-    { value: 'Entulho em área pública', key: 'entulhoEmAreaPublica' },
-    { value: 'Placa de proibição', key: 'placaDeProibicao' },
     { value: 'Mureta/manutenção/remoção', key: 'mureta_manutencao_remocao' },
+    { value: 'Outros', key: 'outros' },
     {
       value: 'Passarelas de madeira/Manutenção',
       key: 'passarelasDeMadeira_manutencao',
@@ -61,12 +58,22 @@ const TypesProvider: React.FC<TypesContextProps> = ({ children }) => {
       value: 'Pista de caminhada/manutenção',
       key: 'pistaDeCaminhada_manutencao',
     },
-    { value: 'Outros', key: 'outros' },
+    { value: 'Placa de proibição', key: 'placaDeProibicao' },
+    { value: 'Poda', key: 'poda' },
+    { value: 'Queda', key: 'queda' },
+    { value: 'Queda de galhos', key: 'quedaDeGalhos' },
+    { value: 'Requadro de calçada', key: 'requadroDeCalcada' },
   ]
 
   const [selectedType, setSelectedType] = useState<any>()
   const [openModalType, setOpenModalType] = useState(false)
   const [typeInputOnFocus, setTypeInputOnFocus] = useState(false)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function getTypeValue(key: any) {
+    const type: any = types.find((el) => el.key === key)
+    return type.value
+  }
 
   const providerValue = useMemo(
     () => ({
@@ -77,6 +84,7 @@ const TypesProvider: React.FC<TypesContextProps> = ({ children }) => {
       setOpenModalType,
       typeInputOnFocus,
       setTypeInputOnFocus,
+      getTypeValue,
     }),
     [
       types,
@@ -86,6 +94,7 @@ const TypesProvider: React.FC<TypesContextProps> = ({ children }) => {
       setOpenModalType,
       typeInputOnFocus,
       setTypeInputOnFocus,
+      getTypeValue,
     ],
   )
 
