@@ -98,78 +98,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     [],
   )
 
-  // const signInWithGoogle = useCallback(async () => {
-  //   const clientId = process.env.CLIENT_ID_GOOGLE
-  //   const redirectUri = process.env.REDIRECT_URI
-  //   const scope = encodeURI('profile email')
-  //   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`
-
-  //   try {
-  //     const { type, params } = (await AuthSession.startAsync({
-  //       authUrl,
-  //     })) as SocialAuthProps
-
-  //     if (type === 'success') {
-  //       try {
-  //         const {
-  //           data: { user, token },
-  //         } = await api.post<SignInRequestProps>('/auth/social-sign-in', {
-  //           token: params.access_token,
-  //           provider: 'google',
-  //         })
-  //         await storeUser(user, token)
-  //       } catch (err) {
-  //         Alert.alert(
-  //           'Erro',
-  //           'Não foi possível fazer o login, tente novamente mais tarde',
-  //         )
-  //       }
-  //     } else {
-  //       throw new Error('rejected signIn')
-  //     }
-  //   } catch (err) {
-  //     Alert.alert(
-  //       'Erro',
-  //       'Não foi possível fazer o login, tente novamente mais tarde',
-  //     )
-  //   }
-  // }, [])
-
-  // const sigInWithFacebook = useCallback(async () => {
-  //   const clientId = Number(process.env.CLIENT_ID_FACEBOOK)
-  //   const redirectUri = process.env.REDIRECT_URI
-  //   const authUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=email&response_type=token`
-
-  //   try {
-  //     const { type, params } = (await AuthSession.startAsync({
-  //       authUrl,
-  //     })) as SocialAuthProps
-  //     if (type === 'success') {
-  //       try {
-  //         const {
-  //           data: { user, token },
-  //         } = await api.post<SignInRequestProps>('/auth/social-sign-in', {
-  //           token: params.access_token,
-  //           provider: 'facebook',
-  //         })
-  //         await storeUser(user, token)
-  //       } catch (err) {
-  //         Alert.alert(
-  //           'Erro',
-  //           'Não foi possível fazer o login, tente novamente mais tarde',
-  //         )
-  //       }
-  //     } else {
-  //       throw new Error('rejected signIn')
-  //     }
-  //   } catch (err) {
-  //     Alert.alert(
-  //       'Erro',
-  //       'Não foi possível fazer o login, tente novamente mais tarde',
-  //     )
-  //   }
-  // }, [])
-
   const signUp = useCallback(async (data: FieldValues) => {
     try {
       const {
@@ -194,6 +122,10 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [])
 
   useEffect(() => {
+    signInWithPassword({
+      email: 'ecidadao@gmail.com',
+      password: 'abc123',
+    })
     const loadStoragedData = async (): Promise<void> => {
       const [token, user] = await AsyncStorage.multiGet([
         '@ecidadao:token',

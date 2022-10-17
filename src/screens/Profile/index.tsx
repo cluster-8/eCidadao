@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../../components/Button'
 import { useForm } from 'react-hook-form'
 
-import { useAuth } from "../../hooks/useAuth"
+import { useAuth } from '../../hooks/useAuth'
 
 import {
   HeaderContainer,
@@ -27,8 +27,7 @@ const userData = yup.object().shape({
 })
 
 const Profile: React.FC = () => {
-
-  const { signOut } = useAuth()  
+  const { signOut, authUser } = useAuth()
 
   const [email, setEmail] = useState('vinnie@gmail.com')
   const [password, setPassword] = useState('Abc123#')
@@ -41,11 +40,6 @@ const Profile: React.FC = () => {
   } = useForm({
     resolver: yupResolver(userData),
   })
-
-  //* mock
-  const cpf = useMemo(() => {
-    return '12312312312'
-  }, [])
 
   async function saveChanges() {
     const data = {
@@ -96,7 +90,7 @@ const Profile: React.FC = () => {
       <BodyContainer>
         <TextInput
           errorMessage={errors?.name?.message}
-          defaultValue={name}
+          defaultValue={authUser.name}
           control={control}
           placeholder="Nome"
           label="Nome"
@@ -106,7 +100,7 @@ const Profile: React.FC = () => {
 
         <TextInput
           errorMessage={errors?.email?.message}
-          defaultValue={email}
+          defaultValue={authUser.email}
           control={control}
           placeholder="Email"
           label="Email"
@@ -116,7 +110,7 @@ const Profile: React.FC = () => {
 
         <TextInput
           errorMessage={errors?.document?.message}
-          defaultValue={cpf}
+          defaultValue={authUser.cpf}
           control={control}
           editable={false}
           icon="credit-card"
@@ -127,7 +121,7 @@ const Profile: React.FC = () => {
 
         <TextInput
           errorMessage={errors?.password?.message}
-          defaultValue={password}
+          defaultValue={authUser.password}
           control={control}
           placeholder="Senha"
           // secureTextEntry
@@ -138,12 +132,12 @@ const Profile: React.FC = () => {
 
         <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton>
 
-        <ExcludeButton onPress={logout}>Sair </ExcludeButton>
+        {/* <ExcludeButton onPress={logout}>Sair </ExcludeButton> */}
 
         <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
       </BodyContainer>
     </Container>
-  );
+  )
 }
 
 export default Profile
