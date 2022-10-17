@@ -1,9 +1,13 @@
 import styled, { css } from 'styled-components/native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { Feather } from '@expo/vector-icons'
-import { RFHeight, RFWidth } from '../../utils/getResponsiveSizes'
+import { RFHeight, RFWidth, RFFontSize } from '../../utils/getResponsiveSizes'
 
 interface TabSelectorProps {
+  active: boolean
+}
+
+interface FilterButtonProps {
   active: boolean
 }
 
@@ -82,7 +86,7 @@ export const FilterButtonsContainer = styled.View`
   margin-top: 10px;
 `
 
-export const FilterButton = styled.TouchableOpacity`
+export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
   height: ${RFHeight(46)}px;
   width: 25%;
   flex-direction: row;
@@ -91,6 +95,12 @@ export const FilterButton = styled.TouchableOpacity`
   margin: 0 10px;
   background-color: ${({ theme }) => theme.colors.background_over};
   border-radius: 50px;
+
+  ${(props) =>
+    props.active &&
+    css`
+      background-color: ${({ theme }) => theme.colors.yellow};
+    `}
 `
 
 export const Icon = styled(Feather)``
@@ -103,4 +113,25 @@ export const FilterButtonText = styled.Text`
 export const CardsContainer = styled.FlatList`
   margin-top: 10px;
   height: 50%;
+`
+
+export const SearchbarContent = styled.View`
+  position: absolute;
+  top: ${RFHeight(20)}px;
+  width: 100%;
+  margin-left: ${RFHeight(20)}px;
+  margin-right: ${RFHeight(20)}px;
+`
+
+export const SearchBar = styled.TextInput`
+  border-radius: ${RFHeight(10)}px;
+  margin: ${RFHeight(5)}px ${RFHeight(20)}px;
+  color: ${({ theme }) => theme.colors.black};
+  border-color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-width: ${RFHeight(1)}px;
+  height: ${RFHeight(45)}px;
+  padding: ${RFHeight(10)}px;
+  font-size: ${RFFontSize(18)}px;
+  width: 90%;
 `

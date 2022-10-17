@@ -1,121 +1,53 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState } from 'react'
-import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
+import React, { useState, useEffect, useMemo } from 'react'
 import { RequestCard } from '../../components/RequestCard'
 import { TextInput } from '../../components/TextInput'
+import { useRequests } from '../../hooks/useRequests'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 import {
-  Container,
-  TitleContainer,
-  Title,
-  SubTitle,
-  Content,
+  FilterButtonsContainer,
+  TabSelectorButtonTitle,
   TabSelectorContainer,
   TabSelectorButton,
-  TabSelectorButtonTitle,
-  FilterContainer,
-  FilterButtonsContainer,
-  FilterButton,
-  Icon,
   FilterButtonText,
+  FilterContainer,
+  TitleContainer,
   CardsContainer,
+  FilterButton,
+  Container,
+  SubTitle,
+  Content,
+  Title,
+  Icon,
 } from './styles'
 
-const filterData = yup.object().shape({
-  filter: yup.string(),
+const schema = yup.object().shape({
+  searchTerm: yup.string(),
 })
 
 const MyRequests: React.FC = () => {
   const [opened, setOpened] = useState(true)
   const [closed, setClosed] = useState(false)
+  const { getData, data } = useRequests()
+
+  const [sortByDate, setSortByDate] = useState(1)
+  const [sortByCode, setSortByCode] = useState(1)
+  const [sortByType, setSortByType] = useState(1)
+
+  const [activeSort, setActiveSort] = useState('')
+
+  const [searchTerm, setSearchTerm] = useState<any>('')
 
   const {
     control,
+    register,
     // handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(filterData),
+    resolver: yupResolver(schema),
   })
-
-  const request = [
-    {
-      id: '#0001',
-      title: 'Poste Caido',
-      type: 'Poda',
-      createdAt: new Date(),
-      status: 'closed',
-      description:
-        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-      date: '19/09/2022 · 20h00',
-      image:
-        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      address: {
-        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
-        street: '',
-        number: '',
-        neighborhood: '',
-        zipcode: '',
-      },
-    },
-    {
-      id: '#0002',
-      title: 'Poste Caido',
-      type: 'Poda',
-      createdAt: new Date(),
-      status: 'open',
-      description:
-        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-      date: '19/09/2022 · 20h00',
-      image:
-        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      address: {
-        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
-        street: '',
-        number: '',
-        neighborhood: '',
-        zipcode: '',
-      },
-    },
-    {
-      id: '#0003',
-      title: 'Poste Caido',
-      type: 'Poda',
-      createdAt: new Date(),
-      status: 'open',
-      description:
-        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-      date: '19/09/2022 · 20h00',
-      image:
-        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      address: {
-        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
-        street: '',
-        number: '',
-        neighborhood: '',
-        zipcode: '',
-      },
-    },
-    {
-      id: '#0004',
-      title: 'Poste Caido',
-      type: 'Poda',
-      createdAt: new Date(),
-      status: 'open',
-      description:
-        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-      date: '19/09/2022 · 20h00',
-      image:
-        'https://images.unsplash.com/photo-1615175501566-bf70987183b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1463&q=80',
-      adddress: {
-        formattedAddress: 'Rua Z, Número 99, Bairro X, Cidade Y',
-        street: '',
-        number: '',
-        neighborhood: '',
-        zipcode: '',
-      },
-    },
-  ]
 
   const handleChangeTab = (selectedTab: 'opened' | 'closed') => {
     if (selectedTab === 'opened') {
@@ -126,6 +58,57 @@ const MyRequests: React.FC = () => {
       setOpened(false)
     }
   }
+
+  function handleSort(sortBy: any) {
+    setActiveSort(sortBy)
+    if (sortBy === 'byDate') setSortByDate(sortByDate * -1)
+    if (sortBy === 'byCode') setSortByCode(sortByCode * -1)
+    if (sortBy === 'byType') setSortByType(sortByType * -1)
+  }
+
+  const sortedData = useMemo(() => {
+    if (!data) return
+    if (activeSort === 'byDate') {
+      if (sortByDate === 1) {
+        const sorted = data.sort((a: any, b: any) => a.createdAt > b.createdAt)
+        return sorted
+      } else {
+        const sorted = data.sort((a: any, b: any) => a.createdAt < b.createdAt)
+        return sorted
+      }
+    }
+    if (activeSort === 'byCode') {
+      if (sortByCode === 1) {
+        console.log('asc')
+        const sorted = data.sort(
+          (a: any, b: any) => a.identifier - b.identifier,
+        )
+        return sorted
+      } else {
+        const sorted = data.sort(
+          (a: any, b: any) => b.identifier - a.identifier,
+        )
+        return sorted
+      }
+    }
+    if (activeSort === 'byType') {
+      if (sortByType === 1) {
+        console.log('asc')
+        const sorted = data.sort((a: any, b: any) => a.type > b.type)
+        return sorted
+      } else {
+        const sorted = data.sort((a: any, b: any) => a.type < b.type)
+        return sorted
+      }
+    } else {
+      return data
+    }
+  }, [handleSort])
+
+  useEffect(() => {
+    register('searchTerm')
+    getData()
+  }, [])
 
   return (
     <Container>
@@ -158,26 +141,35 @@ const MyRequests: React.FC = () => {
 
         <FilterContainer>
           <TextInput
-            name="filter"
+            onChangeText={setSearchTerm}
+            name="searchTerm"
             icon="search"
             placeholder="Busque por nome ou local"
-            secureTextEntry
             control={control}
             errorMessage={errors?.filter?.message}
           />
 
           <FilterButtonsContainer>
-            <FilterButton>
+            <FilterButton
+              onPress={() => handleSort('byDate')}
+              active={activeSort === 'byDate'}
+            >
               <Icon name="filter" />
               <FilterButtonText>Data</FilterButtonText>
             </FilterButton>
 
-            <FilterButton>
+            <FilterButton
+              onPress={() => handleSort('byCode')}
+              active={activeSort === 'byCode'}
+            >
               <Icon name="filter" />
               <FilterButtonText>Código</FilterButtonText>
             </FilterButton>
 
-            <FilterButton>
+            <FilterButton
+              onPress={() => handleSort('byType')}
+              active={activeSort === 'byType'}
+            >
               <Icon name="filter" />
               <FilterButtonText>Tipo</FilterButtonText>
             </FilterButton>
@@ -186,10 +178,10 @@ const MyRequests: React.FC = () => {
 
         {opened && (
           <CardsContainer
-            data={request}
-            keyExtractor={(item: any) => item?.id}
+            data={sortedData}
+            keyExtractor={(item: any) => item.id}
             renderItem={({ item }: any) =>
-              item.status === 'open' &&
+              item?.status === 'opened' &&
               opened && (
                 <RequestCard
                   onPress={(id) => console.log('foi', id)}
@@ -199,10 +191,9 @@ const MyRequests: React.FC = () => {
             }
           />
         )}
-
         {closed && (
           <CardsContainer
-            data={request}
+            data={data}
             keyExtractor={(item: any) => item?.id}
             renderItem={({ item }: any) =>
               item.status === 'closed' &&
