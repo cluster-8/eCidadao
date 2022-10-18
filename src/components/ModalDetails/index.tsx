@@ -80,7 +80,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                     <Entypo name="tag" size={22} color={'#d1345b'} />
                   </IconContainer>
 
-                  <Info>{formatReqType(props?.data.type)}</Info>
+                  <Info>{props?.data.type}</Info>
                 </InfoRow>
 
                 <InfoRow>
