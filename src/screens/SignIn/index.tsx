@@ -52,9 +52,6 @@ const SignIn: React.FC = (props: any) => {
     await signInWithPassword(data)
   }
 
-  useEffect(() => {
-    console.log(authUser)
-  }, [authUser])
 
   useEffect(() => {
     register('email')
