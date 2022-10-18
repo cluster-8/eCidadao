@@ -220,12 +220,14 @@ const NewRequest: React.FC = () => {
   }, [orientation])
 
   async function handleRequestSubmit() {
-    await createRequest(data)
-    setAddress('')
-    setPhoto(null)
-    setValue('description', '')
-    setValue('selectedType', '')
-    setSelectedType(null)
+    const res = await createRequest(data)
+    if (res) {
+      setAddress('')
+      setPhoto(null)
+      setValue('description', '')
+      setValue('selectedType', '')
+      setSelectedType(null)
+    }
   }
 
   useEffect(() => {
@@ -260,7 +262,7 @@ const NewRequest: React.FC = () => {
           <HeaderContainer>
             <HeaderTitle>Enviando solicitação</HeaderTitle>
             <HeaderText>
-              Aguarde enquanto registramos sua soliticação
+              Aguarde enquanto registramos sua solicitação
             </HeaderText>
           </HeaderContainer>
           <ActivityIndicator size="large" color="#004997" />

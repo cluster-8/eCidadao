@@ -120,9 +120,10 @@ const Requests: React.FC = () => {
       <MapView
         ref={mapRef}
         style={{
-          width: Dimensions.get('window').width,
-          height: Dimensions.get('window').height,
+          width: Dimensions.get("window").width,
+          height: Dimensions.get("window").height,
         }}
+        showsMyLocationButton={false}
         showsUserLocation={true}
         // userLocationUpdateInterval={5000}
         // followsUserLocation={true}
@@ -142,30 +143,30 @@ const Requests: React.FC = () => {
             }}
             title={formatReqType(request.type)}
             pinColor={
-              formatReqStatus(request.status) === 'Fechada'
-                ? '#02842a'
-                : '#cd0019'
+              formatReqStatus(request.status) === "Fechada"
+                ? "#02842a"
+                : "#cd0019"
             }
             onPress={() => {
-              handleSelect(request)
+              handleSelect(request);
               // setCurrentSolicitacao(request);
               setCurrentRegion({
                 latitude: Number(request.address.lat),
                 longitude: Number(request.address.long),
                 latitudeDelta: currentRegion.latitudeDelta,
                 longitudeDelta: currentRegion.longitudeDelta,
-              })
-              setModalVisible(true)
+              });
+              setModalVisible(true);
             }}
           />
         ))}
       </MapView>
       {/* BARRA DE PESQUISA */}
       <SearchbarContent>
-        <Icon name="magnifying-glass" size={25} color={'#004997'} />
+        <Icon name="magnifying-glass" size={25} color={"#004997"} />
         <SearchBar
-          placeholder={'Buscar'}
-          placeholderTextColor={'#666'}
+          placeholder={"Buscar"}
+          placeholderTextColor={"#666"}
           onChangeText={(text: any) => setSearchTerm(text)}
         />
       </SearchbarContent>
@@ -180,7 +181,7 @@ const Requests: React.FC = () => {
         handleClose={() => setModalVisible(false)}
       />
     </Container>
-  )
+  );
 }
 
 export default Requests
