@@ -31,7 +31,7 @@ const Requests: React.FC = () => {
 
   const { coords } = useLocation()
 
-  const { getRequests } = useRequests()
+  const { getRequests, reqData } = useRequests()
 
   const [data, setData] = useState<any[]>()
 
@@ -84,9 +84,13 @@ const Requests: React.FC = () => {
     })
   }
 
+  // useEffect(() => {
+  //   ;(async () => await getData())()
+  // }, [getData])
+
   useEffect(() => {
-    ;(async () => await getData())()
-  }, [getData])
+    getData()
+  }, [reqData])
 
   useEffect(() => {
     if (coords.latitude && coords.longitude) {

@@ -70,7 +70,8 @@ const NewRequest: React.FC = () => {
   })
 
   const { getAddress, coords } = useLocation()
-  const { createRequest } = useRequests()
+  const { createRequest, reqData } = useRequests()
+
   const {
     hasCameraPermission,
     getCameraPermissions,
@@ -218,6 +219,15 @@ const NewRequest: React.FC = () => {
     )
   }, [orientation])
 
+  async function handleRequestSubmit() {
+    await createRequest(data)
+    setAddress('')
+    setPhoto(null)
+    setValue('description', '')
+    setValue('selectedType', '')
+    setSelectedType(null)
+  }
+
   useEffect(() => {
     getCameraPermissions()
   }, [])
@@ -236,12 +246,7 @@ const NewRequest: React.FC = () => {
   }, [image])
 
   useEffect(() => {
-    createRequest(data)
-    setAddress('')
-    setPhoto(null)
-    setValue('description', '')
-    setValue('selectedType', '')
-    setSelectedType(null)
+    handleRequestSubmit()
   }, [data])
 
   useEffect(() => {

@@ -30,7 +30,7 @@ const schema = yup.object().shape({
 const MyRequests: React.FC = () => {
   const [opened, setOpened] = useState(true)
   const [closed, setClosed] = useState(false)
-  const { getData, data } = useRequests()
+  const { getData, reqData } = useRequests()
 
   const [sortByDate, setSortByDate] = useState(1)
   const [sortByCode, setSortByCode] = useState(1)
@@ -67,25 +67,29 @@ const MyRequests: React.FC = () => {
   }
 
   const sortedData = useMemo(() => {
-    if (!data) return
+    if (!reqData) return
     if (activeSort === 'byDate') {
       if (sortByDate === 1) {
-        const sorted = data.sort((a: any, b: any) => a.createdAt > b.createdAt)
+        const sorted = reqData.sort(
+          (a: any, b: any) => a.createdAt > b.createdAt,
+        )
         return sorted
       } else {
-        const sorted = data.sort((a: any, b: any) => a.createdAt < b.createdAt)
+        const sorted = reqData.sort(
+          (a: any, b: any) => a.createdAt < b.createdAt,
+        )
         return sorted
       }
     }
     if (activeSort === 'byCode') {
       if (sortByCode === 1) {
         console.log('asc')
-        const sorted = data.sort(
+        const sorted = reqData.sort(
           (a: any, b: any) => a.identifier - b.identifier,
         )
         return sorted
       } else {
-        const sorted = data.sort(
+        const sorted = reqData.sort(
           (a: any, b: any) => b.identifier - a.identifier,
         )
         return sorted
@@ -94,14 +98,14 @@ const MyRequests: React.FC = () => {
     if (activeSort === 'byType') {
       if (sortByType === 1) {
         console.log('asc')
-        const sorted = data.sort((a: any, b: any) => a.type > b.type)
+        const sorted = reqData.sort((a: any, b: any) => a.type > b.type);
         return sorted
       } else {
-        const sorted = data.sort((a: any, b: any) => a.type < b.type)
+        const sorted = reqData.sort((a: any, b: any) => a.type < b.type);
         return sorted
       }
     } else {
-      return data
+      return reqData
     }
   }, [handleSort])
 
@@ -193,7 +197,7 @@ const MyRequests: React.FC = () => {
         )}
         {closed && (
           <CardsContainer
-            data={data}
+            data={sortedData}
             keyExtractor={(item: any) => item?.id}
             renderItem={({ item }: any) =>
               item.status === 'closed' &&

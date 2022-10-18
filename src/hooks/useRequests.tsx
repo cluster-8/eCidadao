@@ -43,7 +43,7 @@ interface RequestsContextData {
   getRequests: () => Promise<any>
   userRequests: any
   getData: any
-  data: any
+  reqData: any
 }
 
 type RequestsContextProps = {
@@ -53,7 +53,7 @@ type RequestsContextProps = {
 const RequestsContext = createContext({} as RequestsContextData)
 
 const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
-  const [data, setData] = useState<any>()
+  const [reqData, setReqData] = useState<any>()
 
   const { authUser } = useAuth()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,51 +77,58 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const createRequest = async (data: any) => {
-    const response = await api.post(`/requests`, data)
-    console.log('\nResponse...\n', response)
-    if (response.status === 201) {
-      Alert.alert(
-        'Nova solicitação',
-        'Solicitação de manutenção realizada com sucesso!',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              console.log('Ok pressed')
+    try {
+      const response = await api.post(`/requests`, data)
+
+      if (response.status === 201) {
+        Alert.alert(
+          'Nova solicitação',
+          'Solicitação de manutenção realizada com sucesso!',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                console.log('Ok pressed')
+              },
             },
-          },
-        ],
-      )
-    } else {
-      Alert.alert(
-        'Falha',
-        'Algo deu errado durante o registro de sua solicitação. Tente novamente.',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              console.log('Ok pressed')
+          ],
+        )
+      } else {
+        Alert.alert(
+          'Falha',
+          'Algo deu errado durante o registro de sua solicitação. Tente novamente.',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                console.log('Ok pressed')
+              },
             },
-          },
-        ],
-      )
+          ],
+        )
+      }
+
+      await getData()
+      console.log('passei pelo getData')
+
+      return response
+    } catch (error) {
+      console.log(error)
     }
-    await getData()
-    return response
   }
 
   const userRequests = useMemo(async () => {
     if (authUser.id) {
-      const data = await getUserRequests()
+      // const data = await getUserRequests()
       // console.log(JSON.stringify(data, null, 4))
-      return data
+      // return data
     }
   }, [authUser])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getData() {
     const data = await getUserRequests()
-    setData(data)
+    setReqData(data)
   }
 
   const providerValue = useMemo(
@@ -131,9 +138,16 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       userRequests,
       getRequests,
       getData,
-      data,
+      reqData,
     }),
-    [getUserRequests, createRequest, userRequests, getRequests, getData, data],
+    [
+      getUserRequests,
+      createRequest,
+      userRequests,
+      getRequests,
+      getData,
+      reqData,
+    ],
   )
 
   return (
