@@ -13,7 +13,7 @@ interface FilterButtonProps {
 
 export const Container = styled.View`
   flex: 1;
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.background_over};
   padding: 0px ${RFHeight(24)}px ${getBottomSpace() + RFHeight(24)}px
     ${RFHeight(24)}px;
   justify-content: space-between;
@@ -23,6 +23,7 @@ export const TitleContainer = styled.View`
   align-items: center;
   justify-content: center;
   height: 20%;
+  margin-bottom: ${RFHeight(10)}px;
 `
 
 export const Title = styled.Text`
@@ -33,7 +34,7 @@ export const Title = styled.Text`
 
 export const SubTitle = styled.Text`
   font-size: 15px;
-  margin-top: ${RFHeight(25)}px;
+  margin-top: ${RFHeight(15)}px;
   font-family: 'Poppins_400Regular';
 `
 
@@ -42,6 +43,7 @@ export const Content = styled.View`
 `
 
 export const TabSelectorContainer = styled.View`
+  background: ${({ theme }) => theme.colors.background_over};
   flex-direction: row;
   justify-content: space-between;
 `
@@ -49,7 +51,6 @@ export const TabSelectorContainer = styled.View`
 export const TabSelectorButton = styled.TouchableOpacity<TabSelectorProps>`
   height: ${RFHeight(56)}px;
   width: 50%;
-  background: ${({ theme }) => theme.colors.background};
   justify-content: center;
   align-items: center;
 
@@ -76,6 +77,8 @@ export const TabSelectorButtonTitle = styled.Text<TabSelectorProps>`
 `
 
 export const FilterContainer = styled.View`
+  background: ${({ theme }) => theme.colors.background_over};
+  color: ${({ theme }) => theme.colors.text};
   margin-top: ${RFHeight(15)}px;
   flex-direction: column;
 `
@@ -87,20 +90,21 @@ export const FilterButtonsContainer = styled.View`
 `
 
 export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
   height: ${RFHeight(46)}px;
   width: 25%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin: 0 10px;
-  background-color: ${({ theme }) => theme.colors.background_over};
-  border-radius: 50px;
+  border-radius: 10px;
 
   ${(props) =>
     props.active &&
     css`
       background-color: ${({ theme }) => theme.colors.yellow};
-    `}
+    `};
 `
 
 export const Icon = styled(Feather)``
@@ -128,7 +132,7 @@ export const SearchBar = styled.TextInput`
   margin: ${RFHeight(5)}px ${RFHeight(20)}px;
   color: ${({ theme }) => theme.colors.black};
   border-color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.background};
   border-width: ${RFHeight(1)}px;
   height: ${RFHeight(45)}px;
   padding: ${RFHeight(10)}px;

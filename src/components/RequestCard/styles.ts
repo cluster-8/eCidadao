@@ -6,25 +6,25 @@ export const RequestInformationContainer = styled.TouchableOpacity`
   flex-flow: row;
   align-items: center;
   padding: ${RFWidth(16)}px;
-  background-color: ${({ theme }) => theme.colors.background_over};
-  border-radius: ${RFWidth(6)}px;
+  background-color: ${({ theme }) => theme.colors.background};
+  border-radius: ${RFWidth(10)}px;
   margin: 10px 0;
 `
 
-export const TestContainer = styled.View`
-  flex-direction: column;
-`
+export const CardContainer = styled.View``
 
 export const HeaderContainer = styled.View`
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
 `
 
 export const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+`
+
+export const Icon = styled(Feather)`
+  margin-left: ${RFWidth(10)}px;
 `
 
 export const IdText = styled.Text`
@@ -34,8 +34,6 @@ export const IdText = styled.Text`
 export const TitleText = styled.Text`
   margin-left: 10px;
 `
-
-export const Icon = styled(Feather)``
 
 export const InformationContainer = styled.View`
   flex: 1;

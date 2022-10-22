@@ -18,7 +18,6 @@ import {
   FilterButton,
   Container,
   SubTitle,
-  Content,
   Title,
   Icon,
 } from './styles'
@@ -98,10 +97,10 @@ const MyRequests: React.FC = () => {
     if (activeSort === 'byType') {
       if (sortByType === 1) {
         console.log('asc')
-        const sorted = reqData.sort((a: any, b: any) => a.type > b.type);
+        const sorted = reqData.sort((a: any, b: any) => a.type > b.type)
         return sorted
       } else {
-        const sorted = reqData.sort((a: any, b: any) => a.type < b.type);
+        const sorted = reqData.sort((a: any, b: any) => a.type < b.type)
         return sorted
       }
     } else {
@@ -115,34 +114,34 @@ const MyRequests: React.FC = () => {
   }, [])
 
   return (
-    <Container>
+    <>
       <TitleContainer>
         <Title>Minhas Solicitações</Title>
 
         <SubTitle>Visualize suas solicitações em aberto!</SubTitle>
       </TitleContainer>
 
-      <Content>
-        <TabSelectorContainer>
-          <TabSelectorButton
-            active={opened}
-            onPress={() => handleChangeTab('opened')}
-          >
-            <TabSelectorButtonTitle active={opened}>
-              EM ABERTO
-            </TabSelectorButtonTitle>
-          </TabSelectorButton>
+      <TabSelectorContainer>
+        <TabSelectorButton
+          active={opened}
+          onPress={() => handleChangeTab('opened')}
+        >
+          <TabSelectorButtonTitle active={opened}>
+            EM ABERTO
+          </TabSelectorButtonTitle>
+        </TabSelectorButton>
 
-          <TabSelectorButton
-            active={closed}
-            onPress={() => handleChangeTab('closed')}
-          >
-            <TabSelectorButtonTitle active={closed}>
-              FINALIZADAS
-            </TabSelectorButtonTitle>
-          </TabSelectorButton>
-        </TabSelectorContainer>
+        <TabSelectorButton
+          active={closed}
+          onPress={() => handleChangeTab('closed')}
+        >
+          <TabSelectorButtonTitle active={closed}>
+            FINALIZADAS
+          </TabSelectorButtonTitle>
+        </TabSelectorButton>
+      </TabSelectorContainer>
 
+      <Container>
         <FilterContainer>
           <TextInput
             onChangeText={setSearchTerm}
@@ -210,8 +209,8 @@ const MyRequests: React.FC = () => {
             }
           />
         )}
-      </Content>
-    </Container>
+      </Container>
+    </>
   )
 }
 

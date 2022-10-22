@@ -7,11 +7,11 @@ import {
   RequestDescription,
   HeaderContainer,
   TitleContainer,
-  TestContainer,
   RequestDate,
   TitleText,
   IdText,
   Icon,
+  CardContainer,
 } from './styles'
 
 import { useTypes } from '../../hooks/useTypes'
@@ -94,7 +94,7 @@ export const RequestCard: React.FC<RequestCardProps> = ({
         handleModalShow()
       }}
     >
-      <TestContainer>
+      <CardContainer>
         <HeaderContainer>
           <TitleContainer>
             <IdText>#{request?.identifier}</IdText>
@@ -113,7 +113,7 @@ export const RequestCard: React.FC<RequestCardProps> = ({
 
           <RequestDate>{formatDate(request?.createdAt)}</RequestDate>
         </InformationContainer>
-      </TestContainer>
+      </CardContainer>
 
       <ModalDetails
         data={modalInfo}
