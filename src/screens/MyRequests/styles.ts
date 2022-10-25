@@ -14,8 +14,7 @@ interface FilterButtonProps {
 export const Container = styled.View`
   flex: 1;
   background: ${({ theme }) => theme.colors.background_over};
-  padding: 0px ${RFHeight(24)}px ${getBottomSpace() + RFHeight(24)}px
-    ${RFHeight(24)}px;
+  padding: 0px ;
   justify-content: space-between;
 `
 
@@ -28,14 +27,14 @@ export const TitleContainer = styled.View`
 
 export const Title = styled.Text`
   font-size: 25px;
-  font-family: 'Poppins_600SemiBold';
+  font-family: ${({ theme }) => theme.fonts.semiBold};
   margin-top: ${RFHeight(40)}px;
 `
 
 export const SubTitle = styled.Text`
   font-size: 15px;
   margin-top: ${RFHeight(15)}px;
-  font-family: 'Poppins_400Regular';
+  font-family: ${({ theme }) => theme.fonts.regular};
 `
 
 export const Content = styled.View`
@@ -46,6 +45,15 @@ export const TabSelectorContainer = styled.View`
   background: ${({ theme }) => theme.colors.background_over};
   flex-direction: row;
   justify-content: space-between;
+
+  shadowColor: "#000";
+  shadow-offset: {
+	width: ${RFWidth(0)}px,
+	height: ${RFWidth(5)}px,
+},
+  shadow-opacity: 0.34;
+  shadow-radius: ${RFWidth(6.27)}px;
+  elevation: 10;
 `
 
 export const TabSelectorButton = styled.TouchableOpacity<TabSelectorProps>`
@@ -75,18 +83,24 @@ export const TabSelectorButtonTitle = styled.Text<TabSelectorProps>`
       color: ${({ theme }) => theme.colors.primary};
     `}
 `
+export const SearchContainer = styled.TouchableOpacity`
+margin-left:${RFHeight(25)}px;
+margin-right:${RFHeight(25)}px;
+`
 
 export const FilterContainer = styled.View`
   background: ${({ theme }) => theme.colors.background_over};
   color: ${({ theme }) => theme.colors.text};
   margin-top: ${RFHeight(15)}px;
   flex-direction: column;
+  
 `
 
 export const FilterButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   margin-top: 10px;
+
 `
 
 export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
@@ -99,6 +113,15 @@ export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
   justify-content: center;
   margin: 0 10px;
   border-radius: 10px;
+
+  shadowColor: "#000";
+  shadow-offset: {
+	width: ${RFWidth(0)}px,
+	height: ${RFWidth(5)}px,
+},
+  shadow-opacity: 0.34;
+  shadow-radius: ${RFWidth(6.27)}px;
+  elevation: 10;
 
   ${(props) =>
     props.active &&
@@ -117,6 +140,7 @@ export const FilterButtonText = styled.Text`
 export const CardsContainer = styled.FlatList`
   margin-top: 10px;
   height: 50%;
+  width: 100%;
 `
 
 export const SearchbarContent = styled.View`
