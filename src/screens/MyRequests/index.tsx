@@ -11,6 +11,7 @@ import {
   TabSelectorButtonTitle,
   TabSelectorContainer,
   TabSelectorButton,
+  SearchContainer,
   FilterButtonText,
   FilterContainer,
   TitleContainer,
@@ -143,6 +144,7 @@ const MyRequests: React.FC = () => {
 
       <Container>
         <FilterContainer>
+          <SearchContainer>
           <TextInput
             onChangeText={setSearchTerm}
             name="searchTerm"
@@ -151,6 +153,7 @@ const MyRequests: React.FC = () => {
             control={control}
             errorMessage={errors?.filter?.message}
           />
+          </SearchContainer>
 
           <FilterButtonsContainer>
             <FilterButton
