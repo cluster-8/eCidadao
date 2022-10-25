@@ -13,6 +13,7 @@ import {
 } from './styles'
 
 import { Feather } from '@expo/vector-icons'
+import { RFHeight } from '../../utils/getResponsiveSizes'
 
 interface IModalDetails {
   // data: any;
@@ -44,7 +45,7 @@ const ModalTypes: React.FC<IModalDetails> = (props) => {
                   <TouchableOpacity key={i} onPress={() => handleSelect(el)}>
                     <TypeItem>{el.value}</TypeItem>
                     {selectedType?.key === el?.key ? (
-                      <Feather name="check" size={24} color={'#554589'} />
+                      <Feather name="check" size={RFHeight(24)} color={'#554589'} />
                     ) : null}
                   </TouchableOpacity>
                 )
