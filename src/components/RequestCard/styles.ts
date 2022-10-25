@@ -3,15 +3,27 @@ import { Feather } from '@expo/vector-icons'
 import { RFWidth } from '../../utils/getResponsiveSizes'
 
 export const RequestInformationContainer = styled.TouchableOpacity`
-  flex-flow: row;
-  align-items: center;
+  flex:1;
   padding: ${RFWidth(16)}px;
   background-color: ${({ theme }) => theme.colors.background};
   border-radius: ${RFWidth(10)}px;
-  margin: 10px 0;
+  margin-top:10px;
+  margin-left:25px;
+  margin-right:25px;
+  margin-bottom:10px;
+  
+  shadowColor: "#000";
+  shadow-offset: {
+	width: ${RFWidth(0)}px,
+	height: ${RFWidth(5)}px,
+},
+  shadow-opacity: 0.34;
+  shadow-radius: ${RFWidth(6.27)}px;
+  elevation: 10;
 `
 
-export const CardContainer = styled.View``
+export const CardContainer = styled.View`
+`
 
 export const HeaderContainer = styled.View`
   flex-direction: row;
