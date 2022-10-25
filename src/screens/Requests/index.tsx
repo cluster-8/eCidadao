@@ -19,6 +19,7 @@ import { useRequests } from '../../hooks/useRequests'
 
 import formatReqStatus from '../../utils/formatReqStatus'
 import formatReqType from '../../utils/formatReqType'
+import { RFHeight } from '../../utils/getResponsiveSizes'
 
 const { height, width } = Dimensions.get('window')
 const delta = {
@@ -163,7 +164,7 @@ const Requests: React.FC = () => {
       </MapView>
       {/* BARRA DE PESQUISA */}
       <SearchbarContent>
-        <Icon name="magnifying-glass" size={25} color={"#004997"} />
+        <Icon name="magnifying-glass" size={RFHeight(25)} color={"#004997"} />
         <SearchBar
           placeholder={"Buscar"}
           placeholderTextColor={"#666"}
@@ -172,7 +173,7 @@ const Requests: React.FC = () => {
       </SearchbarContent>
       {/* BOTÃO LOCALIZAÇÃO ATUAL */}
       <GetLocationButton onPress={handleGoToMyLocation}>
-        <GetLocationIcon name="crosshair" size={25} />
+        <GetLocationIcon name="crosshair" size={RFHeight(20)} />
       </GetLocationButton>
       {/* MODAL DETALHES */}
       <ModalDetails
