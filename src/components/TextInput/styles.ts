@@ -25,7 +25,7 @@ export const InnerContainer = styled.View<ContainerProps>`
   background: ${({ theme, editable }) =>
     editable ? theme.colors.background_over : theme.colors.background};
   border-radius: ${RFHeight(8)}px;
-  border-width: ${RFWidth(2)}px;
+  border-width: ${RFWidth(1)}px;
   border-color: ${({ theme }) => theme.colors.details};
   flex-direction: row;
   align-items: center;
@@ -39,6 +39,15 @@ export const InnerContainer = styled.View<ContainerProps>`
         css`
           border-color: ${({ theme }) => theme.colors.primary};
         `}
+  
+        shadowColor: "#000";
+        shadow-offset: {
+        width: ${RFWidth(0)}px,
+        height: ${RFWidth(5)}px,
+      },
+        shadow-opacity: 0.34;
+        shadow-radius: ${RFWidth(6.27)}px;
+        elevation: 10;
 `
 
 export const RNTextInput = styled.TextInput`
