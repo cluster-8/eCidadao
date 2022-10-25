@@ -1,4 +1,5 @@
 import React from 'react'
+import { RFHeight } from '../../utils/getResponsiveSizes'
 // import { translate } from '../../data/I18n'
 import {
   PictureStyled,
@@ -36,7 +37,7 @@ export const PictureInput: React.FC<PictureInputProps> = ({
   }
   return (
     <Placeholder model={model} onPress={onPress}>
-      <PlaceholderIcon name="camera" size={36} />
+      <PlaceholderIcon name="camera" size={RFHeight(36)} />
       {/* <PlaceholderText>{translate(placeholder)}</PlaceholderText> */}
       <UpdateImageText>Adicionar foto</UpdateImageText>
     </Placeholder>
