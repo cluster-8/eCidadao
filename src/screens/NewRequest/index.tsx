@@ -45,6 +45,7 @@ import {
   ModalBody,
 } from './styles'
 import { useForm } from 'react-hook-form'
+import { RFHeight } from '../../utils/getResponsiveSizes'
 
 const { height } = Dimensions.get('window')
 
@@ -195,7 +196,7 @@ const NewRequest: React.FC = () => {
         {orientation === 'LANDSCAPE' ? (
           <CamBtnContainer>
             <TouchableOpacityCam onPress={takePicture}>
-              <Feather name="camera" size={33} color={'#fff'} />
+              <Feather name="camera" size={RFHeight(33)} color={'#fff'} />
               <Text
                 style={{ color: 'white', fontFamily: 'Poppins_600SemiBold' }}
               >
@@ -206,7 +207,7 @@ const NewRequest: React.FC = () => {
         ) : (
           <RotateCamContainer>
             <RotateCamMessage>
-              <Feather name="rotate-cw" size={33} color={'#fff'} />
+              <Feather name="rotate-cw" size={RFHeight(33)} color={'#fff'} />
               <Text
                 style={{ color: 'white', fontFamily: 'Poppins_600SemiBold' }}
               >
@@ -296,12 +297,12 @@ const NewRequest: React.FC = () => {
                     <ModalFooter>
                       <CancelButtonContainer>
                         <TouchableOpacity onPress={discardPicture}>
-                          <Feather name="x" size={33} color={'#fff'} />
+                          <Feather name="x" size={RFHeight(33)} color={'#fff'} />
                         </TouchableOpacity>
                       </CancelButtonContainer>
                       <ConfirmButtonContainer>
                         <TouchableOpacity onPress={confirmPicture}>
-                          <Feather name="check" size={33} color={'#fff'} />
+                          <Feather name="check" size={RFHeight(33)} color={'#fff'} />
                         </TouchableOpacity>
                       </ConfirmButtonContainer>
                     </ModalFooter>
