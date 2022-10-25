@@ -45,8 +45,8 @@ export const GetLocationButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.background};
   border-color: ${({ theme }) => theme.colors.text};
   border-width: ${RFHeight(2)}px;
-  height: ${RFHeight(50)}px;
-  width: ${RFHeight(50)}px;
+  height: ${RFHeight(40)}px;
+  width: ${RFHeight(40)}px;
   margin-bottom: ${RFHeight(20)}px;
   margin-right: ${RFHeight(20)}px;
   align-items: center;
