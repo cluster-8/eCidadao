@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { Modal, ScrollView } from 'react-native'
+import { RFHeight, RFFontSize } from '../../utils/getResponsiveSizes'
 
 import {
   Container,
@@ -44,7 +45,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                 resizeMode="cover"
               >
                 <CloseButton onPress={props.handleClose}>
-                  <Entypo name="cross" size={33} />
+                  <Entypo name="cross" size={RFHeight(30)} />
                 </CloseButton>
               </Image>
             </ImageContent>
@@ -55,7 +56,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="location-pin" size={22} color={'#d1345b'} />
+                    <Entypo name="location-pin" size={RFHeight(22)} color={'#d1345b'} />
                   </IconContainer>
 
                   <Info>{props?.data.address}</Info>
@@ -63,7 +64,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="calendar" size={22} color={'#d1345b'} />
+                    <Entypo name="calendar" size={RFHeight(22)} color={'#d1345b'} />
                   </IconContainer>
 
                   <Info>{`Submetido em ${new Date(
@@ -73,7 +74,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="tag" size={22} color={'#d1345b'} />
+                    <Entypo name="tag" size={RFHeight(22)} color={'#d1345b'} />
                   </IconContainer>
 
                   <Info>{props?.data.type}</Info>
@@ -81,7 +82,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="text" size={22} color={'#d1345b'} />
+                    <Entypo name="text" size={RFHeight(22)} color={'#d1345b'} />
                   </IconContainer>
 
                   <Info>{props?.data.description}</Info>
@@ -89,7 +90,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="warning" size={22} color={'#d1345b'} />
+                    <Entypo name="warning" size={RFHeight(22)} color={'#d1345b'} />
                   </IconContainer>
 
                   <Info>{formatReqStatus(props?.data.status)}</Info>
