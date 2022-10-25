@@ -15,7 +15,7 @@ export const Content = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: ${RFHeight(22)}px;
-  margin-bottom: ${RFHeight(-20)}px;;
+  margin-bottom: ${RFHeight(-20)}px;
 `
 
 export const ModalContent = styled.View`
@@ -57,11 +57,12 @@ export const DescriptionContainer = styled.View`
   margin-left: ${RFHeight(30)}px;
 `
 
-export const Image = styled(ImageBackground)`
+export const Image = styled(ImageBackground as any)`
   width: 100%;
   height: ${RFHeight(265)}px;
-  /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);   */
+  /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);*/
 `
+
 
 export const Title = styled.Text`
   color: #3f3e40;
