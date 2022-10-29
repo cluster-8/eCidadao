@@ -35,7 +35,7 @@ export const Icon = styled(Entypo)`
   position: absolute;
   top: ${RFHeight(15)}px;
   z-index: 1;
-  right: ${RFHeight(30)}px;
+  right: ${RFHeight(40)}px;
 `
 
 export const GetLocationButton = styled.TouchableOpacity`
@@ -45,8 +45,8 @@ export const GetLocationButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.background};
   border-color: ${({ theme }) => theme.colors.text};
   border-width: ${RFHeight(2)}px;
-  height: ${RFHeight(40)}px;
-  width: ${RFHeight(40)}px;
+  height: ${RFHeight(45)}px;
+  width: ${RFHeight(45)}px;
   margin-bottom: ${RFHeight(20)}px;
   margin-right: ${RFHeight(20)}px;
   align-items: center;
