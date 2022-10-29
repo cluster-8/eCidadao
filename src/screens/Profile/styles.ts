@@ -19,11 +19,12 @@ export const HeaderContainer = styled.View`
 export const HeaderTitle = styled.Text`
   font-size: ${RFFontSize(25)}px;
   font-family: ${({ theme }) => theme.fonts.semiBold};
-  margin-top: ${RFHeight(10)}px;
+  margin-top: ${RFHeight(40)}px;  
 `
 
 export const HeaderText = styled.Text`
-  font-size: ${RFFontSize(15)}px;
+  font-size: ${RFFontSize(16)}px;
+  margin-top: ${RFHeight(15)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `
 
