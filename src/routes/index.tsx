@@ -27,15 +27,15 @@ export const Routes: React.FC = () => {
     [theme],
   )
 
+  console.log(authUser.id)
+
   return (
     <NavigationContainer>
-      {/* {!authUser.id ? (
+      {!authUser.id ? (
         <AuthRoutes screenOptions={screenOptions} />
       ) : (
         <AppRoutes />
-      )} */}
-
-      <AppRoutes />
+      )}
     </NavigationContainer>
   )
 }

@@ -297,12 +297,20 @@ const NewRequest: React.FC = () => {
                     <ModalFooter>
                       <CancelButtonContainer>
                         <TouchableOpacity onPress={discardPicture}>
-                          <Feather name="x" size={RFHeight(33)} color={'#fff'} />
+                          <Feather
+                            name="x"
+                            size={RFHeight(33)}
+                            color={'#fff'}
+                          />
                         </TouchableOpacity>
                       </CancelButtonContainer>
                       <ConfirmButtonContainer>
                         <TouchableOpacity onPress={confirmPicture}>
-                          <Feather name="check" size={RFHeight(33)} color={'#fff'} />
+                          <Feather
+                            name="check"
+                            size={RFHeight(33)}
+                            color={'#fff'}
+                          />
                         </TouchableOpacity>
                       </ConfirmButtonContainer>
                     </ModalFooter>

@@ -3,16 +3,10 @@ import { Dimensions } from 'react-native'
 
 import MapView, { Marker } from 'react-native-maps'
 
-import {
-  Container,
-  GetLocationButton,
-  GetLocationIcon,
-  Icon,
-  SearchBar,
-  SearchbarContent,
-} from './styles'
+import { Container, GetLocationButton, GetLocationIcon } from './styles'
 
 import ModalDetails from '../../components/ModalDetails'
+import SearchBar from '../../components/SearchBar'
 
 import { useLocation } from '../../hooks/useLocation'
 import { useRequests } from '../../hooks/useRequests'
@@ -121,8 +115,8 @@ const Requests: React.FC = () => {
       <MapView
         ref={mapRef}
         style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
         }}
         showsMyLocationButton={false}
         showsUserLocation={true}
@@ -144,33 +138,31 @@ const Requests: React.FC = () => {
             }}
             title={formatReqType(request.type)}
             pinColor={
-              formatReqStatus(request.status) === "Fechada"
-                ? "#02842a"
-                : "#cd0019"
+              formatReqStatus(request.status) === 'Fechada'
+                ? '#02842a'
+                : '#cd0019'
             }
             onPress={() => {
-              handleSelect(request);
+              handleSelect(request)
               // setCurrentSolicitacao(request);
               setCurrentRegion({
                 latitude: Number(request.address.lat),
                 longitude: Number(request.address.long),
                 latitudeDelta: currentRegion.latitudeDelta,
                 longitudeDelta: currentRegion.longitudeDelta,
-              });
-              setModalVisible(true);
+              })
+              setModalVisible(true)
             }}
           />
         ))}
       </MapView>
       {/* BARRA DE PESQUISA */}
-      <SearchbarContent>
-        <Icon name="magnifying-glass" size={RFHeight(25)} color={"#004997"} />
-        <SearchBar
-          placeholder={"Buscar"}
-          placeholderTextColor={"#666"}
-          onChangeText={(text: any) => setSearchTerm(text)}
-        />
-      </SearchbarContent>
+      <SearchBar
+        onChangeText={(text: any) => setSearchTerm(text)}
+        name="searchTerm"
+        icon="search"
+        placeholder="Buscar"
+      />
       {/* BOTÃO LOCALIZAÇÃO ATUAL */}
       <GetLocationButton onPress={handleGoToMyLocation}>
         <GetLocationIcon name="crosshair" size={RFHeight(20)} />
@@ -182,7 +174,7 @@ const Requests: React.FC = () => {
         handleClose={() => setModalVisible(false)}
       />
     </Container>
-  );
+  )
 }
 
 export default Requests

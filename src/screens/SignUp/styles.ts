@@ -9,7 +9,7 @@ export const FormContainer = styled.View`
 `
 export const HeaderContainer = styled.View`
   align-items: center;
-  resizemode: contain;
+  /* resizemode: contain; */
   width: 100%;
   justify-content: center;
   height: 20%;
@@ -62,7 +62,7 @@ export const LoginView = styled.View`
   margin-top: ${RFHeight(20)}px;
   margin-bottom: ${RFHeight(20)}px;
   justify-content: center;
-  align-itens: center;
+  align-items: center;
 `
 
 export const LoginText = styled.Text`

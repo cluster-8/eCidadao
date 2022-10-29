@@ -1,4 +1,4 @@
-import { useNavigation, NavigationContainer } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/core'
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
@@ -10,6 +10,7 @@ import { NavigatorProps } from '.'
 import { AuthRoutesParams } from '../data/routes/auth'
 import SignIn from '../screens/SignIn'
 import SignUp from '../screens/SignUp'
+import ForgotPassword from '../screens/ForgotPassword'
 
 /* import { Splash } from '../pages/Splash';
  */
@@ -59,6 +60,12 @@ export const AuthRoutes: React.FC<NavigatorProps> = ({ screenOptions }) => {
       />
 
       <Stack.Screen name="SignUp" component={SignUp} options={options} />
+
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+        options={options}
+      />
     </Stack.Navigator>
   )
 }
