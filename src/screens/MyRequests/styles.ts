@@ -26,14 +26,14 @@ export const TitleContainer = styled.View`
 `
 
 export const Title = styled.Text`
-  font-size: 25px;
+  font-size: ${RFFontSize(25)}px;
   font-family: ${({ theme }) => theme.fonts.semiBold};
   margin-top: ${RFHeight(40)}px;
 `
 
 export const SubTitle = styled.Text`
-  font-size: 15px;
-  margin-top: ${RFHeight(15)}px;
+font-size: ${RFFontSize(16)}px;
+margin-top: ${RFHeight(15)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `
 
@@ -57,7 +57,7 @@ export const TabSelectorContainer = styled.View`
 `
 
 export const TabSelectorButton = styled.TouchableOpacity<TabSelectorProps>`
-  height: ${RFHeight(56)}px;
+  height: ${RFHeight(58)}px;
   width: 50%;
   justify-content: center;
   align-items: center;
@@ -73,9 +73,9 @@ export const TabSelectorButton = styled.TouchableOpacity<TabSelectorProps>`
 export const TabSelectorButtonTitle = styled.Text<TabSelectorProps>`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.text};
-  margin-left: 25px;
-  margin-right: 25px;
-  font-size: 15px;
+  margin-left: ${RFHeight(25)}px;
+  margin-right: ${RFHeight(25)}px
+  font-size: ${RFFontSize(16)}px;
 
   ${(props) =>
     props.active &&
@@ -98,7 +98,7 @@ export const FilterContainer = styled.View`
 export const FilterButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: ${RFHeight(10)}px;
 `
 
 export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
@@ -109,8 +109,8 @@ export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0 10px;
-  border-radius: 10px;
+  margin: 0 ${RFHeight(10)}px;
+  border-radius: ${RFHeight(10)}px;
 
   shadowColor: "#000";
   shadow-offset: {
@@ -132,11 +132,11 @@ export const Icon = styled(Feather)``
 
 export const FilterButtonText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
-  margin-left: 5px;
+  margin-left: ${RFHeight(5)}px;
 `
 
 export const CardsContainer = styled.FlatList`
-  margin-top: 10px;
+  margin-top: ${RFHeight(10)}px;
   height: 50%;
   width: 100%;
 `

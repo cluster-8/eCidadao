@@ -9,6 +9,7 @@ import MyRequests from '../screens/MyRequests'
 // import SignIn from '../screens/SignIn'
 
 import { Feather } from '@expo/vector-icons'
+import { RFHeight } from '../utils/getResponsiveSizes'
 // import SignUp from '../screens/SignUp'
 
 const Tab = createBottomTabNavigator()
@@ -24,8 +25,8 @@ export const AppRoutes = () => {
       tabBarActiveTintColor: '#004997',
       tabBarStyle: {
         height: '8%',
-        paddingBottom: 5,
-        paddingTop: 5,
+        paddingBottom: RFHeight(5),
+        paddingTop: RFHeight(5),
       },
     }
 

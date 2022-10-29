@@ -104,7 +104,9 @@ const SignIn: React.FC = (props: any) => {
           </ForgotPasswdButton>
         </TouchableOpacity>
 
-        <Button title="Entrar" onPress={handleSubmit(signIn)} />
+        <TouchableOpacity onPress={handleSubmit(signIn)}>
+          <Button title="Entrar" onPress={handleSubmit(signIn)} />
+        </TouchableOpacity>
 
         <TouchableOpacity>
           <SubscribeButton onPress={() => navigation?.navigate('SignUp')}>

@@ -18,8 +18,8 @@ export const HeaderContainer = styled.View`
 `;
 
 export const HeaderTitle = styled.Text`
-  font-size: 25px;
-  font-family: "Poppins_600SemiBold";
+  font-size: ${RFFontSize(25)}px;
+  font-family: ${({ theme }) => theme.fonts.semiBold};
   margin-top: ${RFHeight(10)}px;
 `;
 
@@ -28,9 +28,8 @@ export const HeaderText = styled.Text`
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  font-size: 15px;
-  font-family: "Poppins_400Regular";
-`;
+  font-size: ${RFFontSize(16)}px;
+  font-family: ${({ theme }) => theme.fonts.regular}`;
 
 export const PictureContainer = styled.View`
   flex: 1;
@@ -49,8 +48,8 @@ export const FormContainer = styled.View`
 
 export const CancelButtonContainer = styled.View`
   margin: ${RFHeight(24)}px;
-  width: 70px;
-  height: 70px;
+  width: ${RFHeight(70)}px;
+  height: ${RFHeight(70)}px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -60,8 +59,8 @@ export const CancelButtonContainer = styled.View`
 
 export const ConfirmButtonContainer = styled.View`
   margin: ${RFHeight(24)}px;
-  width: 70px;
-  height: 70px;
+  width: ${RFHeight(70)}px;
+  height: ${RFHeight(70)}px;
   align-items: center;
   justify-content: center;
   text-align: center;

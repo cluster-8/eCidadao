@@ -130,9 +130,9 @@ const Profile: React.FC = () => {
           icon="lock"
         />
 
-        <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton>
+        {/* <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton> */}
 
-        {/* <ExcludeButton onPress={logout}>Sair </ExcludeButton> */}
+        <ExcludeButton onPress={logout}>Sair </ExcludeButton>
 
         <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
       </BodyContainer>

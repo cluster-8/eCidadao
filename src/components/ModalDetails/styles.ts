@@ -6,8 +6,8 @@ export const Container = styled.View`
   flex: 1%;
   justify-content: center;
   align-items: center;
-  margin-top: 22px;
-  margin-bottom: -20px;
+  margin-top: ${RFHeight(22)}px;
+  margin-bottom: ${RFHeight(-20)}px;
 `
 
 export const Content = styled.View`
@@ -70,7 +70,7 @@ export const Title = styled.Text`
   line-height: ${RFHeight(84)}px;
   font-weight: bold;
   text-align: center;
-  font-family: 'Poppins_600SemiBold';
+  font-family: ${({ theme }) => theme.fonts.semiBold};
 `
 
 export const InfoRow = styled.View`
@@ -89,6 +89,6 @@ export const Info = styled.Text`
   justify-content: center;
   width: 90%;
   font-size: ${RFFontSize(14)}px;
-  font-family: 'Poppins_400Regular';
-  margin-bottom: 10px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  margin-bottom: ${RFHeight(10)}px;
 `
