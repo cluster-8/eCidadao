@@ -52,7 +52,6 @@ const SignIn: React.FC = (props: any) => {
     await signInWithPassword(data)
   }
 
-
   useEffect(() => {
     register('email')
     register('password')
@@ -101,7 +100,9 @@ const SignIn: React.FC = (props: any) => {
           <ForgotPasswdButton>Esqueci minha senha</ForgotPasswdButton>
         </TouchableOpacity>
 
-        <Button title="Entrar" onPress={handleSubmit(signIn)} />
+        <TouchableOpacity onPress={handleSubmit(signIn)}>
+          <Button title="Entrar" onPress={handleSubmit(signIn)} />
+        </TouchableOpacity>
 
         <TouchableOpacity>
           <SubscribeButton onPress={() => navigation?.navigate('SingUp')}>
