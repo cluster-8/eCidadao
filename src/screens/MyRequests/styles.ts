@@ -14,7 +14,7 @@ interface FilterButtonProps {
 export const Container = styled.View`
   flex: 1;
   background: ${({ theme }) => theme.colors.background_over};
-  padding: 0px ;
+  padding: 0px;
   justify-content: space-between;
 `
 
@@ -84,8 +84,8 @@ export const TabSelectorButtonTitle = styled.Text<TabSelectorProps>`
     `}
 `
 export const SearchContainer = styled.TouchableOpacity`
-margin-left:${RFHeight(25)}px;
-margin-right:${RFHeight(25)}px;
+  margin-left: ${RFHeight(25)}px;
+  margin-right: ${RFHeight(25)}px;
 `
 
 export const FilterContainer = styled.View`
@@ -93,14 +93,12 @@ export const FilterContainer = styled.View`
   color: ${({ theme }) => theme.colors.text};
   margin-top: ${RFHeight(15)}px;
   flex-direction: column;
-  
 `
 
 export const FilterButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   margin-top: ${RFHeight(10)}px;
-
 `
 
 export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`

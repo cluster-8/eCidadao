@@ -97,7 +97,11 @@ const SignIn: React.FC = (props: any) => {
             console.log('TODO: direcionar para a tela de "Esqueci a senha"...')
           }
         >
-          <ForgotPasswdButton>Esqueci minha senha</ForgotPasswdButton>
+          <ForgotPasswdButton
+            onPress={() => navigation?.navigate('ForgotPassword')}
+          >
+            Esqueci minha senha
+          </ForgotPasswdButton>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handleSubmit(signIn)}>
@@ -105,7 +109,7 @@ const SignIn: React.FC = (props: any) => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <SubscribeButton onPress={() => navigation?.navigate('SingUp')}>
+          <SubscribeButton onPress={() => navigation?.navigate('SignUp')}>
             Cadastre-se
           </SubscribeButton>
         </TouchableOpacity>

@@ -14,8 +14,8 @@ export const SearchbarContent = styled.View`
   position: absolute;
   top: ${RFHeight(20)}px;
   width: 100%;
-  margin-left: ${RFHeight(20)}px;
-  margin-right: ${RFHeight(20)}px;
+  margin-left: ${RFHeight(25)}px;
+  margin-right: ${RFHeight(25)}px;
 `
 
 export const SearchBar = styled.TextInput`

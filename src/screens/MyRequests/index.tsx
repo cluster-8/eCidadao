@@ -145,14 +145,14 @@ const MyRequests: React.FC = () => {
       <Container>
         <FilterContainer>
           <SearchContainer>
-          <TextInput
-            onChangeText={setSearchTerm}
-            name="searchTerm"
-            icon="search"
-            placeholder="Busque por nome ou local"
-            control={control}
-            errorMessage={errors?.filter?.message}
-          />
+            <TextInput
+              onChangeText={setSearchTerm}
+              name="searchTerm"
+              icon="search"
+              placeholder="Busque por nome ou local"
+              control={control}
+              errorMessage={errors?.filter?.message}
+            />
           </SearchContainer>
 
           <FilterButtonsContainer>

@@ -40,10 +40,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
         <Content onPress={props.handleClose}>
           <ModalContent>
             <ImageContent>
-              <Image
-                source={{ uri: props?.data.image }}
-                resizeMode="cover"
-              >
+              <Image source={{ uri: props?.data.image }} resizeMode="cover">
                 <CloseButton onPress={props.handleClose}>
                   <Entypo name="cross" size={RFHeight(30)} />
                 </CloseButton>
@@ -56,7 +53,11 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="location-pin" size={RFHeight(22)} color={'#d1345b'} />
+                    <Entypo
+                      name="location-pin"
+                      size={RFHeight(22)}
+                      color={'#d1345b'}
+                    />
                   </IconContainer>
 
                   <Info>{props?.data.address}</Info>
@@ -64,7 +65,11 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="calendar" size={RFHeight(22)} color={'#d1345b'} />
+                    <Entypo
+                      name="calendar"
+                      size={RFHeight(22)}
+                      color={'#d1345b'}
+                    />
                   </IconContainer>
 
                   <Info>{`Submetido em ${new Date(
@@ -90,7 +95,11 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                 <InfoRow>
                   <IconContainer>
-                    <Entypo name="warning" size={RFHeight(22)} color={'#d1345b'} />
+                    <Entypo
+                      name="warning"
+                      size={RFHeight(22)}
+                      color={'#d1345b'}
+                    />
                   </IconContainer>
 
                   <Info>{formatReqStatus(props?.data.status)}</Info>

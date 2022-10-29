@@ -27,6 +27,8 @@ export const Routes: React.FC = () => {
     [theme],
   )
 
+  console.log(authUser.id)
+
   return (
     <NavigationContainer>
       {!authUser.id ? (
@@ -34,8 +36,6 @@ export const Routes: React.FC = () => {
       ) : (
         <AppRoutes />
       )}
-
-      {/* <AppRoutes /> */}
     </NavigationContainer>
   )
 }
