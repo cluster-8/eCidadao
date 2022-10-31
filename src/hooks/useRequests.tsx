@@ -39,7 +39,9 @@ export interface Request {
 
 interface RequestsContextData {
   createRequest: (data: any) => Promise<any>
+  finalizeRequest: (data: any, id: any) => Promise<any>
   getUserRequests: () => Promise<any>
+  getTechnicalRequests: () => Promise<any>
   getRequests: () => Promise<any>
   userRequests: any
   getData: any
@@ -61,6 +63,14 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     const queryStr =
       'identifier image address type status createdAt description'
     const { data } = await api.get(`/requests?select=${queryStr}`)
+    return data
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getTechnicalRequests = async (queryParams: String = '') => {
+    // const queryStr =
+    //   'identifier image address type status createdAt description'
+    const { data } = await api.get(`requests/technical?select=all`)
     return data
   }
 
@@ -117,6 +127,49 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const finalizeRequest = async (data: any, id: any) => {
+    try {
+      const response = await api.put(`requests/technical/${id}`, data)
+      console.log('Response...', { response })
+      if (response.status === 200) {
+        Alert.alert(
+          'Finalizar solicitação',
+          'Finalização de solicitação de manutenção realizada com sucesso!',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                console.log('Ok pressed')
+              },
+            },
+          ],
+        )
+      } else {
+        Alert.alert(
+          'Falha',
+          'Algo deu errado durante o registro de finalização de solicitação. Tente novamente.',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                console.log('Ok pressed')
+              },
+            },
+          ],
+        )
+      }
+
+      await getData()
+      console.log('passei pelo getData')
+
+      return response
+    } catch (error) {
+      console.log('caí no catch()...')
+      console.log(error)
+    }
+  }
+
   const userRequests = useMemo(async () => {
     if (authUser.id) {
       // const data = await getUserRequests()
@@ -127,13 +180,20 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getData() {
-    const data = await getUserRequests()
+    let data
+    if (authUser.role === 'technical') {
+      data = await getTechnicalRequests()
+    } else {
+      data = await getUserRequests()
+    }
     setReqData(data)
   }
 
   const providerValue = useMemo(
     () => ({
       getUserRequests,
+      getTechnicalRequests,
+      finalizeRequest,
       createRequest,
       userRequests,
       getRequests,
@@ -142,6 +202,8 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     }),
     [
       getUserRequests,
+      getTechnicalRequests,
+      finalizeRequest,
       createRequest,
       userRequests,
       getRequests,

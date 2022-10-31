@@ -26,7 +26,7 @@ const Requests: React.FC = () => {
 
   const { coords } = useLocation()
 
-  const { getRequests, reqData } = useRequests()
+  const { reqData, getTechnicalRequests } = useRequests()
 
   const [data, setData] = useState<any[]>()
 
@@ -43,6 +43,7 @@ const Requests: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const requests: any = useMemo(() => {
+    console.log(data)
     if (!searchTerm) return data
 
     return data?.filter(
@@ -54,7 +55,7 @@ const Requests: React.FC = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getData = async () => {
-    const data: any = await getRequests()
+    const data: any = await getTechnicalRequests()
     if (data) setData(data)
   }
 
@@ -78,10 +79,6 @@ const Requests: React.FC = () => {
       },
     })
   }
-
-  // useEffect(() => {
-  //   ;(async () => await getData())()
-  // }, [getData])
 
   useEffect(() => {
     getData()
@@ -130,30 +127,34 @@ const Requests: React.FC = () => {
         // region={currentRegion}
       >
         {requests?.map((request: any, index: any) => (
-          <Marker
-            key={index}
-            coordinate={{
-              latitude: Number(request.address.lat),
-              longitude: Number(request.address.long),
-            }}
-            title={formatReqType(request.type)}
-            pinColor={
-              formatReqStatus(request.status) === 'Fechada'
-                ? '#02842a'
-                : '#cd0019'
-            }
-            onPress={() => {
-              handleSelect(request)
-              // setCurrentSolicitacao(request);
-              setCurrentRegion({
-                latitude: Number(request.address.lat),
-                longitude: Number(request.address.long),
-                latitudeDelta: currentRegion.latitudeDelta,
-                longitudeDelta: currentRegion.longitudeDelta,
-              })
-              setModalVisible(true)
-            }}
-          />
+          <>
+            {request.status === 'opened' && (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: Number(request.address.lat),
+                  longitude: Number(request.address.long),
+                }}
+                title={formatReqType(request.type)}
+                pinColor={
+                  formatReqStatus(request.status) === 'Fechada'
+                    ? '#02842a'
+                    : '#cd0019'
+                }
+                onPress={() => {
+                  handleSelect(request)
+                  // setCurrentSolicitacao(request);
+                  setCurrentRegion({
+                    latitude: Number(request.address.lat),
+                    longitude: Number(request.address.long),
+                    latitudeDelta: currentRegion.latitudeDelta,
+                    longitudeDelta: currentRegion.longitudeDelta,
+                  })
+                  setModalVisible(true)
+                }}
+              />
+            )}
+          </>
         ))}
       </MapView>
       {/* BARRA DE PESQUISA */}

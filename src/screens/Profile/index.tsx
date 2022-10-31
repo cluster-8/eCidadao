@@ -124,7 +124,6 @@ const Profile: React.FC = () => {
           defaultValue={authUser.password}
           control={control}
           placeholder="Senha"
-          // secureTextEntry
           name="password"
           label="Senha"
           icon="lock"

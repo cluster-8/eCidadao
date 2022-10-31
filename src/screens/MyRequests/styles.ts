@@ -32,8 +32,8 @@ export const Title = styled.Text`
 `
 
 export const SubTitle = styled.Text`
-font-size: ${RFFontSize(16)}px;
-margin-top: ${RFHeight(15)}px;
+  font-size: ${RFFontSize(16)}px;
+  margin-top: ${RFHeight(15)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `
 
@@ -161,3 +161,163 @@ export const SearchBar = styled.TextInput`
   font-size: ${RFFontSize(18)}px;
   width: 90%;
 `
+
+export const CamBtnContainer = styled.View`
+  flex: 1;
+  background-color: 'transparent';
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: ${RFHeight(50)}px;
+`
+
+export const TouchableOpacityCam = styled.TouchableOpacity<TypeProps>`
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(90deg);
+  ${(props) =>
+    props.type === 'secondary' &&
+    css`
+      border-width: ${RFWidth(2)}px;
+      border-color: ${({ theme }) => theme.colors.primary};
+    `}
+`
+
+export const RotateCamContainer = styled.View`
+  flex: 1;
+  background-color: 'transparent';
+  background-color: '#123567'
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: ${RFHeight(50)}px;
+`
+
+export const RotateCamMessage = styled.View`
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 5s;
+`
+
+export const ModalBody = styled.View`
+  flex: 1;
+  /* justify-content: center; */
+  align-items: center;
+  margin: ${RFHeight(20)}px;
+`
+
+export const ModalImage = styled.Image`
+  width: 100%;
+  height: 40%
+  border-radius: ${RFHeight(10)}px;
+`
+export const BtnContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: ${RFHeight(60)}px;
+`
+
+export const CancelButtonContainer = styled.View`
+  margin: ${RFHeight(24)}px;
+  width: ${RFHeight(70)}px;
+  height: ${RFHeight(70)}px;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  background-color: ${({ theme }) => theme.colors.attention};
+  border-radius: ${RFHeight(80)}px;
+  /* position: fixed; */
+`
+
+export const ConfirmButtonContainer = styled.View`
+  margin: ${RFHeight(24)}px;
+  width: ${RFHeight(70)}px;
+  height: ${RFHeight(70)}px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: ${({ theme }) => theme.colors.success};
+  border-radius: ${RFHeight(80)}px;
+`
+
+export const ActivityIndicatorView = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding: ${RFHeight(10)}px;
+`
+
+export const HeaderContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: 20%;
+`
+
+export const HeaderTitle = styled.Text`
+  font-size: ${RFFontSize(25)}px;
+  font-family: ${({ theme }) => theme.fonts.semiBold};
+  margin-top: ${RFHeight(10)}px;
+`
+
+export const HeaderText = styled.Text`
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: ${RFFontSize(16)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+`
+
+export const FormContainer = styled.View`
+  background: #fff;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: ${RFHeight(32)}px;
+  border-top-right-radius: ${RFHeight(32)}px;
+  padding: ${RFHeight(24)}px;
+`
+
+// export const ModalFooter = styled.View`
+//   flex: 1;
+//   flex-direction: row;
+
+// `
+
+export const ConfirmButton = styled.TouchableOpacity`
+  /* height: ${RFHeight(40)}px; */
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  background: ${({ theme }) => theme.colors.success};
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: ${RFWidth(120)}px;
+  padding: ${RFWidth(8)}px;
+`;
+
+export const DiscardButton = styled.TouchableOpacity`
+  /* height: ${RFHeight(40)}px; */
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  background: ${({ theme }) => theme.colors.red};
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: ${RFWidth(120)}px;
+  padding: ${RFWidth(8)}px;
+`
+
+export const ButtonText = styled.Text`
+  font-size: ${RFFontSize(15)}px;
+  font-family: ${({ theme }) => theme.fonts.semiBold};
+  /* margin-top: ${RFHeight(40)}px; */
+  /* align-items: center; */
+  /* text-align: center; */
+  /* justify-content: center; */
+  color: ${({ theme }) => theme.colors.white};
+  margin-left: ${RFHeight(10)}px;
+`;
+

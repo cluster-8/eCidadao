@@ -71,7 +71,7 @@ const NewRequest: React.FC = () => {
   })
 
   const { getAddress, coords } = useLocation()
-  const { createRequest, reqData } = useRequests()
+  const { createRequest } = useRequests()
 
   const {
     hasCameraPermission,
