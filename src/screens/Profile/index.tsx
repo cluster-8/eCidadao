@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Alert } from 'react-native'
+import { Alert, Text } from 'react-native'
 import * as yup from 'yup'
 
 import { TextInput } from '../../components/TextInput'
@@ -9,15 +9,28 @@ import { useForm } from 'react-hook-form'
 
 import { useAuth } from '../../hooks/useAuth'
 
+import { Entypo } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
+
 import {
   HeaderContainer,
-  ExcludeButton,
   HeaderTitle,
   HeaderText,
   Container,
+  LogOffButton,
+  ButtonContainer,
+  ExcludeContainer,
+  ExcludeTitleContainer,
+  ExcludeTitle,
+  DescriptionContainer,
+  DescriptionText,
+  ExcludeButton,
+  ExcludeText,
+  ExcludeButtonContainer
 } from './styles'
 
 import { BodyContainer } from '../SignUp/styles'
+import { RFHeight } from '../../utils/getResponsiveSizes'
 
 const userData = yup.object().shape({
   password: yup.string().min(6, 'Mínimo de 6 caracteres'),
@@ -82,7 +95,11 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
+ 
       <HeaderContainer>
+      <LogOffButton onPress={logout}>
+          <Entypo name="log-out" size={RFHeight(35)}/>
+          </LogOffButton>       
         <HeaderTitle>Meu Perfil</HeaderTitle>
         <HeaderText>Visualize ou altere seus dados</HeaderText>
       </HeaderContainer>
@@ -129,11 +146,30 @@ const Profile: React.FC = () => {
           icon="lock"
         />
 
-        {/* <ExcludeButton onPress={deleteAccount}>Excluir Conta</ExcludeButton> */}
-
-        <ExcludeButton onPress={logout}>Sair </ExcludeButton>
-
+        <ButtonContainer>
         <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
+        </ButtonContainer>
+
+        <ExcludeContainer>
+          <ExcludeTitleContainer>
+            <Ionicons
+            name="trash"
+            size={RFHeight(25)}
+            color={'#3F3E40'}
+            />
+          <ExcludeTitle>Deletar sua conta</ExcludeTitle>
+          </ExcludeTitleContainer>
+          <DescriptionContainer>
+            <DescriptionText>Essa ação é irreversível. Você irá deletar sua conta pessoal e todos seus dados. </DescriptionText>
+          </DescriptionContainer>
+          <ExcludeButtonContainer>
+
+          <ExcludeButton onPress={deleteAccount}>
+            <ExcludeText>Deletar Conta</ExcludeText>
+          </ExcludeButton>
+          </ExcludeButtonContainer>
+
+        </ExcludeContainer>
       </BodyContainer>
     </Container>
   )
