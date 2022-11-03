@@ -43,12 +43,12 @@ export const InnerContainer = styled.View<ContainerProps>`
         shadowColor: "#000";
         shadow-offset: {
         width: ${RFWidth(0)}px,
-        height: ${RFWidth(5)}px,
+        height: ${RFWidth(1)}px,
       },
-        shadow-opacity: 0.34;
-        shadow-radius: ${RFWidth(6.27)}px;
-        elevation: 10;
-`
+        shadow-opacity: 0.22;
+        shadow-radius: ${RFWidth(2.22)}px;
+        elevation: 3;
+      `
 
 export const RNTextInput = styled.TextInput`
   flex: 1;
@@ -76,7 +76,7 @@ export const FeatherIcon = styled(Feather)<FeatherIconProps>`
 
 export const InputLabel = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: ${RFFontSize(14)}px;
+  font-size: ${RFFontSize(16)}px;
   margin-top: ${RFHeight(12)}px;
   margin-bottom: ${RFHeight(8)}px;
 `
