@@ -73,9 +73,8 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                   </CloseButton>
                 </Image>
               </ImageContent>
-
+              <ScrollView>
               <DescriptionContainer>
-                <ScrollView>
                   <TitleContainer>
                     <Title>{`Solicitação: #${props?.data.identifier}`}</Title>
                     {authUser.role !== 'client' &&
@@ -155,8 +154,8 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
                     <Info>{formatReqStatus(props?.data.status)}</Info>
                   </InfoRow>
-                </ScrollView>
               </DescriptionContainer>
+              </ScrollView>
             </ModalContent>
           </Content>
         </Modal>
