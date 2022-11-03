@@ -54,9 +54,8 @@ export const DescriptionContainer = styled.View`
   justify-content: flex-start;
   align-items: flex-start;
   padding: ${RFHeight(10)}px;
-  margin-top: ${RFHeight(100)}px;
-  margin-bottom: ${RFHeight(40)}px;
-  margin-left: ${RFHeight(30)}px;
+  margin-top: ${RFHeight(200)}px;
+  margin-bottom: ${RFHeight(10)}px;
 `
 
 export const Image = styled(ImageBackground as any)`
@@ -70,6 +69,7 @@ export const TitleContainer = styled.View`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: ${RFHeight(10)}px;
 `;
 
 export const Title = styled.Text`
@@ -108,8 +108,9 @@ export const FinalizeButton = styled.TouchableOpacity`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: ${RFWidth(80)}px;
+  width: ${RFWidth(83)}px;
   padding: ${RFWidth(8)}px;
+  left: ${RFWidth(30)}px;
 `
 
 export const BtnText = styled.Text`
