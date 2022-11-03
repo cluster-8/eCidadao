@@ -15,11 +15,11 @@ export const RequestInformationContainer = styled.TouchableOpacity`
   shadowColor: "#000";
   shadow-offset: {
 	width: ${RFWidth(0)}px,
-	height: ${RFWidth(5)}px,
+	height: ${RFWidth(1)}px,
 },
-  shadow-opacity: 0.34;
-  shadow-radius: ${RFWidth(6.27)}px;
-  elevation: 10;
+  shadow-opacity: 0.22;
+  shadow-radius: ${RFWidth(2.22)}px;
+  elevation: 3;
 `
 
 export const CardContainer = styled.View`
