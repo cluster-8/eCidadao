@@ -61,7 +61,7 @@ const SignIn: React.FC = (props: any) => {
     <Container>
       <HeaderContainer>
         <Animatable.Image
-          style={{ width: 250, height: 250 }}
+          style={{ width: 230, height: 230 }}
           animation="flipInY"
           source={logoImage}
         />

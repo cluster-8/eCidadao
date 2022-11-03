@@ -38,7 +38,7 @@ export const ForgotPasswdButton = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   margin-top: ${RFHeight(10)}px;
   margin-bottom: ${RFHeight(20)}px;
-  font-size: ${RFFontSize(14)}px;
+  font-size: ${RFFontSize(16)}px;
 `
 
 export const ContainerButton = styled.View`
@@ -49,7 +49,7 @@ export const ContainerButton = styled.View`
 export const SubscribeButton = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.primary};
-  font-size: ${RFFontSize(14)}px;
+  font-size: ${RFFontSize(16)}px;
   align-self: center;
   margin-top: ${RFHeight(15)}px;
 `
