@@ -6,9 +6,7 @@ interface TypeProps {
 }
 
 export const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  height: 100%;
+
 `;
 
 export const HeaderContainer = styled.View`
@@ -40,7 +38,7 @@ export const FormContainer = styled.View`
   background: #fff;
   flex: 1;
   width: 100%;
-  height: 100%;
+  height: 80%;
   border-top-left-radius: ${RFHeight(32)}px;
   border-top-right-radius: ${RFHeight(32)}px;
   padding: ${RFHeight(24)}px;
@@ -171,3 +169,7 @@ export const ActivityIndicatorView = styled.View`
   justify-content: center;
   padding: ${RFHeight(10)}px;
 `;
+
+export const ButtonContainer = styled.View`
+margin-bottom: ${RFHeight(60)}px;
+`

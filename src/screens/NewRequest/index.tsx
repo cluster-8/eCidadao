@@ -43,6 +43,7 @@ import {
   ModalImage,
   Container,
   ModalBody,
+  ButtonContainer,
 } from './styles'
 import { useForm } from 'react-hook-form'
 import { RFHeight } from '../../utils/getResponsiveSizes'
@@ -374,12 +375,14 @@ const NewRequest: React.FC = () => {
                     name="description"
                     icon="info"
                   />
+                  <ButtonContainer>
 
                   <Button
                     onPress={handleSubmit(submitRequest)}
                     style={{ marginTop: 24 }}
                     title="Enviar"
                   />
+                  </ButtonContainer>
                 </FormContainer>
               </Container>
               <ModalTypes
