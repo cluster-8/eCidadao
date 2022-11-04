@@ -27,9 +27,13 @@ interface Address {
 }
 
 export interface Request {
+  finishedDescription?: string
+  finishedImage?: string
   description?: string
   identifier?: number
+  finishedAt?: string
   createdAt?: string
+  updatedAt?: string
   type?: RequestType
   address?: Address
   status?: string
@@ -38,10 +42,10 @@ export interface Request {
 }
 
 interface RequestsContextData {
-  createRequest: (data: any) => Promise<any>
   finalizeRequest: (data: any, id: any) => Promise<any>
-  getUserRequests: () => Promise<any>
+  createRequest: (data: any) => Promise<any>
   getTechnicalRequests: () => Promise<any>
+  getUserRequests: () => Promise<any>
   getRequests: () => Promise<any>
   userRequests: any
   getData: any
@@ -60,16 +64,12 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   const { authUser } = useAuth()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getRequests = async (queryParams: String = '') => {
-    const queryStr =
-      'identifier image address type status createdAt description'
-    const { data } = await api.get(`/requests?select=${queryStr}`)
+    const { data } = await api.get(`/requests?select=$all`)
     return data
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getTechnicalRequests = async (queryParams: String = '') => {
-    // const queryStr =
-    //   'identifier image address type status createdAt description'
     const { data } = await api.get(`requests/technical?select=all`)
     return data
   }
@@ -77,11 +77,7 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUserRequests = async () => {
     if (!authUser.id) return
-    const queryStr =
-      'identifier image address type status createdAt description'
-    const { data } = await api.get(
-      `/requests?=id${authUser.id}&select=${queryStr}`,
-    )
+    const { data } = await api.get(`/requests?=id${authUser.id}&select=all`)
     return data
   }
 
@@ -117,10 +113,7 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
           ],
         )
       }
-
       await getData()
-      console.log('passei pelo getData')
-
       return response
     } catch (error) {
       console.log(error)
@@ -131,7 +124,6 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   const finalizeRequest = async (data: any, id: any) => {
     try {
       const response = await api.put(`requests/technical/${id}`, data)
-      console.log('Response...', { response })
       if (response.status === 200) {
         Alert.alert(
           'Finalizar solicitação',
@@ -159,13 +151,9 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
           ],
         )
       }
-
       await getData()
-      console.log('passei pelo getData')
-
       return response
     } catch (error) {
-      console.log('caí no catch()...')
       console.log(error)
     }
   }
@@ -191,8 +179,8 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
 
   const providerValue = useMemo(
     () => ({
-      getUserRequests,
       getTechnicalRequests,
+      getUserRequests,
       finalizeRequest,
       createRequest,
       userRequests,
@@ -201,8 +189,8 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       reqData,
     }),
     [
-      getUserRequests,
       getTechnicalRequests,
+      getUserRequests,
       finalizeRequest,
       createRequest,
       userRequests,

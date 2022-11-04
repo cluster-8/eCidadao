@@ -65,36 +65,37 @@ const TypesProvider: React.FC<TypesContextProps> = ({ children }) => {
     { value: 'Requadro de calçada', key: 'requadroDeCalcada' },
   ]
 
+  const [typeInputOnFocus, setTypeInputOnFocus] = useState<boolean>(false)
+  const [openModalType, setOpenModalType] = useState<boolean>(false)
   const [selectedType, setSelectedType] = useState<any>()
-  const [openModalType, setOpenModalType] = useState(false)
-  const [typeInputOnFocus, setTypeInputOnFocus] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function getTypeValue(key: any) {
+    if (!key) return ""
     const type: any = types.find((el) => el.key === key)
     return type.value
   }
 
   const providerValue = useMemo(
     () => ({
-      types,
-      selectedType,
-      setSelectedType,
-      openModalType,
+      setTypeInputOnFocus,
       setOpenModalType,
       typeInputOnFocus,
-      setTypeInputOnFocus,
+      setSelectedType,
+      openModalType,
+      selectedType,
       getTypeValue,
+      types,
     }),
     [
-      types,
-      selectedType,
-      setSelectedType,
-      openModalType,
+      setTypeInputOnFocus,
       setOpenModalType,
       typeInputOnFocus,
-      setTypeInputOnFocus,
+      setSelectedType,
+      openModalType,
+      selectedType,
       getTypeValue,
+      types,
     ],
   )
 

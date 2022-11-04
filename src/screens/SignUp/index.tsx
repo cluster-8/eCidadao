@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TextInput } from '../../components/TextInput'
-import { TouchableOpacity, Modal } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import CheckBox from 'expo-checkbox'
 import * as yup from 'yup'
 
 import { Button } from '../../components/Button'
-import {UseTermsModal} from '../../components/UseTermsModal'
+import { UseTermsModal } from '../../components/UseTermsModal'
 
 import {
   HeaderContainer,
@@ -21,7 +21,7 @@ import {
   LoginText,
   LoginLink,
   Title,
-  ButtonView
+  ButtonView,
 } from './styles'
 
 const schema = yup.object().shape({
@@ -36,8 +36,7 @@ const schema = yup.object().shape({
 })
 
 const SignUp: React.FC = () => {
-
-  const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false)
 
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
@@ -157,16 +156,13 @@ const SignUp: React.FC = () => {
             <TermsUseLink>Termos de Uso</TermsUseLink>
           </TouchableOpacity>
 
-          <UseTermsModal 
-          modalVisible={visibleModal}
-          handleClose={() => setVisibleModal(false)} />
-
-          
+          <UseTermsModal
+            modalVisible={visibleModal}
+            handleClose={() => setVisibleModal(false)}
+          />
         </TermsUseView>
         <ButtonView>
-
-        <Button title="Confirmar" onPress={handleSubmit(signUp)} />
-
+          <Button title="Confirmar" onPress={handleSubmit(signUp)} />
         </ButtonView>
         <LoginView>
           <LoginText>Já tem uma conta?</LoginText>

@@ -8,10 +8,13 @@ import {
   DescriptionContainer,
   FinalizeButton,
   TitleContainer,
+  ImageCarousel,
   IconContainer,
   ModalContent,
   ImageContent,
   CloseButton,
+  FinishedTag,
+  ImageView,
   Container,
   InfoRow,
   Content,
@@ -21,10 +24,9 @@ import {
   Info,
 } from './styles'
 
-import formatReqStatus from '../../utils/formatReqStatus'
 import formatDate from '../../utils/formatDate'
-
 import { useCamera } from '../../hooks/useCamera'
+import { useTypes } from '../../hooks/useTypes'
 import { useAuth } from '../../hooks/useAuth'
 
 import { Entypo } from '@expo/vector-icons'
@@ -36,8 +38,8 @@ interface IModalDetails {
 }
 
 const ModalDetails: React.FC<IModalDetails> = (props) => {
+  const { getTypeValue } = useTypes()
   const { authUser } = useAuth()
-
   const route = useRoute()
 
   const {
@@ -55,6 +57,10 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
 
   useEffect(() => {}, [])
 
+  if (!props.data) {
+    return <></>
+  }
+
   return (
     <>
       <Container>
@@ -66,19 +72,43 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
         >
           <Content onPress={props.handleClose}>
             <ModalContent>
-              <ImageContent>
-                <Image source={{ uri: props?.data.image }} resizeMode="cover">
+              {props?.data?.status !== 'closed' ? (
+                <>
+                  <ImageContent>
+                    <Image
+                      source={{ uri: props?.data?.image }}
+                      resizeMode="cover"
+                    >
+                      <CloseButton onPress={props.handleClose}>
+                        <Entypo name="cross" size={RFHeight(30)} />
+                      </CloseButton>
+                    </Image>
+                  </ImageContent>
+                </>
+              ) : (
+                <>
                   <CloseButton onPress={props.handleClose}>
                     <Entypo name="cross" size={RFHeight(30)} />
                   </CloseButton>
-                </Image>
-              </ImageContent>
-              <ScrollView>
+                  <ImageCarousel horizontal>
+                    <ImageView>
+                      <Image source={{ uri: props?.data?.image }}></Image>
+                    </ImageView>
+                    <ImageView>
+                      <Image
+                        source={{ uri: props?.data?.finishedImage }}
+                      ></Image>
+                    </ImageView>
+                  </ImageCarousel>
+                </>
+              )}
+
               <DescriptionContainer>
+                <ScrollView>
                   <TitleContainer>
-                    <Title>{`Solicitação: #${props?.data.identifier}`}</Title>
+                    <Title>{`Solicitação: #${props?.data?.identifier}`}</Title>
                     {authUser.role !== 'client' &&
-                    props?.data.status === 'opened' &&
+                    props?.data?.status === 'opened' &&
                     route.name === 'Início' ? (
                       <FinalizeButton onPress={() => handleClick()}>
                         <BtnText>Finalizar</BtnText>
@@ -89,9 +119,43 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                         />
                       </FinalizeButton>
                     ) : (
-                      <></>
+                      <>
+                        {route.name !== 'Solicitações' && (
+                          <FinishedTag>
+                            <BtnText>Concluída</BtnText>
+                            <Entypo
+                              name="check"
+                              size={RFHeight(22)}
+                              color={'#fff'}
+                            />
+                          </FinishedTag>
+                        )}
+                      </>
                     )}
                   </TitleContainer>
+                  <InfoRow>
+                    <IconContainer>
+                      <Entypo
+                        name="tag"
+                        size={RFHeight(22)}
+                        color={'#d1345b'}
+                      />
+                    </IconContainer>
+
+                    <Info>{getTypeValue(props?.data?.type)}</Info>
+                  </InfoRow>
+
+                  <InfoRow>
+                    <IconContainer>
+                      <Entypo
+                        name="text"
+                        size={RFHeight(22)}
+                        color={'#d1345b'}
+                      />
+                    </IconContainer>
+
+                    <Info>{props?.data?.description}</Info>
+                  </InfoRow>
 
                   <InfoRow>
                     <IconContainer>
@@ -102,7 +166,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                       />
                     </IconContainer>
 
-                    <Info>{props?.data.address}</Info>
+                    <Info>{props?.data?.address?.formattedAddress}</Info>
                   </InfoRow>
 
                   <InfoRow>
@@ -115,47 +179,53 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                     </IconContainer>
 
                     <Info>{`Submetido em ${formatDate(
-                      props?.data.createdAt,
+                      props?.data?.createdAt,
                     )}`}</Info>
                   </InfoRow>
 
-                  <InfoRow>
-                    <IconContainer>
-                      <Entypo
-                        name="tag"
-                        size={RFHeight(22)}
-                        color={'#d1345b'}
-                      />
-                    </IconContainer>
-
-                    <Info>{props?.data.type}</Info>
-                  </InfoRow>
-
-                  <InfoRow>
-                    <IconContainer>
-                      <Entypo
-                        name="text"
-                        size={RFHeight(22)}
-                        color={'#d1345b'}
-                      />
-                    </IconContainer>
-
-                    <Info>{props?.data.description}</Info>
-                  </InfoRow>
-
-                  <InfoRow>
+                  {/* <InfoRow>
                     <IconContainer>
                       <Entypo
                         name="warning"
                         size={RFHeight(22)}
-                        color={'#d1345b'}
+                        color={"#d1345b"}
                       />
                     </IconContainer>
 
                     <Info>{formatReqStatus(props?.data.status)}</Info>
-                  </InfoRow>
+                  </InfoRow> */}
+
+                  {props?.data?.finishedAt && (
+                    <InfoRow>
+                      <IconContainer>
+                        <Entypo
+                          name="check"
+                          size={RFHeight(22)}
+                          color={'#d1345b'}
+                        />
+                      </IconContainer>
+
+                      <Info>{`Concluída em ${formatDate(
+                        props?.data?.finishedAt,
+                      )}`}</Info>
+                    </InfoRow>
+                  )}
+
+                  {props?.data?.finishedDescription && (
+                    <InfoRow>
+                      <IconContainer>
+                        <Entypo
+                          name="flag"
+                          size={RFHeight(22)}
+                          color={'#d1345b'}
+                        />
+                      </IconContainer>
+
+                      <Info>{`${props?.data?.finishedDescription}`}</Info>
+                    </InfoRow>
+                  )}
+                </ScrollView>
               </DescriptionContainer>
-              </ScrollView>
             </ModalContent>
           </Content>
         </Modal>

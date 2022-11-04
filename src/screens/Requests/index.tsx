@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, View } from 'react-native'
 
 import MapView, { Marker } from 'react-native-maps'
 
@@ -10,6 +10,7 @@ import SearchBar from '../../components/SearchBar'
 
 import { useLocation } from '../../hooks/useLocation'
 import { useRequests } from '../../hooks/useRequests'
+import { useTypes } from '../../hooks/useTypes'
 
 import formatReqStatus from '../../utils/formatReqStatus'
 import formatReqType from '../../utils/formatReqType'
@@ -28,6 +29,8 @@ const Requests: React.FC = () => {
 
   const { reqData, getTechnicalRequests } = useRequests()
 
+  const { getTypeValue } = useTypes()
+
   const [data, setData] = useState<any[]>()
 
   const [modalVisible, setModalVisible] = useState(false)
@@ -43,12 +46,12 @@ const Requests: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const requests: any = useMemo(() => {
-    console.log(data)
+    // console.log(data)
     if (!searchTerm) return data
 
     return data?.filter(
       (el) =>
-        formatReqType(el.type).includes(searchTerm) ||
+        getTypeValue(el.type).includes(searchTerm) ||
         el.address.formattedAddress.includes(searchTerm),
     )
   }, [searchTerm, data])
@@ -60,13 +63,14 @@ const Requests: React.FC = () => {
   }
 
   const handleSelect = (request: any) => {
+    console.log(request)
     setCurrentSolicitacao({
       createdAt: request.createdAt,
       identifier: request.identifier,
       image: request.image,
       status: request.status,
       type: request.type,
-      address: request.address.formattedAddress,
+      address: request.address,
       description: request.description,
     })
   }
@@ -108,7 +112,6 @@ const Requests: React.FC = () => {
 
   return (
     <Container>
-      {/* MAPA */}
       <MapView
         ref={mapRef}
         style={{
@@ -126,49 +129,51 @@ const Requests: React.FC = () => {
         initialRegion={currentRegion}
         // region={currentRegion}
       >
-        {requests?.map((request: any, index: any) => (
-          <>
-            {request.status === 'opened' && (
-              <Marker
-                key={index}
-                coordinate={{
-                  latitude: Number(request.address.lat),
-                  longitude: Number(request.address.long),
-                }}
-                title={formatReqType(request.type)}
-                pinColor={
-                  formatReqStatus(request.status) === 'Fechada'
-                    ? '#02842a'
-                    : '#cd0019'
-                }
-                onPress={() => {
-                  handleSelect(request)
-                  // setCurrentSolicitacao(request);
-                  setCurrentRegion({
+        {requests?.map((request: any) => {
+          return (
+            <View key={request.id}>
+              {request.status === 'opened' && (
+                <Marker
+                  key={request.id}
+                  coordinate={{
                     latitude: Number(request.address.lat),
                     longitude: Number(request.address.long),
-                    latitudeDelta: currentRegion.latitudeDelta,
-                    longitudeDelta: currentRegion.longitudeDelta,
-                  })
-                  setModalVisible(true)
-                }}
-              />
-            )}
-          </>
-        ))}
+                  }}
+                  title={formatReqType(request.type)}
+                  pinColor={
+                    formatReqStatus(request.status) === 'Fechada'
+                      ? '#02842a'
+                      : '#cd0019'
+                  }
+                  onPress={() => {
+                    handleSelect(request)
+                    // setCurrentSolicitacao(request);
+                    setCurrentRegion({
+                      latitude: Number(request.address.lat),
+                      longitude: Number(request.address.long),
+                      latitudeDelta: currentRegion.latitudeDelta,
+                      longitudeDelta: currentRegion.longitudeDelta,
+                    })
+                    setModalVisible(true)
+                  }}
+                />
+              )}
+            </View>
+          )
+        })}
       </MapView>
-      {/* BARRA DE PESQUISA */}
+
       <SearchBar
         onChangeText={(text: any) => setSearchTerm(text)}
         name="searchTerm"
         icon="search"
         placeholder="Buscar"
       />
-      {/* BOTÃO LOCALIZAÇÃO ATUAL */}
+
       <GetLocationButton onPress={handleGoToMyLocation}>
         <GetLocationIcon name="crosshair" size={RFHeight(20)} />
       </GetLocationButton>
-      {/* MODAL DETALHES */}
+
       <ModalDetails
         data={currentSolicitacao}
         modalVisible={modalVisible}

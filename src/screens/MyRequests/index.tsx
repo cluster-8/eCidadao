@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Dimensions, Text, Modal, ActivityIndicator } from 'react-native'
 import { RequestCard } from '../../components/RequestCard'
+import { Dimensions, Text, Modal } from 'react-native'
 import { TextInput } from '../../components/TextInput'
 import { useRequests } from '../../hooks/useRequests'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import ModalDetails from '../../components/ModalDetails'
+
 import { useCamera } from '../../hooks/useCamera'
-import { Camera } from 'expo-camera'
 import { Feather } from '@expo/vector-icons'
 import { firebase } from '../../../config'
+import { Camera } from 'expo-camera'
 
 import {
+  StyledActivityIndicator,
   FilterButtonsContainer,
   TabSelectorButtonTitle,
   ActivityIndicatorView,
@@ -52,14 +55,16 @@ const schema = yup.object().shape({
 })
 
 const MyRequests: React.FC = () => {
-  const [solutionDescription, setSolutionsDescription] = useState<string>()
+  const [solutionDescription, setSolutionsDescription] = useState<any>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const [modalVisible, setModalVisible] = useState(false)
+  const [showModal, isShowModal] = useState<boolean>(false)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [photo, setPhoto] = useState<any>(null)
   const [dataToSubmit, setDataToSubmit] = useState<any>()
-  const [opened, setOpened] = useState(true)
-  const [closed, setClosed] = useState(false)
+  const [opened, setOpened] = useState<boolean>(true)
+  const [closed, setClosed] = useState<boolean>(false)
   const [requestId, setRequestId] = useState<string>()
+  const [modalData, setModalData] = useState<any>()
   const [image, setImage] = useState<string>()
   const cameraRef: any = useRef()
 
@@ -74,11 +79,11 @@ const MyRequests: React.FC = () => {
     camType,
   } = useCamera()
 
-  const [searchTerm, setSearchTerm] = useState<any>('')
-  const [sortByDate, setSortByDate] = useState(1)
-  const [sortByCode, setSortByCode] = useState(1)
-  const [sortByType, setSortByType] = useState(1)
-  const [activeSort, setActiveSort] = useState('')
+  const [searchTerm, setSearchTerm] = useState<string>('')
+  const [sortByDate, setSortByDate] = useState<number>(1)
+  const [sortByCode, setSortByCode] = useState<number>(1)
+  const [sortByType, setSortByType] = useState<number>(1)
+  const [activeSort, setActiveSort] = useState<string>('')
 
   const {
     control,
@@ -101,6 +106,7 @@ const MyRequests: React.FC = () => {
   }
 
   function handleSort(sortBy: any) {
+    console.log(sortBy)
     setActiveSort(sortBy)
     if (sortBy === 'byDate') setSortByDate(sortByDate * -1)
     if (sortBy === 'byCode') setSortByCode(sortByCode * -1)
@@ -138,7 +144,6 @@ const MyRequests: React.FC = () => {
     }
     if (activeSort === 'byCode') {
       if (sortByCode === 1) {
-        console.log('asc')
         const sorted = reqData.sort(
           (a: any, b: any) => a.identifier - b.identifier,
         )
@@ -152,16 +157,16 @@ const MyRequests: React.FC = () => {
     }
     if (activeSort === 'byType') {
       if (sortByType === 1) {
-        console.log('asc')
-        const sorted = reqData.sort((a: any, b: any) => a.type > b.type)
+        const sorted = reqData.sort((a: any, b: any) => a.type < b.type)
         return sorted
       } else {
-        const sorted = reqData.sort((a: any, b: any) => a.type < b.type)
+        const sorted = reqData.sort((a: any, b: any) => b.type < a.type)
         return sorted
       }
     } else {
       return reqData
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleSort])
 
   async function takePicture() {
@@ -257,6 +262,13 @@ const MyRequests: React.FC = () => {
     setSolutionsDescription(null)
   }
 
+  function handleCardPress(item: any) {
+    console.log(item)
+    setModalData(item)
+    setRequestId(item.id)
+    isShowModal(true)
+  }
+
   useEffect(() => {
     handleFinalizeSubmit()
   }, [image])
@@ -277,7 +289,8 @@ const MyRequests: React.FC = () => {
               Aguarde enquanto registramos sua solicitação
             </HeaderText>
           </HeaderContainer>
-          <ActivityIndicator size="large" color="#004997" />
+          {/* <ActivityIndicator size="large" color="#004997" /> */}
+          <StyledActivityIndicator size="large" />
         </ActivityIndicatorView>
       ) : (
         <>
@@ -393,13 +406,13 @@ const MyRequests: React.FC = () => {
                       <FilterButtonText>Data</FilterButtonText>
                     </FilterButton>
 
-                    <FilterButton
+                    {/* <FilterButton
                       onPress={() => handleSort('byCode')}
                       active={activeSort === 'byCode'}
                     >
                       <Icon name="filter" />
                       <FilterButtonText>Código</FilterButtonText>
-                    </FilterButton>
+                    </FilterButton> */}
 
                     <FilterButton
                       onPress={() => handleSort('byType')}
@@ -419,7 +432,7 @@ const MyRequests: React.FC = () => {
                       item?.status === 'opened' &&
                       opened && (
                         <RequestCard
-                          onPress={(id) => setRequestId(id)}
+                          onPress={() => handleCardPress(item)}
                           request={item}
                         />
                       )
@@ -434,13 +447,19 @@ const MyRequests: React.FC = () => {
                       item.status === 'closed' &&
                       closed && (
                         <RequestCard
-                          onPress={(id) => setRequestId(id)}
+                          onPress={() => handleCardPress(item)}
                           request={item}
                         />
                       )
                     }
                   />
                 )}
+
+                <ModalDetails
+                  data={modalData}
+                  modalVisible={showModal}
+                  handleClose={() => isShowModal(false)}
+                />
               </Container>
             </>
           )}

@@ -1,12 +1,11 @@
-// import { BaseNavigationContainer } from "@react-navigation/core";
-import { NavigationContainer } from '@react-navigation/native'
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 import * as React from 'react'
-// import { StatusBar } from 'react-native'
+
 import { useTheme } from 'styled-components'
+import { AuthRoutes } from './auth.routes'
 import { useAuth } from '../hooks/useAuth'
 import { AppRoutes } from './app.routes'
-import { AuthRoutes } from './auth.routes'
 
 export interface NavigatorProps {
   screenOptions: NativeStackNavigationOptions
@@ -26,8 +25,6 @@ export const Routes: React.FC = () => {
     }),
     [theme],
   )
-
-  console.log(authUser.id)
 
   return (
     <NavigationContainer>

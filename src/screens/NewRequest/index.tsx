@@ -102,7 +102,7 @@ const NewRequest: React.FC = () => {
         setPhoto(data.uri)
         const res = await getAddress()
         if (res) {
-          console.log(res)
+          // console.log(res)
           setAddress(res.formattedAddress)
           setLocation(res)
         }

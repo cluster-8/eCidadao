@@ -138,7 +138,7 @@ export const FilterButtonText = styled.Text`
 
 export const CardsContainer = styled.FlatList`
   margin-top: ${RFHeight(10)}px;
-  height: 50%;
+  height: 100%;
   width: 100%;
 `
 
@@ -297,7 +297,7 @@ export const ConfirmButton = styled.TouchableOpacity`
   flex-direction: row;
   width: ${RFWidth(120)}px;
   padding: ${RFWidth(8)}px;
-`;
+`
 
 export const DiscardButton = styled.TouchableOpacity`
   /* height: ${RFHeight(40)}px; */
@@ -320,5 +320,8 @@ export const ButtonText = styled.Text`
   /* justify-content: center; */
   color: ${({ theme }) => theme.colors.white};
   margin-left: ${RFHeight(10)}px;
-`;
+`
 
+export const StyledActivityIndicator = styled.ActivityIndicator`
+  color: ${({ theme }) => theme.colors.primary};
+`

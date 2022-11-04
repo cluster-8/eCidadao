@@ -1,6 +1,8 @@
-import { ImageBackground } from 'react-native'
+import { ImageBackground, Image as RNImage, Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { RFHeight, RFWidth, RFFontSize } from '../../utils/getResponsiveSizes'
+
+const { width } = Dimensions.get('window')
 
 export const Container = styled.View`
   flex: 1%;
@@ -28,8 +30,7 @@ export const ModalContent = styled.View`
   border-top-left-radius: ${RFHeight(10)}px;
   border-top-right-radius: ${RFHeight(10)}px;
   align-items: center;
-  /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2); */
-`
+`;
 
 export const CloseButton = styled.Pressable`
   background-color: #f6f6f6;
@@ -39,6 +40,7 @@ export const CloseButton = styled.Pressable`
   left: 90%;
   width: ${RFHeight(30)}px;
   height: ${RFHeight(30)}px;
+  z-index: 1;
 `
 
 export const ImageContent = styled.View`
@@ -49,20 +51,24 @@ export const ImageContent = styled.View`
 `
 
 export const DescriptionContainer = styled.View`
-  flex: 2;
+  flex: 1;
   width: 100%;
   justify-content: flex-start;
   align-items: flex-start;
   padding: ${RFHeight(10)}px;
-  margin-top: ${RFHeight(200)}px;
-  margin-bottom: ${RFHeight(10)}px;
+  margin-left: ${RFHeight(30)}px;
 `
 
 export const Image = styled(ImageBackground as any)`
   width: 100%;
   height: ${RFHeight(265)}px;
-  /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);*/
 `
+
+export const BtnBackground = styled(ImageBackground as any)`
+  width: 100%;
+  height: ${RFHeight(265)}px;
+  flex-direction: row;
+`;
 
 export const TitleContainer = styled.View`
   flex: 2;
@@ -82,7 +88,6 @@ export const Title = styled.Text`
 `
 
 export const InfoRow = styled.View`
-  /* padding: ${RFHeight(6)}px; */
   padding-bottom: ${RFHeight(6)}px;
   flex-direction: row;
 `
@@ -110,15 +115,40 @@ export const FinalizeButton = styled.TouchableOpacity`
   flex-direction: row;
   width: ${RFWidth(83)}px;
   padding: ${RFWidth(8)}px;
-  left: ${RFWidth(30)}px;
 `
 
+export const FinishedTag = styled.View`
+  height: ${RFHeight(40)}px;
+  border-radius: ${RFHeight(8)}px;
+  background: ${({ theme }) => theme.colors.success};
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: ${RFWidth(90)}px;
+  padding: ${RFWidth(8)}px;
+  border-radius: ${RFHeight(10)}px;
+`;
+
 export const BtnText = styled.Text`
-  /* margin-bottom: ${RFHeight(10)}px; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* width: 90%; */
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.white};
   font-size: ${RFFontSize(14)}px;
+`
+
+export const ImageCarousel = styled.ScrollView`
+  flex: 1;
+  flex-direction: row;
+  width: 90%;
+  height: ${RFHeight(10)}px;
+  margin-top: ${RFHeight(10)}px;
+`;
+
+export const ImageView = styled.View`
+  width: ${Number(width) - 60};
+  height: ${RFWidth(100)}px;
+  margin-right: ${RFHeight(10)}px;
+`;
+
+export const RNImageComponent = styled(RNImage as any)`
+  height: ${RFHeight(265)}px;
 `
