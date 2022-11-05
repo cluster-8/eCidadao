@@ -49,7 +49,7 @@ export const AuthRoutes: React.FC<NavigatorProps> = ({ screenOptions }) => {
     <Stack.Navigator
       screenOptions={{
         ...screenOptions,
-        headerShown: true,
+        headerShown: false,
         headerTintColor: theme.colors.white,
       }}
     >
