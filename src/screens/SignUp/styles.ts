@@ -43,7 +43,7 @@ export const BodyContainer = styled.View`
 export const TermsUseView = styled.View`
   display: flex;
   flex-direction: row;
-  margin-top: ${RFHeight(10)}px;
+  margin-top: ${RFHeight(15)}px;
   margin-bottom: ${RFHeight(20)}px;
 `
 
@@ -62,24 +62,24 @@ export const TermsUseLink = styled.Text`
 export const LoginView = styled.View`
   display: flex;
   flex-direction: row;
-  margin-top: ${RFHeight(20)}px;
-  margin-bottom: ${RFHeight(20)}px;
+  margin-top: ${RFHeight(5)}px;
+  margin-bottom: ${RFHeight(60)}px;
   justify-content: center;
   align-items: center;
 `
 
 export const LoginText = styled.Text`
-  font-size: ${RFFontSize(14)}px;
+  font-size: ${RFFontSize(16)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   margin-right: ${RFHeight(5)}px;
 `
 
 export const LoginLink = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: ${RFFontSize(14)}px;
+  font-size: ${RFFontSize(16)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
 `
 export const ButtonView = styled.View`
-margin-bottom: ${RFHeight(30)}px;
+margin-bottom: ${RFHeight(10)}px;
 
 `

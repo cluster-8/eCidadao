@@ -5,6 +5,8 @@ import { TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import CheckBox from 'expo-checkbox'
 import * as yup from 'yup'
+import { useNavigation } from '@react-navigation/native'
+
 
 import { Button } from '../../components/Button'
 import { UseTermsModal } from '../../components/UseTermsModal'
@@ -37,6 +39,9 @@ const schema = yup.object().shape({
 
 const SignUp: React.FC = () => {
   const [visibleModal, setVisibleModal] = useState(false)
+
+  const navigation: any = useNavigation()
+
 
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
@@ -167,7 +172,7 @@ const SignUp: React.FC = () => {
         <LoginView>
           <LoginText>Já tem uma conta?</LoginText>
 
-          <TouchableOpacity onPress={() => console.log('asdas')}>
+          <TouchableOpacity onPress={() => navigation?.navigate('SignIn')}>
             <LoginLink>Faça o login</LoginLink>
           </TouchableOpacity>
         </LoginView>
