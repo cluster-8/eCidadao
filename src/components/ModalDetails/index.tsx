@@ -22,6 +22,7 @@ import {
   Image,
   Title,
   Info,
+  DescriptionScrollView,
 } from './styles'
 
 import formatDate from '../../utils/formatDate'
@@ -104,7 +105,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
               )}
 
               <DescriptionContainer>
-                <ScrollView>
+                <DescriptionScrollView>
                   <TitleContainer>
                     <Title>{`Solicitação: #${props?.data?.identifier}`}</Title>
                     {authUser.role !== 'client' &&
@@ -224,7 +225,7 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                       <Info>{`${props?.data?.finishedDescription}`}</Info>
                     </InfoRow>
                   )}
-                </ScrollView>
+                </DescriptionScrollView>
               </DescriptionContainer>
             </ModalContent>
           </Content>

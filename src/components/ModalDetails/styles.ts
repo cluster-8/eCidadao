@@ -47,7 +47,7 @@ export const ImageContent = styled.View`
   flex: 1;
   width: 90%;
   margin-top: ${RFHeight(10)}px;
-  margin-bottom: ${RFHeight(30)}px;
+  margin-bottom: ${RFHeight(10)}px;
 `
 
 export const DescriptionContainer = styled.View`
@@ -56,7 +56,10 @@ export const DescriptionContainer = styled.View`
   justify-content: flex-start;
   align-items: flex-start;
   padding: ${RFHeight(10)}px;
-  margin-left: ${RFHeight(30)}px;
+  padding-top: ${RFHeight(0)}px;
+  margin-left: ${RFHeight(70)}px;
+  margin-right:${RFHeight(45)}px;
+
 `
 
 export const Image = styled(ImageBackground as any)`
@@ -75,8 +78,8 @@ export const TitleContainer = styled.View`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: ${RFHeight(10)}px;
-`;
+  margin-right:${RFWidth(8)}px;
+`
 
 export const Title = styled.Text`
   color: #3f3e40;
@@ -85,6 +88,7 @@ export const Title = styled.Text`
   font-weight: bold;
   text-align: center;
   font-family: ${({ theme }) => theme.fonts.semiBold};
+  
 `
 
 export const InfoRow = styled.View`
@@ -104,17 +108,20 @@ export const Info = styled.Text`
   font-size: ${RFFontSize(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   margin-bottom: ${RFHeight(10)}px;
+  margin-right: ${RFHeight(10)}px;
+
 `
 
 export const FinalizeButton = styled.TouchableOpacity`
   height: ${RFHeight(40)}px;
-  border-radius: ${RFHeight(8)}px;
+  border-radius: ${RFHeight(10)}px;
   background: ${({ theme }) => theme.colors.red};
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: ${RFWidth(83)}px;
-  padding: ${RFWidth(8)}px;
+  width: ${RFWidth(85)}px;
+  padding: ${RFWidth(5)}px;
+  margin-right:${RFWidth(11)}px;
 `
 
 export const FinishedTag = styled.View`
@@ -124,9 +131,10 @@ export const FinishedTag = styled.View`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: ${RFWidth(90)}px;
-  padding: ${RFWidth(8)}px;
+  width: ${RFWidth(93)}px;
+  padding: ${RFWidth(5)}px;
   border-radius: ${RFHeight(10)}px;
+  margin-right:${RFWidth(10)}px;
 `;
 
 export const BtnText = styled.Text`
@@ -152,3 +160,8 @@ export const ImageView = styled.View`
 export const RNImageComponent = styled(RNImage as any)`
   height: ${RFHeight(265)}px;
 `
+
+export const DescriptionScrollView = styled.ScrollView`
+width: 100%;
+`
+
