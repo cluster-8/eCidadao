@@ -63,3 +63,9 @@ Acesse o link para visualizar:
 ### 👤 Finalização de solicitação
 
 ![]()
+
+### Criptografia dos dados dos usuários
+
+Tem por objetivo a proteção e confidencialidade dos dados pessoais dos usuários fornecidos para uso da aplicação.
+
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/criptografia.gif)
