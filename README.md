@@ -56,15 +56,15 @@ Acesse o link para visualizar:
 
 ## 💫 Funcionalidades implementadas
 
-### ➕ Cadastro e acesso de usuários
+### 👤 Cadastro e acesso de usuários
 
 ![]()
 
-### 👤 Finalização de solicitação
+### ✅ Finalização de solicitação
 
 ![]()
 
-### Criptografia dos dados dos usuários
+### 🔐 Criptografia dos dados dos usuários
 
 Tem por objetivo a proteção e confidencialidade dos dados pessoais dos usuários fornecidos para uso da aplicação.
 
