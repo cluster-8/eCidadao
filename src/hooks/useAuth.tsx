@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNetInfo } from '@react-native-community/netinfo'
-// import * as AuthSession from 'expo-auth-session'
 import * as WebBrowser from 'expo-web-browser'
 import React, {
   createContext,
@@ -19,12 +18,12 @@ import { api } from '../data/services/api'
 interface AuthContextData {
   signInWithPassword: (data: FieldValues) => Promise<void>
   signUp: (data: FieldValues) => Promise<void>
-  // signInWithGoogle: () => Promise<void>
-  // sigInWithFacebook: () => Promise<void>
   signOut: () => Promise<void>
   authUser: User
   isLoading: boolean
   isConnected: boolean
+  usageTerms: any
+  getUsageTerms: () => Promise<any>
 }
 
 type AuthContextProps = {
@@ -41,11 +40,6 @@ type SignUpRequestProps = {
   token: string
 }
 
-// type SocialAuthProps = {
-//   params: { access_token: string }
-//   type: string
-// }
-
 WebBrowser.maybeCompleteAuthSession()
 
 const AuthContext = createContext({} as AuthContextData)
@@ -53,6 +47,7 @@ const AuthContext = createContext({} as AuthContextData)
 const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   const [authUser, setAuthUser] = useState<User>({} as User)
   const [isLoading, setLoading] = useState(true)
+  const [usageTerms, setUsageTerms] = useState(0)
   const info = useNetInfo()
 
   const isConnected = useMemo(() => {
@@ -61,6 +56,15 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     }
     return false
   }, [info.isConnected])
+
+  const getUsageTerms = useCallback(async () => {
+    try {
+      const { data } = await api.get<any>('/usage-terms')
+      setUsageTerms(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   const storeUser = async (user: User, token: string) => {
     setAuthUser(user)
@@ -89,7 +93,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       } catch (error) {
         Alert.alert(
           'Erro',
-          'Não foi possível fazer o login, tente novamente mais tarde',
+          'Não foi possível fazer o login, tente novamente mais tarde - 111111',
         )
       } finally {
         setLoading(false)
@@ -103,13 +107,16 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       const {
         data: { id, token },
       } = await api.post<SignUpRequestProps>('/user', data)
+
       const user = { ...data, id } as User
       await storeUser(user, token)
-    } catch (err) {
+
       Alert.alert(
-        'Erro',
-        'Não foi possível fazer o login, tente novamente mais tarde',
+        'Bem vindo(a)!',
+        'Olá, Seja muito bem vindo(a) ao eCidadão! Você já pode registrar solicitações de manutenção.',
       )
+    } catch (err) {
+      console.log(err)
     }
   }, [])
 
@@ -122,10 +129,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    signInWithPassword({
-      email: 'ecidadao@gmail.com',
-      password: 'abc123',
-    })
     const loadStoragedData = async (): Promise<void> => {
       const [token, user] = await AsyncStorage.multiGet([
         '@ecidadao:token',
@@ -140,7 +143,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       setLoading(false)
     }
     loadStoragedData()
-    console.log('AuthUser: ', authUser)
+    getUsageTerms()
   }, [])
 
   const providerValue = useMemo(
@@ -149,20 +152,20 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       signOut,
       authUser,
       isLoading,
-      // signInWithGoogle,
-      // sigInWithFacebook,
       signUp,
       isConnected,
+      usageTerms,
+      getUsageTerms,
     }),
     [
       signInWithPassword,
       signOut,
       authUser,
       isLoading,
-      // signInWithGoogle,
-      // sigInWithFacebook,
       signUp,
       isConnected,
+      usageTerms,
+      getUsageTerms,
     ],
   )
   return (

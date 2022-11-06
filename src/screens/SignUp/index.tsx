@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { TextInput } from '../../components/TextInput'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import CheckBox from 'expo-checkbox'
 import * as yup from 'yup'
+
 import { useNavigation } from '@react-navigation/native'
-
-
-import { Button } from '../../components/Button'
 import { UseTermsModal } from '../../components/UseTermsModal'
+import { Button } from '../../components/Button'
+import { useAuth } from '../../hooks/useAuth'
 
 import {
   HeaderContainer,
@@ -23,7 +23,6 @@ import {
   LoginText,
   LoginLink,
   Title,
-  ButtonView,
 } from './styles'
 
 const schema = yup.object().shape({
@@ -39,17 +38,14 @@ const schema = yup.object().shape({
 
 const SignUp: React.FC = () => {
   const [visibleModal, setVisibleModal] = useState(false)
-
-  const navigation: any = useNavigation()
-
-
+  const [isChecked, setChecked] = useState(false)
   const [password, setPassword] = useState('')
+  const { signUp, getUsageTerms, usageTerms } = useAuth()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [cpf, setCpf] = useState('')
-
-  const [isChecked, setChecked] = useState(false)
   const [agreedAt, setAgreedAt] = useState<any>()
+  const navigation: any = useNavigation()
 
   const {
     handleSubmit,
@@ -65,15 +61,24 @@ const SignUp: React.FC = () => {
     setAgreedAt(new Date())
   }, [isChecked])
 
-  async function signUp(data: any) {
+  async function handleClick(data: any) {
     if (!isChecked && !agreedAt) {
       console.log(
         'Exibir alerta informando a necessidade de concordar com os termos de uso',
       )
       return
     }
-    const _data = { ...data, usageTermsAcceptedAt: agreedAt }
-    console.log(_data)
+    const usageTermsAccepted = {
+      usageTermsAcceptedAt: agreedAt,
+      usageTermsId: usageTerms.id,
+      usageTermsAcceptedItens: usageTerms.itens.map((i: any) => i.id),
+    }
+    const _data = { ...data, usageTermsAccepted }
+    await signUp(_data)
+  }
+
+  async function getUsageTermsData() {
+    await getUsageTerms()
   }
 
   useEffect(() => {
@@ -82,7 +87,12 @@ const SignUp: React.FC = () => {
     register('email')
     register('name')
     register('cpf')
+    getUsageTermsData()
   }, [])
+
+  useEffect(() => {
+    getUsageTermsData()
+  }, [visibleModal])
 
   return (
     <Container>
@@ -143,7 +153,6 @@ const SignUp: React.FC = () => {
             setValue('passwordConfirmation', text)
           }
           errorMessage={errors?.passwordConfirmation?.message}
-          defaultValue={password}
           control={control}
           placeholder="Digite a senha novamente"
           label="Confirme sua Senha"
@@ -164,11 +173,15 @@ const SignUp: React.FC = () => {
           <UseTermsModal
             modalVisible={visibleModal}
             handleClose={() => setVisibleModal(false)}
+            usageTerms={usageTerms}
           />
         </TermsUseView>
-        <ButtonView>
+        {/* <ButtonView>
           <Button title="Confirmar" onPress={handleSubmit(signUp)} />
-        </ButtonView>
+        </ButtonView> */}
+        <TouchableOpacity onPress={handleSubmit(handleClick)}>
+          <Button title="Confirmar" onPress={handleSubmit(handleClick)} />
+        </TouchableOpacity>
         <LoginView>
           <LoginText>Já tem uma conta?</LoginText>
 
