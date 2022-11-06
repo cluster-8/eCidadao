@@ -39,7 +39,7 @@ Acesse os documentos clicando nos links abaixo:
 
 ## 📉 Burndown da Sprint
 
-![]()
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/burndown-sprint3.png)
 
 ## 🖥️ Wireframe
 
@@ -58,11 +58,27 @@ Acesse o link para visualizar:
 
 ### 👤 Cadastro e acesso de usuários
 
-![]()
+* SignUp
+
+Cadastro de usuário utilizando nome, email, cpf e senha.
+
+![](https://github.com/cluster-8/eCidadao/blob/Sprint-3/docs/gifs/signup.gif)
+
+* SignIn
+
+Acesso a aplicação utlizando email e senha cadastrada.
+
+![](https://github.com/cluster-8/eCidadao/blob/Sprint-3/docs/gifs/login.gif)
 
 ### ✅ Finalização de solicitação
 
-![]()
+A finalização de uma solicitação realizada pelo usuário com perfil do tipo 'Técnico' cadastrado previamente pelo administrador da aplicação. A finalização é realizada por meio da submissão de uma foto da solução implementada acompanhada de uma descrição.
+
+![](https://github.com/cluster-8/eCidadao/blob/Sprint-3/docs/gifs/finalize-request.gif)
+
+### ✨ Melhorias no layout
+
+![](https://github.com/cluster-8/eCidadao/blob/Sprint-3/docs/gifs/layout-improvements.gif)
 
 ### 🔐 Criptografia dos dados dos usuários
 
