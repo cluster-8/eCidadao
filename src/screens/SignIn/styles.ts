@@ -1,7 +1,13 @@
 import styled from 'styled-components/native'
+import * as Animatable from 'react-native-animatable'
 
 // import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { RFHeight, RFFontSize } from '../../utils/getResponsiveSizes'
+
+export const LogoAnimation = styled(Animatable.Image)`
+  width: 230px;
+  height: 230px;
+`
 
 export const Container = styled.View`
   justify-content: space-between;

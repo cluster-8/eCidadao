@@ -18,6 +18,7 @@ import {
   BodyContainer,
   Container,
   Title,
+  LogoAnimation,
 } from './styles'
 
 const logoImage = require('../../../assets/ecidadao.png')
@@ -60,11 +61,12 @@ const SignIn: React.FC = (props: any) => {
   return (
     <Container>
       <HeaderContainer>
-        <Animatable.Image
+        {/* <Animatable.Image
           style={{ width: 230, height: 230 }}
           animation="flipInY"
           source={logoImage}
-        />
+        /> */}
+        <LogoAnimation animation="flipInY" source={logoImage} />
       </HeaderContainer>
 
       <BodyContainer>
