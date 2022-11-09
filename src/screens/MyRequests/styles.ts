@@ -47,10 +47,8 @@ export const TabSelectorContainer = styled.View`
   justify-content: space-between;
 
   shadowColor: "#000";
-  shadow-offset: {
-	width: ${RFWidth(0)}px,
-	height: ${RFWidth(1)}px,
-},
+  shadow-offset: ${RFWidth(0)}px ${RFWidth(1)}px;
+,
   shadow-opacity: 0.22;
   shadow-radius: ${RFWidth(2.22)}px;
   elevation: 3;
@@ -112,15 +110,11 @@ export const FilterButton = styled.TouchableOpacity<FilterButtonProps>`
   margin: 0 ${RFHeight(10)}px;
   border-radius: ${RFHeight(10)}px;
 
-  shadowColor: "#000";
-  shadow-offset: {
-	width: ${RFWidth(0)}px,
-	height: ${RFWidth(1)}px,
-},
+  shadowcolor: '#000';
+  shadow-offset: ${RFWidth(0)}px ${RFWidth(1)}px;
   shadow-opacity: 0.22;
   shadow-radius: ${RFWidth(2.22)}px;
   elevation: 3;
-
 
   ${(props) =>
     props.active &&

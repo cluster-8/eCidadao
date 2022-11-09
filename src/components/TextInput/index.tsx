@@ -72,7 +72,7 @@ export const TextInput: React.FC<TextInputProps> = ({
     <Container>
       {label && <InputLabel>{label}</InputLabel>}
       <InnerContainer
-        style={containerStyle}
+        // style={containerStyle}
         isFocused={isFocused}
         isErrored={!!errorMessage}
         editable={!disabled}

@@ -39,16 +39,13 @@ export const InnerContainer = styled.View<ContainerProps>`
         css`
           border-color: ${({ theme }) => theme.colors.primary};
         `}
-  
-        shadowColor: "#000";
-        shadow-offset: {
-        width: ${RFWidth(0)}px,
-        height: ${RFWidth(1)}px,
-      },
-        shadow-opacity: 0.22;
-        shadow-radius: ${RFWidth(2.22)}px;
-        elevation: 3;
-      `
+
+  shadowColor: "#000";
+  shadow-offset: ${RFWidth(0)}px ${RFWidth(1)}px;
+  shadow-opacity: 0.22;
+  shadow-radius: ${RFWidth(2.22)}px;
+  elevation: 3;
+`;
 
 export const RNTextInput = styled.TextInput`
   flex: 1;

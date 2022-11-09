@@ -9,8 +9,7 @@ import { useForm } from 'react-hook-form'
 
 import { useAuth } from '../../hooks/useAuth'
 
-import { Entypo } from '@expo/vector-icons'
-import { Ionicons } from '@expo/vector-icons'
+import { Entypo, Ionicons } from '@expo/vector-icons'
 
 import {
   HeaderContainer,
@@ -26,7 +25,7 @@ import {
   DescriptionText,
   ExcludeButton,
   ExcludeText,
-  ExcludeButtonContainer
+  ExcludeButtonContainer,
 } from './styles'
 
 import { BodyContainer } from '../SignUp/styles'
@@ -95,11 +94,10 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
- 
       <HeaderContainer>
-      <LogOffButton onPress={logout}>
-          <Entypo name="log-out" size={RFHeight(35)}/>
-          </LogOffButton>       
+        <LogOffButton onPress={logout}>
+          <Entypo name="log-out" size={RFHeight(35)} />
+        </LogOffButton>
         <HeaderTitle>Meu Perfil</HeaderTitle>
         <HeaderText>Visualize ou altere seus dados</HeaderText>
       </HeaderContainer>
@@ -147,28 +145,28 @@ const Profile: React.FC = () => {
         />
 
         <ButtonContainer>
-        <Button title="Salvar alterações" onPress={handleSubmit(saveChanges)} />
+          <Button
+            title="Salvar alterações"
+            onPress={handleSubmit(saveChanges)}
+          />
         </ButtonContainer>
 
         <ExcludeContainer>
           <ExcludeTitleContainer>
-            <Ionicons
-            name="trash"
-            size={RFHeight(25)}
-            color={'#3F3E40'}
-            />
-          <ExcludeTitle>Deletar sua conta</ExcludeTitle>
+            <Ionicons name="trash" size={RFHeight(25)} color={'#3F3E40'} />
+            <ExcludeTitle>Deletar sua conta</ExcludeTitle>
           </ExcludeTitleContainer>
           <DescriptionContainer>
-            <DescriptionText>Essa ação é irreversível. Você irá deletar sua conta pessoal e todos seus dados. </DescriptionText>
+            <DescriptionText>
+              Essa ação é irreversível. Você irá deletar sua conta pessoal e
+              todos seus dados.{' '}
+            </DescriptionText>
           </DescriptionContainer>
           <ExcludeButtonContainer>
-
-          <ExcludeButton onPress={deleteAccount}>
-            <ExcludeText>Deletar Conta</ExcludeText>
-          </ExcludeButton>
+            <ExcludeButton onPress={deleteAccount}>
+              <ExcludeText>Deletar Conta</ExcludeText>
+            </ExcludeButton>
           </ExcludeButtonContainer>
-
         </ExcludeContainer>
       </BodyContainer>
     </Container>
