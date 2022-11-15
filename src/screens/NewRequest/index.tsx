@@ -155,13 +155,13 @@ const NewRequest: React.FC = () => {
         setUploading(true)
         console.log('Uploading image...')
       },
-      (error) => {
+      (error: any) => {
         setUploading(false)
         console.log(error)
         blob.close()
       },
       () => {
-        snapshot.snapshot.ref.getDownloadURL().then((url) => {
+        snapshot.snapshot.ref.getDownloadURL().then((url: any) => {
           console.log('Download URL: ', url)
           setUploading(false)
           setImage(url)
@@ -376,12 +376,11 @@ const NewRequest: React.FC = () => {
                     icon="info"
                   />
                   <ButtonContainer>
-
-                  <Button
-                    onPress={handleSubmit(submitRequest)}
-                    style={{ marginTop: 24 }}
-                    title="Enviar"
-                  />
+                    <Button
+                      onPress={handleSubmit(submitRequest)}
+                      style={{ marginTop: 24 }}
+                      title="Enviar"
+                    />
                   </ButtonContainer>
                 </FormContainer>
               </Container>

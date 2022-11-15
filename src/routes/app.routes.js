@@ -1,16 +1,14 @@
 import React, { useMemo } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useCamera } from '../hooks/useCamera'
-// import Home from '../screens/Home'
 import NewRequest from '../screens/NewRequest'
 import Profile from '../screens/Profile'
 import Requests from '../screens/Requests'
 import MyRequests from '../screens/MyRequests'
-// import SignIn from '../screens/SignIn'
+import Dashboard from '../screens/Dashboard'
 
 import { Feather } from '@expo/vector-icons'
 import { RFHeight } from '../utils/getResponsiveSizes'
-// import SignUp from '../screens/SignUp'
 
 const Tab = createBottomTabNavigator()
 
@@ -62,6 +60,16 @@ export const AppRoutes = () => {
         options={{
           tabBarIcon: ({ size, color }) => (
             <Feather name="plus-circle" size={size} color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="bar-chart" size={size} color={color} />
           ),
           headerShown: false,
         }}

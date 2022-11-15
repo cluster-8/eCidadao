@@ -49,7 +49,6 @@ const SignIn: React.FC = (props: any) => {
   })
 
   async function signIn(data: any) {
-    console.log('TODO: função de signin...\n', data)
     await signInWithPassword(data)
   }
 
