@@ -8,6 +8,7 @@ import React, {
 
 import { api } from '../data/services/api'
 import { useAuth } from '../hooks/useAuth'
+import { useDate } from '../hooks/useDate'
 import { Alert } from 'react-native'
 interface RequestType {
   value: string
@@ -47,6 +48,8 @@ interface RequestsContextData {
   getTechnicalRequests: () => Promise<any>
   getUserRequests: () => Promise<any>
   getRequests: () => Promise<any>
+  countRequestsByStatus: (status: any) => Promise<any>
+  countRequestsByType: () => Promise<any>
   userRequests: any
   getData: any
   reqData: any
@@ -62,9 +65,69 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   const [reqData, setReqData] = useState<any>()
 
   const { authUser } = useAuth()
+  const { selectedDate } = useDate()
+
+  // todo {{baseurl}}/v1/requests/count-to-dashboard
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const countRequestsByType = async () => {
+    try {
+      // const { data } = await api.get(`/requests/count-to-dashboard?select=all`)
+      // console.log('Count by type...', data)
+      // return data
+
+      if (!selectedDate || !authUser.role) return
+      let endDate = new Date(selectedDate.key)
+      endDate = new Date(endDate.setMonth(selectedDate.key.getMonth() + 1))
+
+      const path =
+        authUser.role === 'technical'
+          ? 'requests/technical'
+          : `requests/${authUser.id}`
+
+      const { data } = await api.get(
+        `requests/count-to-dashboard?select=all&filter[0][path]=createdAt&filter[0][value]=${selectedDate.key}&filter[0][operator]=gte&filter[0][type]=date&filter[1][path]=createdAt&filter[1][value]=${endDate}&filter[1][operator]=lte&filter[1][type]=date&limit=999`,
+      )
+      console.log(data)
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // // const { data } = await api.get(`/requests?select=$all`)
+  // const { data } = await api.get(
+  //   `requests/technical?select=all&filter[0][path]=status&filter[0][value]=opened`
+  // );
+
+  // const { data } = await api.get(
+  //   `requests/technical?select=all&filter[0][path]=status&filter[0][value]=${queryParams}&filter[1][path]=createdAt&filter[1][value]=${selectedDate.key}&filter[1][operator]=gte&filter[1][type]=date&filter[2][path]=createdAt&filter[2][value]=${endDate}&filter[2][operator]=lte&filter[2][type]=date&limit=999`,
+  // )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const countRequestsByStatus = async (status: String = '') => {
+    try {
+      if (!selectedDate || !authUser.role) return
+      let endDate = new Date(selectedDate.key)
+      endDate = new Date(endDate.setMonth(selectedDate.key.getMonth() + 1))
+
+      const path =
+        authUser.role === 'technical'
+          ? 'requests/technical'
+          : `requests/${authUser.id}`
+
+      const { data } = await api.get(
+        `${path}?select=id&filter[0][path]=status&filter[0][value]=${status}&filter[1][path]=createdAt&filter[1][value]=${selectedDate.key}&filter[1][operator]=gte&filter[1][type]=date&filter[2][path]=createdAt&filter[2][value]=${endDate}&filter[2][operator]=lte&filter[2][type]=date&limit=999`,
+      )
+
+      return data.length
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getRequests = async (queryParams: String = '') => {
-    const { data } = await api.get(`/requests?select=$all`)
+    const { data } = await api.get(`/requests?select=all`)
     return data
   }
 
@@ -177,8 +240,15 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     setReqData(data)
   }
 
+  // useEffect(() => {
+  //   countRequestsByStatus('opened')
+  //   countRequestsByStatus('closed')
+  // }, [selectedDate])
+
   const providerValue = useMemo(
     () => ({
+      countRequestsByType,
+      countRequestsByStatus,
       getTechnicalRequests,
       getUserRequests,
       finalizeRequest,
@@ -189,6 +259,8 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       reqData,
     }),
     [
+      countRequestsByType,
+      countRequestsByStatus,
       getTechnicalRequests,
       getUserRequests,
       finalizeRequest,
