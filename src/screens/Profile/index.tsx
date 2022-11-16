@@ -6,10 +6,11 @@ import { TextInput } from '../../components/TextInput'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../../components/Button'
 import { useForm } from 'react-hook-form'
+import { ModalChangePasswd } from '../../components/ModalChangePasswd'
 
 import { useAuth } from '../../hooks/useAuth'
 
-import { Entypo, Ionicons } from '@expo/vector-icons'
+import { Entypo, Ionicons, Feather } from '@expo/vector-icons'
 
 import {
   HeaderContainer,
@@ -26,6 +27,9 @@ import {
   ExcludeButton,
   ExcludeText,
   ExcludeButtonContainer,
+  ChangePasswdContainer,
+  ChangePasswd,
+  ChangePasswdText,
 } from './styles'
 
 import { BodyContainer } from '../SignUp/styles'
@@ -40,7 +44,7 @@ const userData = yup.object().shape({
 
 const Profile: React.FC = () => {
   const { signOut, authUser } = useAuth()
-
+  const [visibleModal, setVisibleModal] = useState(false)
   const [email, setEmail] = useState('vinnie@gmail.com')
   const [password, setPassword] = useState('Abc123#')
   const [name, setName] = useState('Vinnie')
@@ -134,15 +138,18 @@ const Profile: React.FC = () => {
           label="CPF"
         />
 
-        <TextInput
-          errorMessage={errors?.password?.message}
-          defaultValue={authUser.password}
-          control={control}
-          placeholder="Senha"
-          name="password"
-          label="Senha"
-          icon="lock"
-        />
+
+      <ChangePasswdContainer>
+        <ChangePasswd onPress={() => setVisibleModal(true)}>
+          <ChangePasswdText>Alterar Senha</ChangePasswdText>
+        </ChangePasswd>
+
+        <ModalChangePasswd
+            modalVisible={visibleModal}
+            handleClose={() => setVisibleModal(false)}
+          />
+      </ChangePasswdContainer>
+
 
         <ButtonContainer>
           <Button

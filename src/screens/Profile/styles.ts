@@ -45,7 +45,6 @@ export const BodyContainer = styled.View`
 `
 
 export const ButtonContainer = styled.View`
-  margin-top: ${RFHeight(20)}px;
   margin-bottom: ${RFHeight(30)}px;
 `
 
@@ -90,8 +89,34 @@ export const ExcludeButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `
+
 export const ExcludeText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semiBold};
   font-size: ${RFFontSize(16)}px;
   color: ${({ theme }) => theme.colors.white};
 `
+export const ChangePasswdContainer = styled.View`
+  width: 100%;
+  align-itens: center;
+  justify-content: center;
+  margin-top: ${RFHeight(20)}px;]
+`
+
+export const ChangePasswd = styled.TouchableOpacity`
+background-color: ${({ theme }) => theme.colors.background};
+height: ${RFHeight(56)}px;
+border-radius: ${RFHeight(8)}px;
+justify-content: center;
+align-items: center;
+border-width: ${RFWidth(1)}px;
+border-color: ${({ theme }) => theme.colors.primary};
+
+`
+
+export const ChangePasswdText = styled.Text`
+font-family: ${({ theme }) => theme.fonts.semiBold};
+font-size: ${RFFontSize(16)}px;
+color: ${({ theme }) => theme.colors.primary};
+text-align: center;
+`
+
