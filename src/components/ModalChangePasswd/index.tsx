@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
-import { View, Modal } from 'react-native'
+import { Modal } from 'react-native'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { Button } from '../../components/Button'
 import { Entypo } from '@expo/vector-icons'
-
-
-
-
 
 import {
   Container,
@@ -59,10 +54,10 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
   return (
     <Container>
       <Modal
-        animationType="fade"
+        animationType="slide"
         visible={props.modalVisible}
         transparent={true}
-      >
+              >
         <Content>
           <ModalContent>
           <CloseButton onPress={props.handleClose}>
@@ -74,7 +69,7 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
             <DescriptionView>
               <TextDescription> Digite sua senha atual de acesso, em seguida sua nova senha.</TextDescription>
             </DescriptionView>
-            <InputView>
+            <InputView>              
             <TextInput
               onChangeText={(text: string) => setValue('password', text)}
               errorMessage={errors?.password?.message}
@@ -118,7 +113,6 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
                 <ConfirmText>Confirmar</ConfirmText>
               </ConfirmButton>
             </ButtonView>
-
             </ModalContent>
             </Content>
             </Modal>
