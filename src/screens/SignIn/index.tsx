@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable'
 import { TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { ModalForgotPasswd } from '../../components/ModalForgotPasswd'
 
 import { TextInput } from '../../components/TextInput'
 import { Button } from '../../components/Button'
@@ -12,13 +13,14 @@ import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../../hooks/useAuth'
 
 import {
-  ForgotPasswdButton,
   HeaderContainer,
   SubscribeButton,
   BodyContainer,
   Container,
   Title,
   LogoAnimation,
+  ForgotPasswdText,
+  ForgotPasswdView,
 } from './styles'
 
 const logoImage = require('../../../assets/ecidadao.png')
@@ -33,7 +35,7 @@ const schema = yup.object().shape({
 const SignIn: React.FC = (props: any) => {
   const [password, setPassword] = useState<string>('')
   const [email, setEmail] = useState<string>('')
-
+  const [visibleModal, setVisibleModal] = useState(false)
   const navigation: any = useNavigation()
 
   const { signInWithPassword, authUser } = useAuth()
@@ -93,17 +95,17 @@ const SignIn: React.FC = (props: any) => {
           label="Senha"
           icon="lock"
         />
-        <TouchableOpacity
-          onPress={() =>
-            console.log('TODO: direcionar para a tela de "Esqueci a senha"...')
-          }
-        >
-          <ForgotPasswdButton
-            onPress={() => navigation?.navigate('ForgotPassword')}
-          >
-            Esqueci minha senha
-          </ForgotPasswdButton>
-        </TouchableOpacity>
+        <ForgotPasswdView>
+        <TouchableOpacity onPress={() => setVisibleModal(true)}>
+
+          <ForgotPasswdText>Esqueci minha senha</ForgotPasswdText>
+          </TouchableOpacity>
+          
+        <ModalForgotPasswd
+            modalVisible={visibleModal}
+            handleClose={() => setVisibleModal(false)}
+          />
+          </ForgotPasswdView>
 
         <TouchableOpacity onPress={handleSubmit(signIn)}>
           <Button title="Entrar" onPress={handleSubmit(signIn)} />
