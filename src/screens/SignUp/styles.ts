@@ -62,7 +62,7 @@ export const TermsUseLink = styled.Text`
 export const LoginView = styled.View`
   display: flex;
   flex-direction: row;
-  margin-top: ${RFHeight(5)}px;
+  margin-top: ${RFHeight(10)}px;
   margin-bottom: ${RFHeight(60)}px;
   justify-content: center;
   align-items: center;

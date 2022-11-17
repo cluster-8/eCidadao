@@ -16,8 +16,8 @@ export const Content = styled.View`
   flex: 1%;
   justify-content: center;
   align-items: center;
-  margin-top: ${RFHeight(22)}px;
-  margin-bottom: ${RFHeight(-20)}px;
+  background-color: 'rgba(0,0,0,0.5)'
+
 `
 
 export const ModalContent = styled.View`
