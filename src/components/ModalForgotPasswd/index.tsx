@@ -7,11 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 
-
-
-
-
-
 import {
   ModalContent,
   Container,
@@ -23,15 +18,13 @@ import {
   TextDescription,
   ButtonView,
   SubmitButton,
-  SubmitText
+  SubmitText,
 } from './styles'
-
+import { RFHeight } from '../../utils/getResponsiveSizes'
 
 const schema = yup.object().shape({
   email: yup.string().required('Email obrigatório'),
-
 })
-import { RFHeight } from '../../utils/getResponsiveSizes'
 
 interface IforgotPasswdModal {
   modalVisible: boolean
@@ -39,10 +32,8 @@ interface IforgotPasswdModal {
 }
 
 export const ModalForgotPasswd: React.FC<IforgotPasswdModal> = (props) => {
-
   const [email, setEmail] = useState('')
   const navigation: any = useNavigation()
-
 
   const {
     handleSubmit,
@@ -54,6 +45,11 @@ export const ModalForgotPasswd: React.FC<IforgotPasswdModal> = (props) => {
     resolver: yupResolver(schema),
   })
 
+  function handleClick() {
+    navigation?.navigate('ForgotPassword')
+    props.handleClose()
+  }
+
   return (
     <Container>
       <Modal
@@ -61,36 +57,35 @@ export const ModalForgotPasswd: React.FC<IforgotPasswdModal> = (props) => {
         visible={props.modalVisible}
         transparent={true}
       >
-        <Content  behavior="padding">
+        <Content behavior="padding">
           <ModalContent>
-          <CloseButton onPress={props.handleClose}>
-          <Entypo name="cross" size={RFHeight(30)} />
-          </CloseButton>
+            <CloseButton onPress={props.handleClose}>
+              <Entypo name="cross" size={RFHeight(30)} />
+            </CloseButton>
             <TitleView>
               <Title>Recuperar Senha</Title>
-              <TextDescription>Por favor, informe seu email de cadastro.</TextDescription>
+              <TextDescription>
+                Por favor, informe seu email de cadastro.
+              </TextDescription>
             </TitleView>
             <InputView>
-
-            <TextInput
-          onChangeText={(text: string) => setValue('email', text)}
-          errorMessage={errors?.name?.message}
-          defaultValue={email}
-          control={control}
-          placeholder="Digite seu Email"
-          label="Email"
-          name="email"
-          icon="mail"
-        />
-        <ButtonView>
-          <SubmitButton onPress={() => navigation?.navigate('ForgotPassword')}>
-            <SubmitText>Enviar</SubmitText>
-          </SubmitButton>
-
-        </ButtonView>
+              <TextInput
+                onChangeText={(text: string) => setValue('email', text)}
+                errorMessage={errors?.name?.message}
+                defaultValue={email}
+                control={control}
+                placeholder="Digite seu Email"
+                label="Email"
+                name="email"
+                icon="mail"
+              />
+              <ButtonView>
+                <SubmitButton onPress={handleClick}>
+                  <SubmitText>Enviar</SubmitText>
+                </SubmitButton>
+              </ButtonView>
             </InputView>
           </ModalContent>
- 
         </Content>
       </Modal>
     </Container>
