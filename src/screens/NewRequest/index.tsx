@@ -96,18 +96,21 @@ const NewRequest: React.FC = () => {
   const cameraRef: any = useRef()
 
   async function takePicture() {
-    if (cameraRef) {
-      const data = await cameraRef?.current?.takePictureAsync()
-      if (data) {
-        setPhoto(data.uri)
-        const res = await getAddress()
-        if (res) {
-          // console.log(res)
-          setAddress(res.formattedAddress)
-          setLocation(res)
+    try {
+      if (cameraRef) {
+        const data = await cameraRef?.current?.takePictureAsync()
+        if (data) {
+          setPhoto(data.uri)
+          const res = await getAddress()
+          if (res) {
+            setAddress(res.formattedAddress)
+            setLocation(res)
+          }
+          setModalVisible(true)
         }
-        setModalVisible(true)
       }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -222,13 +225,18 @@ const NewRequest: React.FC = () => {
   }, [orientation])
 
   async function handleRequestSubmit() {
-    const res = await createRequest(data)
-    if (res) {
-      setAddress('')
-      setPhoto(null)
-      setValue('description', '')
-      setValue('selectedType', '')
-      setSelectedType(null)
+    try {
+      if (!data) return
+      const res = await createRequest(data)
+      if (res) {
+        setAddress('')
+        setPhoto(null)
+        setValue('description', '')
+        setValue('selectedType', '')
+        setSelectedType(null)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 

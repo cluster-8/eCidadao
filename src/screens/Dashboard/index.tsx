@@ -67,7 +67,6 @@ const Dashboard: React.FC = () => {
 
     setTotalOpened(Number(opened))
     setTotalClosed(Number(closed))
-    console.log(countByType)
   }
 
   useEffect(() => {

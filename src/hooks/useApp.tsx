@@ -22,11 +22,13 @@ export const useApp = () => {
   )
 
   const handleChageTheme = async (changeTheme: Theme = 'dark') => {
+    console.log('handleChageTheme() -> useApp()...')
     setSelectedTheme(changeTheme)
     AsyncStorage.setItem('@ecidadao:theme', changeTheme)
   }
 
   const getStoredTheme = async () => {
+    console.log('getStoredTheme() -> useApp()...')
     const storedTheme = await AsyncStorage.getItem('@ecidadao:theme')
     if (storedTheme) {
       setSelectedTheme(storedTheme as Theme)

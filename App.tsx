@@ -15,6 +15,7 @@ import { AuthProvider } from './src/hooks/useAuth'
 import { TypesProvider } from './src/hooks/useTypes'
 import { CameraProvider } from './src/hooks/useCamera'
 import { DateProvider } from './src/hooks/useDate'
+import { TermsProvider } from './src/hooks/useTerms'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -33,32 +34,34 @@ export default function App() {
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
       <AuthProvider>
-        <DateProvider>
-          <TypesProvider>
-            <CameraProvider>
-              <RequestsProvider>
-                <LocationProvider>
-                  <GestureHandlerRootView style={{ flex: 1 }}>
-                    <SafeAreaProvider>
-                      <StatusBar
-                        barStyle={
-                          selectedTheme === 'dark'
-                            ? 'light-content'
-                            : 'dark-content'
-                        }
-                        backgroundColor="transparent"
-                        translucent
-                      />
-                      <SafeAreaView style={{ flex: 1 }}>
-                        {fontsLoaded ? <Routes /> : <ActivityIndicator />}
-                      </SafeAreaView>
-                    </SafeAreaProvider>
-                  </GestureHandlerRootView>
-                </LocationProvider>
-              </RequestsProvider>
-            </CameraProvider>
-          </TypesProvider>
-        </DateProvider>
+        <TermsProvider>
+          <DateProvider>
+            <TypesProvider>
+              <CameraProvider>
+                <RequestsProvider>
+                  <LocationProvider>
+                    <GestureHandlerRootView style={{ flex: 1 }}>
+                      <SafeAreaProvider>
+                        <StatusBar
+                          barStyle={
+                            selectedTheme === 'dark'
+                              ? 'light-content'
+                              : 'dark-content'
+                          }
+                          backgroundColor="transparent"
+                          translucent
+                        />
+                        <SafeAreaView style={{ flex: 1 }}>
+                          {fontsLoaded ? <Routes /> : <ActivityIndicator />}
+                        </SafeAreaView>
+                      </SafeAreaProvider>
+                    </GestureHandlerRootView>
+                  </LocationProvider>
+                </RequestsProvider>
+              </CameraProvider>
+            </TypesProvider>
+          </DateProvider>
+        </TermsProvider>
       </AuthProvider>
     </ThemeProvider>
   )

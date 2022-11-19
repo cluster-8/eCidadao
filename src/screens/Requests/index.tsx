@@ -27,7 +27,7 @@ const Requests: React.FC = () => {
 
   const { coords } = useLocation()
 
-  const { reqData, getTechnicalRequests } = useRequests()
+  const { reqData, getTechnicalRequests, getRequests } = useRequests();
 
   const { getTypeValue } = useTypes()
 
@@ -46,9 +46,8 @@ const Requests: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const requests: any = useMemo(() => {
-    // console.log(data)
+    if (!data) return
     if (!searchTerm) return data
-
     return data?.filter(
       (el) =>
         getTypeValue(el.type).includes(searchTerm) ||
@@ -58,12 +57,15 @@ const Requests: React.FC = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getData = async () => {
-    const data: any = await getTechnicalRequests()
-    if (data) setData(data)
+    // const data: any = await getTechnicalRequests()
+    // if (data) setData(data)
+
+    const data: any[] = await getRequests();
+    console.log(data)
   }
 
   const handleSelect = (request: any) => {
-    console.log(request)
+    console.log('request', request)
     setCurrentSolicitacao({
       createdAt: request.createdAt,
       identifier: request.identifier,
@@ -86,7 +88,8 @@ const Requests: React.FC = () => {
 
   useEffect(() => {
     getData()
-  }, [reqData, getData])
+    console.log('reqData() ...', reqData)
+  }, [reqData])
 
   useEffect(() => {
     if (coords.latitude && coords.longitude) {

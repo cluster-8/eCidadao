@@ -10,9 +10,12 @@ import * as yup from 'yup'
 import ModalDetails from '../../components/ModalDetails'
 
 import { useCamera } from '../../hooks/useCamera'
+import { useTerms } from '../../hooks/useTerms'
 import { Feather } from '@expo/vector-icons'
 import { firebase } from '../../../config'
 import { Camera } from 'expo-camera'
+
+import { UseTermsModal } from '../../components/UseTermsModal'
 
 import {
   StyledActivityIndicator,
@@ -70,14 +73,11 @@ const MyRequests: React.FC = () => {
 
   const { getData, reqData, finalizeRequest } = useRequests()
 
-  const {
-    // hasCameraPermission,
-    // getCameraPermissions,
-    setOpenCamera,
-    // orientation,
-    openCamera,
-    camType,
-  } = useCamera()
+  const [visibleModal, setVisibleModal] = useState<boolean>(false)
+
+  const { setOpenCamera, openCamera, camType } = useCamera()
+
+  const { usageTerms, hasNewUsageTerms, setHasNewUsageTerms } = useTerms()
 
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [sortByDate, setSortByDate] = useState<number>(1)
@@ -94,6 +94,17 @@ const MyRequests: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schema),
   })
+
+  async function CloseTermsButton(data: any) {
+    const usageTermsAcceptedAt = new Date()
+    console.log(data)
+    console.log(usageTerms)
+    console.log(usageTermsAcceptedAt)
+  }
+
+  function handleCloseModal() {
+    setVisibleModal(false)
+  }
 
   const handleChangeTab = (selectedTab: 'opened' | 'closed') => {
     if (selectedTab === 'opened') {
@@ -166,7 +177,7 @@ const MyRequests: React.FC = () => {
     } else {
       return reqData
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleSort])
 
   async function takePicture() {
@@ -269,9 +280,20 @@ const MyRequests: React.FC = () => {
     isShowModal(true)
   }
 
+  async function handleAcceptNewTerm() {
+    console.log('TODO: handleAcceptNewTerm()...')
+  }
+
   useEffect(() => {
     handleFinalizeSubmit()
   }, [image])
+
+  useEffect(() => {
+    if (hasNewUsageTerms) {
+      setVisibleModal(true)
+      console.log('setModalVisible()...')
+    }
+  }, [hasNewUsageTerms])
 
   useEffect(() => {
     register('searchTerm')
@@ -461,6 +483,13 @@ const MyRequests: React.FC = () => {
                   handleClose={() => isShowModal(false)}
                 />
               </Container>
+              <UseTermsModal
+                modalVisible={visibleModal}
+                handleClose={() => handleCloseModal()}
+                usageTerms={usageTerms}
+                hasNewUsageTerms={true}
+                acceptNewUsageTerms={handleSubmit(handleAcceptNewTerm)}
+              />
             </>
           )}
         </>

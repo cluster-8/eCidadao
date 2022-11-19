@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/core'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useCamera } from '../hooks/useCamera'
+import { useTerms } from '../hooks/useTerms'
 import NewRequest from '../screens/NewRequest'
 import Profile from '../screens/Profile'
 import Requests from '../screens/Requests'
@@ -14,6 +16,13 @@ const Tab = createBottomTabNavigator()
 
 export const AppRoutes = () => {
   const { openCamera } = useCamera()
+  const { tabNavigatorState, setTabNavigatorState } = useTerms()
+
+  // const [tabNavigatorState, setTabNavigatorState] = useState()
+
+  function handleStateChange(state: any) {
+    setTabNavigatorState(state)
+  }
 
   const screenOptions = useMemo(() => {
     const options = {
@@ -32,8 +41,25 @@ export const AppRoutes = () => {
     openCamera ? (options.tabBarStyle.display = 'none') : null
     return options
   }, [openCamera])
+
+  // async function handleStateChange(state: any) {
+  //   console.log("mudou o state...");
+  //   setTabNavigatorState(state)
+  // }
+
+  // useEffect(() => {
+  //     console.log("mudou o state...");
+  // }, [tabNavigatorState])
+
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Navigator
+      screenOptions={screenOptions}
+      screenListeners={{
+        state: (e) => {
+          handleStateChange(e.data)
+        },
+      }}
+    >
       <Tab.Screen
         name="Início"
         component={MyRequests}
@@ -42,6 +68,13 @@ export const AppRoutes = () => {
             <Feather name="home" size={size} color={color} />
           ),
           headerShown: false,
+        }}
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            // console.log(e);
+            // e.preventDefault();
+          },
         }}
       />
       <Tab.Screen

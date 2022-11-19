@@ -69,6 +69,7 @@ const CameraProvider: React.FC<CameraContextProps> = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getCameraPermissions() {
     const cameraPermission = await Camera.requestCameraPermissionsAsync()
+    // console.log(cameraPermission)
     setHasCameraPermission(cameraPermission.status === 'granted')
   }
 
