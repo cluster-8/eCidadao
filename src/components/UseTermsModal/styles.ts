@@ -37,13 +37,52 @@ export const ButtonView = styled.View`
   margin-bottom: ${RFHeight(50)}px;
 `
 
+export const TermsButtonView = styled.View`
+  flex-direction: row;
+  align-itens: center;
+  justify-content: space-evenly;
+  margin-top: ${RFHeight(30)}px;
+  margin-left: ${RFHeight(20)}px;
+  margin-right: ${RFHeight(20)}px;
+  margin-bottom: ${RFHeight(50)}px;
+`
+
 export const CloseButton = styled.Pressable`
   height: ${RFHeight(56)}px;
   border-radius: ${RFHeight(8)}px;
   background: ${({ theme }) => theme.colors.primary};
   justify-content: center;
   align-items: center;
-`
+`;
+
+export const CloseTermsButton = styled.Pressable`
+  width: ${RFWidth(100)}px;
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  /* border-width: 5px; */
+  border-style: solid;
+  border: 2px;
+  border-color: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.background};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const AcceptTermsButton = styled.Pressable`
+  width: ${RFWidth(100)}px;
+  height: ${RFHeight(56)}px;
+  border-radius: ${RFHeight(8)}px;
+  background: ${({ theme }) => theme.colors.primary};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CloseTermsText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: ${RFFontSize(18)}px;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
 export const CloseText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFFontSize(18)}px;
