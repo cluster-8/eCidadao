@@ -2,8 +2,9 @@
 import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { useFonts } from 'expo-font'
+// import { useFonts } from 'expo-font'
 import {
+  useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_600SemiBold,
