@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable'
 // import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { RFHeight, RFFontSize } from '../../utils/getResponsiveSizes'
 
-export const LogoAnimation = styled(Animatable.Image)`
+export const LogoAnimation = styled<any>(Animatable.Image)`
   width: 230px;
   height: 230px;
 `
@@ -39,8 +39,7 @@ export const Title = styled.Text`
   text-align: center;
 `
 export const ForgotPasswdView = styled.View`
-margin-top: ${RFHeight(10)}px;
-
+  margin-top: ${RFHeight(10)}px;
 `
 
 export const ForgotPasswdText = styled.Text`

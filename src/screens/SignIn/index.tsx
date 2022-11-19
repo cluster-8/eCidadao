@@ -38,7 +38,15 @@ const SignIn: React.FC = (props: any) => {
   const [visibleModal, setVisibleModal] = useState(false)
   const navigation: any = useNavigation()
 
-  const { signInWithPassword, authUser } = useAuth()
+  const {
+    signInWithPassword,
+    authUser,
+    hasNewUsageTerms,
+    usageTerms,
+    setHasNewUsageTerms,
+    acceptNewUsageTerms,
+  } = useAuth()
+
 
   const {
     handleSubmit,
@@ -50,8 +58,23 @@ const SignIn: React.FC = (props: any) => {
     resolver: yupResolver(schema),
   })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function signIn(data: any) {
     await signInWithPassword(data)
+  }
+
+  function handleCloseModal() {
+    setVisibleModal(false)
+    // setHasNewUsageTerms(false)
+  }
+
+  async function handleAcceptNewTerms(data: any) {
+    const usageTermsAcceptedAt = new Date()
+    console.log(data)
+    console.log(usageTerms)
+    console.log(usageTermsAcceptedAt)
+
+    // await acceptNewUsageTerms(data)
   }
 
   useEffect(() => {
@@ -59,14 +82,10 @@ const SignIn: React.FC = (props: any) => {
     register('password')
   }, [])
 
+
   return (
     <Container>
       <HeaderContainer>
-        {/* <Animatable.Image
-          style={{ width: 230, height: 230 }}
-          animation="flipInY"
-          source={logoImage}
-        /> */}
         <LogoAnimation animation="flipInY" source={logoImage} />
       </HeaderContainer>
 
@@ -96,16 +115,26 @@ const SignIn: React.FC = (props: any) => {
           icon="lock"
         />
         <ForgotPasswdView>
-        <TouchableOpacity onPress={() => setVisibleModal(true)}>
-
-          <ForgotPasswdText>Esqueci minha senha</ForgotPasswdText>
+          <TouchableOpacity onPress={() => setVisibleModal(true)}>
+            <ForgotPasswdText>Esqueci minha senha</ForgotPasswdText>
           </TouchableOpacity>
-          
-        <ModalForgotPasswd
+
+          <ModalForgotPasswd
             modalVisible={visibleModal}
             handleClose={() => setVisibleModal(false)}
           />
-          </ForgotPasswdView>
+        </ForgotPasswdView>
+        {/* <TouchableOpacity
+          onPress={() =>
+            console.log('TODO: direcionar para a tela de "Esqueci a senha"...')
+          }
+        >
+          <ForgotPasswdText
+            onPress={() => navigation?.navigate('ForgotPassword')}
+          >
+            Esqueci minha senha
+          </ForgotPasswdText>
+        </TouchableOpacity> */}
 
         <TouchableOpacity onPress={handleSubmit(signIn)}>
           <Button title="Entrar" onPress={handleSubmit(signIn)} />
@@ -117,6 +146,20 @@ const SignIn: React.FC = (props: any) => {
           </SubscribeButton>
         </TouchableOpacity>
       </BodyContainer>
+      {/* <UseTermsModal
+        modalVisible={visibleModal}
+        handleClose={() => handleCloseModal()}
+        usageTerms={usageTerms}
+        hasNewUsageTerms={true}
+        acceptNewUsageTerms={handleSubmit(handleAcceptNewTerms)}
+      /> */}
+      {/* <UseTermsModal
+        modalVisible={visibleModal}
+        handleClose={() => handleCloseModal()}
+        usageTerms={usageTerms}
+        hasNewUsageTerms={true}
+        acceptNewUsageTerms={handleSubmit(handleAcceptNewTerms)}
+      /> */}
     </Container>
   )
 }
