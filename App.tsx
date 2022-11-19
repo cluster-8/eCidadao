@@ -1,6 +1,6 @@
 import * as SplashScreen from 'expo-splash-screen'
 import React, { useEffect } from 'react'
-import { StatusBar } from 'react-native'
+import { ActivityIndicator, StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { ThemeProvider } from 'styled-components'
@@ -50,7 +50,7 @@ export default function App() {
                         translucent
                       />
                       <SafeAreaView style={{ flex: 1 }}>
-                        <Routes />
+                        {fontsLoaded ? <Routes /> : <ActivityIndicator />}
                       </SafeAreaView>
                     </SafeAreaProvider>
                   </GestureHandlerRootView>

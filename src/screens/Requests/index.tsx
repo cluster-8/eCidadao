@@ -54,7 +54,7 @@ const Requests: React.FC = () => {
         getTypeValue(el.type).includes(searchTerm) ||
         el.address.formattedAddress.includes(searchTerm),
     )
-  }, [searchTerm, data])
+  }, [searchTerm, data, getTypeValue])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getData = async () => {
@@ -86,7 +86,7 @@ const Requests: React.FC = () => {
 
   useEffect(() => {
     getData()
-  }, [reqData])
+  }, [reqData, getData])
 
   useEffect(() => {
     if (coords.latitude && coords.longitude) {
@@ -129,7 +129,7 @@ const Requests: React.FC = () => {
         initialRegion={currentRegion}
         // region={currentRegion}
       >
-        {requests?.map((request: any) => {
+        {reqData?.map((request: any) => {
           return (
             <View key={request.id}>
               {request.status === 'opened' && (

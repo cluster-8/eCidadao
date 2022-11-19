@@ -121,16 +121,17 @@ const ModalDetails: React.FC<IModalDetails> = (props) => {
                       </FinalizeButton>
                     ) : (
                       <>
-                        {route.name !== 'Solicitações' && (
-                          <FinishedTag>
-                            <BtnText>Concluída</BtnText>
-                            <Entypo
-                              name="check"
-                              size={RFHeight(22)}
-                              color={'#fff'}
-                            />
-                          </FinishedTag>
-                        )}
+                        {route.name !== 'Solicitações' &&
+                          props?.data?.status === 'closed' && (
+                            <FinishedTag>
+                              <BtnText>Concluída</BtnText>
+                              <Entypo
+                                name="check"
+                                size={RFHeight(22)}
+                                color={'#fff'}
+                              />
+                            </FinishedTag>
+                          )}
                       </>
                     )}
                   </TitleContainer>
