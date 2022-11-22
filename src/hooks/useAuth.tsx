@@ -77,14 +77,19 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [])
 
   const storeUser = async (user: User, token: string) => {
-    setAuthUser(user)
+    try {
+      setAuthUser(user)
 
-    api.defaults.headers.common.Authorization = `Bearer ${token}`
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
 
-    await AsyncStorage.multiSet([
-      ['@ecidadao:user', JSON.stringify(user)],
-      ['@ecidadao:token', token],
-    ])
+      await AsyncStorage.multiSet([
+        ['@ecidadao:user', JSON.stringify(user)],
+        ['@ecidadao:token', token],
+      ])
+    } catch (error) {
+      console.log('Store User catch()')
+      console.log(error)
+    }
   }
 
   // const getUserLastUsageTerm = (userTermsAcceptedList: any[]) => {
@@ -142,12 +147,14 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
 
       const user = { ...data, id } as User
       await storeUser(user, token)
+      console.log('passei pelo store user')
 
       Alert.alert(
         'Bem vindo(a)!',
         'Olá, Seja muito bem vindo(a) ao eCidadão! Você já pode registrar solicitações de manutenção.',
       )
     } catch (err) {
+      console.log('Sign Up catch()')
       console.log(err)
     }
   }, [])
@@ -189,7 +196,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     } catch (error) {}
   }, [])
 
-  //todo
+  // todo
   const updatePassword = useCallback(async (data: any) => {
     console.log('updatePassword() ...', data)
   }, [])
