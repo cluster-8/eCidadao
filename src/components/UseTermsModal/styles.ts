@@ -5,7 +5,7 @@ export const Container = styled.View`
   flex: 1%;
   justify-content: center;
   align-items: center;
-  margin-top: ${RFHeight(22)}px;
+  /* margin-top: ${RFHeight(22)}px; */
   margin-bottom: ${RFHeight(-20)}px;
 `
 
