@@ -18,20 +18,21 @@ import { api } from '../data/services/api'
 import { useTerms } from '../hooks/useTerms'
 
 interface AuthContextData {
-  signInWithPassword: (data: FieldValues) => Promise<void>
-  signUp: (data: FieldValues) => Promise<void>
-  signOut: () => Promise<void>
-  authUser: User
-  isLoading: boolean
-  isConnected: boolean
-  usageTerms: any
-  getUsageTerms: () => Promise<any>
+  signInWithPassword: (data: FieldValues) => Promise<void>;
+  signUp: (data: FieldValues) => Promise<void>;
+  signOut: () => Promise<void>;
+  authUser: User;
+  isLoading: boolean;
+  isConnected: boolean;
+  usageTerms: any;
+  getUsageTerms: () => Promise<any>;
   // acceptNewUsageTerms: (data: FieldValues) => Promise<any>
-  hasNewUsageTerms: boolean
-  setHasNewUsageTerms: any
-  updateUser: any
-  updatePassword: any
-  getUserById: any
+  hasNewUsageTerms: boolean;
+  setHasNewUsageTerms: any;
+  updateUser: any;
+  updatePassword: any;
+  getUserById: any;
+  deleteAccount: () => Promise<any>
 }
 
 type AuthContextProps = {
@@ -201,6 +202,17 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     console.log('updatePassword() ...', data)
   }, [])
 
+  const deleteAccount = useCallback(async () => {
+    try {
+      if (!authUser.id) return
+      const res = await api.delete(`/user/${authUser.id}`)
+      if (res.status === 200) await signOut()
+    } catch (error) {
+      console.log('Delete account catch()')
+      console.log(error)
+    }
+  }, [])
+
   useEffect(() => {
     const loadStoragedData = async (): Promise<void> => {
       const [token, user] = await AsyncStorage.multiGet([
@@ -235,6 +247,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       updateUser,
       updatePassword,
       getUserById,
+      deleteAccount,
     }),
     [
       signInWithPassword,
@@ -251,6 +264,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       updateUser,
       updatePassword,
       getUserById,
+      deleteAccount,
     ],
   )
   return (

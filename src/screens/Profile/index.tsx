@@ -49,7 +49,7 @@ const userData = yup.object().shape({
 })
 
 const Profile: React.FC = () => {
-  const { signOut, authUser, updateUser } = useAuth()
+  const { signOut, authUser, updateUser, deleteAccount } = useAuth()
   const [visibleModal, setVisibleModal] = useState(false)
   const [email, setEmail] = useState('vinnie@gmail.com')
   const [password, setPassword] = useState('Abc123#')
@@ -63,7 +63,7 @@ const Profile: React.FC = () => {
     resolver: yupResolver(userData),
   })
 
-  async function saveChanges(data: UserData) {
+  async function saveChanges(data: any) {
     await updateUser(data.name)
     Alert.alert('Salvar alterações', 'Alterações salvas com sucesso!', [
       {
@@ -75,7 +75,7 @@ const Profile: React.FC = () => {
     ])
   }
 
-  async function deleteAccount() {
+  async function handleDeleteAccount() {
     Alert.alert(
       'Excluir conta',
       'Tem certeza que deseja excluir essa conta? Essa ação não pode ser desfeita.',
@@ -85,7 +85,7 @@ const Profile: React.FC = () => {
           onPress: () => console.log('Cancelar'),
           style: 'cancel',
         },
-        { text: 'Excluir', onPress: () => console.log('Excluir') },
+        { text: 'Excluir', onPress: () => deleteAccount() },
       ],
     )
   }
@@ -157,24 +157,24 @@ const Profile: React.FC = () => {
 
         <ExcludeContainer>
           <ExcludeTitleContainer>
-            <Ionicons name="trash" size={RFHeight(25)} color={"#3F3E40"} />
+            <Ionicons name="trash" size={RFHeight(25)} color={'#3F3E40'} />
             <ExcludeTitle>Deletar sua conta</ExcludeTitle>
           </ExcludeTitleContainer>
           <DescriptionContainer>
             <DescriptionText>
               Essa ação é irreversível. Você irá deletar sua conta pessoal e
-              todos seus dados.{" "}
+              todos seus dados.{' '}
             </DescriptionText>
           </DescriptionContainer>
           <ExcludeButtonContainer>
-            <ExcludeButton onPress={deleteAccount}>
+            <ExcludeButton onPress={handleDeleteAccount}>
               <ExcludeText>Deletar Conta</ExcludeText>
             </ExcludeButton>
           </ExcludeButtonContainer>
         </ExcludeContainer>
       </BodyContainer>
     </Container>
-  );
+  )
 }
 
 export default Profile
