@@ -131,7 +131,7 @@ const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
     if (lastVerification === null)
       lastVerification = await setLastVerification()
 
-    // const interval = 360000 * 8 // ? 8 horas
+    // const interval = 3600000 * 8 // ? 8 horas
     const interval = 60000 * 3 // ? 3 minutos
     const now = String(new Date())
 
@@ -143,8 +143,7 @@ const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
     console.log(`LAST VERIFICATION AT \t\t${lastVerification}`)
     console.log(`CURRENT TIME \t\t\t${now}`)
     console.log(`NEXT VERIFICATION TIME\t\t${nextVerification}`)
-    // console.log(Date.parse(now) > Date.parse(nextVerification))
-    // if (Date.parse(now) - Date.parse(lastVerification) > interval) {
+
     if (Date.parse(now) > Date.parse(nextVerification)) {
       console.log('STARTING VERIFICATION\t\t', String(new Date()))
       const userLastTerm = await getUserLastUsageTerms()
