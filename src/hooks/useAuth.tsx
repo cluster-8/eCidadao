@@ -15,18 +15,23 @@ import { Alert } from 'react-native'
 import { User } from '../data/Model/User'
 import { api } from '../data/services/api'
 
+import { useTerms } from '../hooks/useTerms'
+
 interface AuthContextData {
-  signInWithPassword: (data: FieldValues) => Promise<void>;
-  signUp: (data: FieldValues) => Promise<void>;
-  signOut: () => Promise<void>;
-  authUser: User;
-  isLoading: boolean;
-  isConnected: boolean;
-  usageTerms: any;
-  getUsageTerms: () => Promise<any>;
-  acceptNewUsageTerms: (data: FieldValues) => Promise<any>;
-  hasNewUsageTerms: boolean;
-  setHasNewUsageTerms: any;
+  signInWithPassword: (data: FieldValues) => Promise<void>
+  signUp: (data: FieldValues) => Promise<void>
+  signOut: () => Promise<void>
+  authUser: User
+  isLoading: boolean
+  isConnected: boolean
+  usageTerms: any
+  getUsageTerms: () => Promise<any>
+  // acceptNewUsageTerms: (data: FieldValues) => Promise<any>
+  hasNewUsageTerms: boolean
+  setHasNewUsageTerms: any
+  updateUser: any
+  updatePassword: any
+  getUserById: any
 }
 
 type AuthContextProps = {
@@ -47,7 +52,6 @@ WebBrowser.maybeCompleteAuthSession()
 
 const AuthContext = createContext({} as AuthContextData)
 
-
 const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   const [authUser, setAuthUser] = useState<User>({} as User)
   const [isLoading, setLoading] = useState(true)
@@ -63,7 +67,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [info.isConnected])
 
   const getUsageTerms = useCallback(async () => {
-    console.log('getUsageTerms() -> useAuth()...')
     try {
       const { data } = await api.get<any>('/usage-terms')
       setUsageTerms(data)
@@ -74,7 +77,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [])
 
   const storeUser = async (user: User, token: string) => {
-    console.log('storeUser() -> useAuth()...')
     setAuthUser(user)
 
     api.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -85,32 +87,30 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     ])
   }
 
-  const getUserLastUsageTerm = (userTermsAcceptedList: any[]) => {
-    const sortedArr: any = userTermsAcceptedList.sort(
-      (a: any, b: any) => a.usageTermsAcceptedAt - b.usageTermsAcceptedAt,
-    )
-    const lastTerm = sortedArr[0]
-    // console.log(lastTerm)
-    console.log(sortedArr[0].usageTermsAcceptedAt)
-    // console.log(sortedArr[1].usageTermsAcceptedAt);
-    return lastTerm
-  }
+  // const getUserLastUsageTerm = (userTermsAcceptedList: any[]) => {
+  //   const sortedArr: any = userTermsAcceptedList.sort(
+  //     (a: any, b: any) => a.usageTermsAcceptedAt - b.usageTermsAcceptedAt,
+  //   )
+  //   const lastTerm = sortedArr[0]
+  //   // console.log(lastTerm)
+  //   console.log(sortedArr[0].usageTermsAcceptedAt)
+  //   // console.log(sortedArr[1].usageTermsAcceptedAt);
+  //   return lastTerm
+  // }
 
-  const acceptNewUsageTerms = useCallback(async (data: FieldValues) => {
-    console.log('acceptNewUsageTerms() -> useAuth()...')
-    try {
-      const { email, password, newUsageTermsAccepted } = data
-      console.log(email, password, newUsageTermsAccepted)
+  // const acceptNewUsageTerms = useCallback(async (data: FieldValues) => {
+  //   try {
+  //     const { email, password, newUsageTermsAccepted } = data
+  //     console.log(email, password, newUsageTermsAccepted)
 
-      // await storeUser(user, token);
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
+  //     // await storeUser(user, token);
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }, [])
 
   const signInWithPassword = useCallback(
     async ({ email, password }: FieldValues) => {
-      console.log('signInWithPassword() -> useAuth()...')
       setLoading(true)
 
       try {
@@ -120,18 +120,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
           email: email.toLowerCase(),
           password,
         })
-
-        // const userLastTermAccepted = getUserLastUsageTerm(
-        //   user.usageTermsAccepted,
-        // )
-        // const currentUsageTerms = await getUsageTerms()
-
-        // if (userLastTermAccepted.usageTermsId !== currentUsageTerms.id) {
-        //   setHasNewUsageTerms(true)
-        // }
-
-        // setHasNewUsageTerms(false)
-        // return
 
         await storeUser(user, token)
       } catch (error) {
@@ -147,7 +135,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   )
 
   const signUp = useCallback(async (data: FieldValues) => {
-    console.log('signUp() -> useAuth()...')
     try {
       const {
         data: { id, token },
@@ -166,7 +153,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [])
 
   const signOut = useCallback(async () => {
-    console.log('signOut() -> useAuth()...')
+    console.log('LOGGING USER OUT')
     api.defaults.headers.common.Authorization = ''
 
     setAuthUser({} as User)
@@ -174,9 +161,41 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     await AsyncStorage.multiRemove(['@ecidadao:token', '@ecidadao:user'])
   }, [])
 
+  const updateUser = useCallback(async (data: any) => {
+    try {
+      if (data) {
+        const res = await api.put(`/user/${authUser.id}`, data)
+        console.log(res.status)
+        if (res.status) {
+          const response: any = await getUserById(authUser.id)
+
+          console.log('todo: getuser', response?.data)
+          await storeUser(response?.data, response?.token)
+          return response?.data
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
+  const getUserById = useCallback(async (id: any) => {
+    try {
+      if (id) {
+        const { data } = await api.get(`/user/${id}/?select=all`)
+        console.log(data)
+        return data
+      }
+    } catch (error) {}
+  }, [])
+
+  //todo
+  const updatePassword = useCallback(async (data: any) => {
+    console.log('updatePassword() ...', data)
+  }, [])
+
   useEffect(() => {
     const loadStoragedData = async (): Promise<void> => {
-      console.log('loadStorageData() -> useAuth()...')
       const [token, user] = await AsyncStorage.multiGet([
         '@ecidadao:token',
         '@ecidadao:user',
@@ -205,7 +224,10 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       getUsageTerms,
       hasNewUsageTerms,
       setHasNewUsageTerms,
-      acceptNewUsageTerms,
+      // acceptNewUsageTerms,
+      updateUser,
+      updatePassword,
+      getUserById,
     }),
     [
       signInWithPassword,
@@ -218,7 +240,10 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       getUsageTerms,
       hasNewUsageTerms,
       setHasNewUsageTerms,
-      acceptNewUsageTerms,
+      // acceptNewUsageTerms,
+      updateUser,
+      updatePassword,
+      getUserById,
     ],
   )
   return (

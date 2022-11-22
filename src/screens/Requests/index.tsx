@@ -55,17 +55,7 @@ const Requests: React.FC = () => {
     )
   }, [searchTerm, data, getTypeValue])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getData = async () => {
-    // const data: any = await getTechnicalRequests()
-    // if (data) setData(data)
-
-    const data: any[] = await getRequests();
-    console.log(data)
-  }
-
   const handleSelect = (request: any) => {
-    console.log('request', request)
     setCurrentSolicitacao({
       createdAt: request.createdAt,
       identifier: request.identifier,
@@ -85,11 +75,6 @@ const Requests: React.FC = () => {
       },
     })
   }
-
-  useEffect(() => {
-    getData()
-    console.log('reqData() ...', reqData)
-  }, [reqData])
 
   useEffect(() => {
     if (coords.latitude && coords.longitude) {
@@ -150,7 +135,6 @@ const Requests: React.FC = () => {
                   }
                   onPress={() => {
                     handleSelect(request)
-                    // setCurrentSolicitacao(request);
                     setCurrentRegion({
                       latitude: Number(request.address.lat),
                       longitude: Number(request.address.long),

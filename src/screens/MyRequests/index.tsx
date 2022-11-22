@@ -77,7 +77,7 @@ const MyRequests: React.FC = () => {
 
   const { setOpenCamera, openCamera, camType } = useCamera()
 
-  const { usageTerms, hasNewUsageTerms, setHasNewUsageTerms } = useTerms()
+  const { usageTerms, hasNewUsageTerms } = useTerms()
 
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [sortByDate, setSortByDate] = useState<number>(1)
@@ -94,13 +94,6 @@ const MyRequests: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schema),
   })
-
-  async function CloseTermsButton(data: any) {
-    const usageTermsAcceptedAt = new Date()
-    console.log(data)
-    console.log(usageTerms)
-    console.log(usageTermsAcceptedAt)
-  }
 
   function handleCloseModal() {
     setVisibleModal(false)
@@ -280,10 +273,6 @@ const MyRequests: React.FC = () => {
     isShowModal(true)
   }
 
-  async function handleAcceptNewTerm() {
-    console.log('TODO: handleAcceptNewTerm()...')
-  }
-
   useEffect(() => {
     handleFinalizeSubmit()
   }, [image])
@@ -291,7 +280,7 @@ const MyRequests: React.FC = () => {
   useEffect(() => {
     if (hasNewUsageTerms) {
       setVisibleModal(true)
-      console.log('setModalVisible()...')
+      // console.log('setModalVisible()...')
     }
   }, [hasNewUsageTerms])
 
@@ -488,7 +477,7 @@ const MyRequests: React.FC = () => {
                 handleClose={() => handleCloseModal()}
                 usageTerms={usageTerms}
                 hasNewUsageTerms={true}
-                acceptNewUsageTerms={handleSubmit(handleAcceptNewTerm)}
+                // acceptNewUsageTerms={handleSubmit(handleAcceptNewTerm)}
               />
             </>
           )}

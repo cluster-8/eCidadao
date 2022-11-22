@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Modal } from 'react-native'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,20 +17,19 @@ import {
   ButtonView,
   ConfirmButton,
   ConfirmText,
-  CloseButton
-
+  CloseButton,
 } from './styles'
-
-const schema = yup.object().shape({
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null]),
-  password: yup.string().min(6, 'Mínimo de 6 caracteres'),
-})
-
 
 import { TextInput } from '../../components/TextInput'
 import { RFHeight } from '../../utils/getResponsiveSizes'
 
+import { useAuth } from '../../hooks/useAuth'
 
+const schema = yup.object().shape({
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null]),
+  password: yup.string().min(6, 'Mínimo de 6 caracteres'),
+  currentPassword: yup.string(),
+})
 
 interface IModalChangePasswd {
   modalVisible: boolean
@@ -38,8 +37,8 @@ interface IModalChangePasswd {
 }
 
 export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
-
-  const [password, setPassword] = useState('')
+  // const [password, setPassword] = useState('')
+  const { updatePassword } = useAuth()
 
   const {
     handleSubmit,
@@ -51,72 +50,88 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
     resolver: yupResolver(schema),
   })
 
+  async function handleUpdate(data: any) {
+    // console.log(data)
+    await updatePassword(data)
+    props.handleClose()
+  }
+
+  useEffect(() => {
+    register('currentPassword')
+    register('password')
+    register('passwordConfirmation')
+  }, [])
+
   return (
     <Container>
       <Modal
         animationType="slide"
         visible={props.modalVisible}
         transparent={true}
-              >
+      >
         <Content>
           <ModalContent>
-          <CloseButton onPress={props.handleClose}>
-          <Entypo name="cross" size={RFHeight(30)} />
-          </CloseButton>
+            <CloseButton onPress={props.handleClose}>
+              <Entypo name="cross" size={RFHeight(30)} />
+            </CloseButton>
             <TitleView>
               <Title>Alterar Senha</Title>
             </TitleView>
             <DescriptionView>
-              <TextDescription> Digite sua senha atual de acesso, em seguida sua nova senha.</TextDescription>
+              <TextDescription>
+                {' '}
+                Digite sua senha atual de acesso, em seguida sua nova senha.
+              </TextDescription>
             </DescriptionView>
-            <InputView>              
-            <TextInput
-              onChangeText={(text: string) => setValue('password', text)}
-              errorMessage={errors?.password?.message}
-              defaultValue={password}
-              control={control}
-              placeholder="Digite a senha atual"
-              secureTextEntry
-              name="password"
-              label="Senha Atual"
-              icon="lock"
-            />
+            <InputView>
+              <TextInput
+                onChangeText={(text: string) =>
+                  setValue('currentPassword', text)
+                }
+                errorMessage={errors?.password?.message}
+                defaultValue={''}
+                control={control}
+                placeholder="Digite a senha atual"
+                secureTextEntry
+                name="currentPassword"
+                label="Senha Atual"
+                icon="lock"
+              />
 
               <TextInput
-              onChangeText={(text: string) => setValue('password', text)}
-              errorMessage={errors?.password?.message}
-              defaultValue={password}
-              control={control}
-              placeholder="Digite a nova senha"
-              secureTextEntry
-              name="password"
-              label="Nova Senha"
-              icon="lock"
-            />
+                onChangeText={(text: string) => setValue('password', text)}
+                errorMessage={errors?.password?.message}
+                defaultValue={''}
+                control={control}
+                placeholder="Digite a nova senha"
+                secureTextEntry
+                name="password"
+                label="Nova Senha"
+                icon="lock"
+              />
 
-            <TextInput
-              onChangeText={(text: string) =>
-                setValue('passwordConfirmation', text)
-              }
-              errorMessage={errors?.passwordConfirmation?.message}
-              control={control}
-              placeholder="Digite a senha novamente"
-              label="Confirme sua Senha"
-              name="passwordConfirmation"
-              secureTextEntry
-              icon="lock"
-            />
-
+              <TextInput
+                onChangeText={(text: string) =>
+                  setValue('passwordConfirmation', text)
+                }
+                defaultValue={''}
+                errorMessage={errors?.passwordConfirmation?.message}
+                control={control}
+                placeholder="Digite a senha novamente"
+                label="Confirme sua Senha"
+                name="passwordConfirmation"
+                secureTextEntry
+                icon="lock"
+              />
             </InputView>
             <ButtonView>
-              <ConfirmButton onPress={props.handleClose}> 
+              <ConfirmButton onPress={handleSubmit(handleUpdate)}>
                 <ConfirmText>Confirmar</ConfirmText>
               </ConfirmButton>
             </ButtonView>
-            </ModalContent>
-            </Content>
-            </Modal>
-            </Container>
-
-)
+          </ModalContent>
+        </Content>
+      </Modal>
+    </Container>
+  )
 }

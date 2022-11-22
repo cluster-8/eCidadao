@@ -124,7 +124,6 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   const getUserRequests = async () => {
     if (!authUser.id) return
     const { data } = await api.get(`/requests?=id${authUser.id}&select=all`)
-    console.log('getUserRequests() ->', data)
     return data
   }
 

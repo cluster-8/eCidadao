@@ -35,6 +35,12 @@ import {
 import { BodyContainer } from '../SignUp/styles'
 import { RFHeight } from '../../utils/getResponsiveSizes'
 
+interface UserData {
+  name: string
+  email: string
+  cpf: string
+}
+
 const userData = yup.object().shape({
   password: yup.string().min(6, 'Mínimo de 6 caracteres'),
   email: yup.string().required('Email obrigatório'),
@@ -43,7 +49,7 @@ const userData = yup.object().shape({
 })
 
 const Profile: React.FC = () => {
-  const { signOut, authUser } = useAuth()
+  const { signOut, authUser, updateUser } = useAuth()
   const [visibleModal, setVisibleModal] = useState(false)
   const [email, setEmail] = useState('vinnie@gmail.com')
   const [password, setPassword] = useState('Abc123#')
@@ -57,22 +63,14 @@ const Profile: React.FC = () => {
     resolver: yupResolver(userData),
   })
 
-  async function saveChanges() {
-    const data = {
-      password,
-      email,
-      name,
-    }
-
+  async function saveChanges(data: UserData) {
+    await updateUser(data.name)
     Alert.alert('Salvar alterações', 'Alterações salvas com sucesso!', [
       {
         text: 'OK',
-        onPress: () => {
-          console.log('Ok pressed', data)
-          setPassword(data.password)
-          setEmail(data.email)
-          setName(data.name)
-        },
+        // onPress: () => {
+        //   setName(data.name)
+        // },
       },
     ])
   }
@@ -122,6 +120,7 @@ const Profile: React.FC = () => {
           defaultValue={authUser.email}
           control={control}
           placeholder="Email"
+          disabled={true}
           label="Email"
           name="email"
           icon="mail"
@@ -131,25 +130,23 @@ const Profile: React.FC = () => {
           errorMessage={errors?.document?.message}
           defaultValue={authUser.cpf}
           control={control}
-          editable={false}
+          disabled={true}
           icon="credit-card"
           placeholder="CPF"
           name="document"
           label="CPF"
         />
 
+        <ChangePasswdContainer>
+          <ChangePasswd onPress={() => setVisibleModal(true)}>
+            <ChangePasswdText>Alterar Senha</ChangePasswdText>
+          </ChangePasswd>
 
-      <ChangePasswdContainer>
-        <ChangePasswd onPress={() => setVisibleModal(true)}>
-          <ChangePasswdText>Alterar Senha</ChangePasswdText>
-        </ChangePasswd>
-
-        <ModalChangePasswd
+          <ModalChangePasswd
             modalVisible={visibleModal}
             handleClose={() => setVisibleModal(false)}
           />
-      </ChangePasswdContainer>
-
+        </ChangePasswdContainer>
 
         <ButtonContainer>
           <Button
@@ -160,13 +157,13 @@ const Profile: React.FC = () => {
 
         <ExcludeContainer>
           <ExcludeTitleContainer>
-            <Ionicons name="trash" size={RFHeight(25)} color={'#3F3E40'} />
+            <Ionicons name="trash" size={RFHeight(25)} color={"#3F3E40"} />
             <ExcludeTitle>Deletar sua conta</ExcludeTitle>
           </ExcludeTitleContainer>
           <DescriptionContainer>
             <DescriptionText>
               Essa ação é irreversível. Você irá deletar sua conta pessoal e
-              todos seus dados.{' '}
+              todos seus dados.{" "}
             </DescriptionText>
           </DescriptionContainer>
           <ExcludeButtonContainer>
@@ -177,7 +174,7 @@ const Profile: React.FC = () => {
         </ExcludeContainer>
       </BodyContainer>
     </Container>
-  )
+  );
 }
 
 export default Profile

@@ -3,6 +3,7 @@ import { Content } from '../ModalTypes/styles'
 import { View, Modal, Alert } from 'react-native'
 
 import { useAuth } from '../../hooks/useAuth'
+import { useTerms } from '../../hooks/useTerms'
 
 import {
   TextDescription,
@@ -34,9 +35,10 @@ export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
   // console.log('Has New usage Terms', props.hasNewUsageTerms)
 
   const { signOut } = useAuth()
+  const { acceptNewUsageTerms } = useTerms()
 
   async function handleCloseClick() {
-    console.log('handleCloseClik() -> UseTermsModal...')
+    console.log('NEW USAGE TERMS REJECTED')
     Alert.alert(
       'Recusar termos de uso',
       'É necessário aceitar os termos de uso para continuar a usar o eCidadão. Estamos de direcionando para a tela de login.',
@@ -55,6 +57,12 @@ export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
     console.log('refuseNewTerms() -> UseTermsModal...')
     props.handleClose()
     await signOut()
+  }
+
+  async function handleAcceptClick() {
+    const usageTermsAcceptedAt = new Date()
+    await acceptNewUsageTerms(usageTermsAcceptedAt)
+    props.handleClose()
   }
 
   return (
@@ -97,11 +105,11 @@ export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
                       <Subtitle key={item.id}>{item.title}</Subtitle>
                       {item.paragraphs.map(
                         (paragraph: string, index: number) => {
-                          return <TextItens key={index}>{paragraph}</TextItens>;
-                        }
+                          return <TextItens key={index}>{paragraph}</TextItens>
+                        },
                       )}
                     </View>
-                  );
+                  )
                 })}
               </>
               {props.hasNewUsageTerms ? (
@@ -109,7 +117,7 @@ export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
                   <CloseTermsButton onPress={handleCloseClick}>
                     <CloseTermsText>Fechar</CloseTermsText>
                   </CloseTermsButton>
-                  <AcceptTermsButton onPress={props.acceptNewUsageTerms}>
+                  <AcceptTermsButton onPress={handleAcceptClick}>
                     <CloseText>Aceitar</CloseText>
                   </AcceptTermsButton>
                 </TermsButtonView>
@@ -125,5 +133,5 @@ export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
         </Content>
       </Modal>
     </Container>
-  );
+  )
 }

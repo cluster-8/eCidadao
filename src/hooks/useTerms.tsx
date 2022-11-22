@@ -10,24 +10,19 @@ import React, {
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import { useAuth } from '../hooks/useAuth'
+
 import { api } from '../data/services/api'
 
 interface TermsContextData {
-  //   setDateInputOnFocus: any;
-  //   dateInputOnFocus: any;
-  //   setOpenModalDate: any;
-  //   setSelectedDate: any;
-  //   openModalDate: any;
-  //   selectedDate: any;
-  //   getDateValue: any;
-  //   dates: any[];
   tabNavigatorState: any
   setTabNavigatorState: any
-  // getUsageTerms: () => Promise<any>
+  getUsageTerms: () => Promise<any>
   usageTerms: any
   setUsageTerms: any
   hasNewUsageTerms: any
   setHasNewUsageTerms: any
+  acceptNewUsageTerms: any
 }
 
 type TermsContextProps = {
@@ -37,6 +32,8 @@ type TermsContextProps = {
 const TermsContext = createContext({} as TermsContextData)
 
 const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
+  const { getUserById } = useAuth()
+
   const [tabNavigatorState, setTabNavigatorState] = useState()
 
   const [hasNewUsageTerms, setHasNewUsageTerms] = useState<boolean>(false)
@@ -56,22 +53,53 @@ const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
   const getUserLastUsageTerms: any = async () => {
     const [user]: any = await AsyncStorage.multiGet(['@ecidadao:user'])
     const parsedUser = JSON.parse(user[1])
+
     if (!parsedUser) return
-    const userTermsAcceptedList = [parsedUser.usageTermsAccepted]
-    const sortedArr: any = userTermsAcceptedList.sort(
-      (a: any, b: any) => a.usageTermsAcceptedAt - b.usageTermsAcceptedAt,
-    )
-    const lastTerm = sortedArr[0]
-    return lastTerm[0]
+
+    const userTermsAcceptedList = parsedUser.usageTermsAccepted
+    if (!userTermsAcceptedList.length) {
+      //* usuário possui apenas um termo aceito
+      return userTermsAcceptedList
+    }
+    const lastTerm = userTermsAcceptedList[userTermsAcceptedList.length - 1]
+
+    return lastTerm
   }
 
   // todo - função para aceitar novos termos de uso
-  const acceptNewUsageTerms = useCallback(async (data: FieldValues) => {
+  const acceptNewUsageTerms = useCallback(async (usageTermsAcceptedAt: any) => {
     try {
-      const { email, password, newUsageTermsAccepted } = data
-      console.log(email, password, newUsageTermsAccepted)
+      const [storedUser]: any = await AsyncStorage.multiGet(['@ecidadao:user'])
+      const user = JSON.parse(storedUser[1])
 
-      // await storeUser(user, token);
+      const userLastTerm = await getUserLastUsageTerms()
+      const lastUsageTerm = await getUsageTerms()
+
+      const usageTermsAccepted = {
+        usageTermsAcceptedAt,
+        usageTermsAcceptedItens: lastUsageTerm.itens.map((i: any) => i.id),
+        usageTermsId: lastUsageTerm.id,
+      }
+
+      if (userLastTerm.usageTermsId === lastUsageTerm.id) return
+
+      const response = await api.put<any>('/user/usage-terms', {
+        usageTermsAccepted,
+      })
+
+      // console.log(response.status)
+      if (response.status === 200) {
+        console.log('USER ACCEPTED NEW USAGE TERMS\t', new Date())
+        setHasNewUsageTerms(false)
+
+        const updatedUser = await getUserById(user.id)
+
+        await AsyncStorage.multiSet([
+          ['@ecidadao:user', JSON.stringify(updatedUser)],
+        ])
+      }
+
+      return
     } catch (error) {
       console.log(error)
     }
@@ -86,6 +114,9 @@ const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
 
   const setLastVerification: any = async () => {
     const verificationTime = String(new Date())
+    // console.log()
+    // console.log(`VERIFICATION DONE AT \t\t${new Date()}`)
+    // console.log();
     await AsyncStorage.multiSet([
       ['@ecidadao:termVerification', verificationTime],
     ])
@@ -93,35 +124,46 @@ const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
   }
 
   const handleStateChange: any = async () => {
-    let lastVerification = await getLastVerification()
+    console.log()
+    console.log(`STATE CHANGED`)
+
+    let lastVerification: any = await getLastVerification()
     if (lastVerification === null)
       lastVerification = await setLastVerification()
 
-    const interval = 28800 * 1000 // ? 8 horas
+    // const interval = 360000 * 8 // ? 8 horas
+    const interval = 60000 * 3 // ? 3 minutos
     const now = String(new Date())
 
+    const nextVerification: any = new Date(
+      Date.parse(lastVerification) + interval,
+    )
+
     //! verificar termos
-    if (Date.parse(now) - Date.parse(lastVerification) > interval) {
+    console.log(`LAST VERIFICATION AT \t\t${lastVerification}`)
+    console.log(`CURRENT TIME \t\t\t${now}`)
+    console.log(`NEXT VERIFICATION TIME\t\t${nextVerification}`)
+    // console.log(Date.parse(now) > Date.parse(nextVerification))
+    // if (Date.parse(now) - Date.parse(lastVerification) > interval) {
+    if (Date.parse(now) > Date.parse(nextVerification)) {
+      console.log('STARTING VERIFICATION\t\t', String(new Date()))
       const userLastTerm = await getUserLastUsageTerms()
       const lastTerm = await getUsageTerms()
-      if (!userLastTerm) return
+      if (!userLastTerm) {
+        console.log('USER LAST TERM ACCEPTED NOT FOUND')
+        return
+      }
       //! novo termo a ser aceito
       if (userLastTerm.usageTermsId !== lastTerm.id) {
+        console.log('NEW USAGE TERMS TO BE ACCEPTED...')
         setHasNewUsageTerms(true)
       } else {
-        // setHasNewUsageTerms(false)
         //! teste
+        console.log('NO NEW USAGE TERMS TO BE ACCEPTED... ')
         setHasNewUsageTerms(false)
       }
+      await setLastVerification()
     }
-
-    //! teste
-    // const userLastTerm = await getUserLastUsageTerms();
-    // const lastTerm = await getUsageTerms();
-    // if (userLastTerm.usageTermsId !== lastTerm.id) {
-    //   console.log("tem novo termo para aceitar...");
-    //   setHasNewUsageTerms(true);
-    // }
   }
 
   useEffect(() => {
@@ -130,36 +172,24 @@ const TermsProvider: React.FC<TermsContextProps> = ({ children }) => {
 
   const providerValue = useMemo(
     () => ({
-      //   setDateInputOnFocus,
-      //   setOpenModalDate,
-      //   dateInputOnFocus,
-      //   setSelectedDate,
-      //   openModalDate,
-      //   selectedDate,
-      //   getDateValue,
-      //   dates,
       hasNewUsageTerms,
       setHasNewUsageTerms,
       tabNavigatorState,
       setTabNavigatorState,
       usageTerms,
       setUsageTerms,
+      acceptNewUsageTerms,
+      getUsageTerms,
     }),
     [
-      //   setDateInputOnFocus,
-      //   setOpenModalDate,
-      //   dateInputOnFocus,
-      //   setSelectedDate,
-      //   openModalDate,
-      //   selectedDate,
-      //   getDateValue,
-      //   dates,
       hasNewUsageTerms,
       setHasNewUsageTerms,
       tabNavigatorState,
       setTabNavigatorState,
       usageTerms,
       setUsageTerms,
+      acceptNewUsageTerms,
+      getUsageTerms,
     ],
   )
 

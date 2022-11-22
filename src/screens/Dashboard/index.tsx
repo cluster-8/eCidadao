@@ -70,7 +70,6 @@ const Dashboard: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log('selectedDate', selectedDate)
     getData()
   }, [selectedDate])
 

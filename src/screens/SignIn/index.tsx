@@ -33,20 +33,12 @@ const schema = yup.object().shape({
 })
 
 const SignIn: React.FC = (props: any) => {
-  const [password, setPassword] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
+  // const [password, setPassword] = useState<string>('')
+  // const [email, setEmail] = useState<string>('')
   const [visibleModal, setVisibleModal] = useState(false)
   const navigation: any = useNavigation()
 
-  const {
-    signInWithPassword,
-    authUser,
-    hasNewUsageTerms,
-    usageTerms,
-    setHasNewUsageTerms,
-    acceptNewUsageTerms,
-  } = useAuth()
-
+  const { signInWithPassword } = useAuth()
 
   const {
     handleSubmit,
@@ -63,25 +55,10 @@ const SignIn: React.FC = (props: any) => {
     await signInWithPassword(data)
   }
 
-  function handleCloseModal() {
-    setVisibleModal(false)
-    // setHasNewUsageTerms(false)
-  }
-
-  async function handleAcceptNewTerms(data: any) {
-    const usageTermsAcceptedAt = new Date()
-    console.log(data)
-    console.log(usageTerms)
-    console.log(usageTermsAcceptedAt)
-
-    // await acceptNewUsageTerms(data)
-  }
-
   useEffect(() => {
     register('email')
     register('password')
   }, [])
-
 
   return (
     <Container>
@@ -95,7 +72,7 @@ const SignIn: React.FC = (props: any) => {
         <TextInput
           onChangeText={(text: string) => setValue('email', text)}
           errorMessage={errors?.name?.message}
-          defaultValue={email}
+          // defaultValue={email}
           control={control}
           placeholder="Digite seu Email"
           label="Email"
@@ -106,7 +83,7 @@ const SignIn: React.FC = (props: any) => {
         <TextInput
           onChangeText={(text: string) => setValue('password', text)}
           errorMessage={errors?.password?.message}
-          defaultValue={password}
+          // defaultValue={password}
           control={control}
           placeholder="Senha"
           secureTextEntry
@@ -124,17 +101,6 @@ const SignIn: React.FC = (props: any) => {
             handleClose={() => setVisibleModal(false)}
           />
         </ForgotPasswdView>
-        {/* <TouchableOpacity
-          onPress={() =>
-            console.log('TODO: direcionar para a tela de "Esqueci a senha"...')
-          }
-        >
-          <ForgotPasswdText
-            onPress={() => navigation?.navigate('ForgotPassword')}
-          >
-            Esqueci minha senha
-          </ForgotPasswdText>
-        </TouchableOpacity> */}
 
         <TouchableOpacity onPress={handleSubmit(signIn)}>
           <Button title="Entrar" onPress={handleSubmit(signIn)} />
@@ -146,20 +112,6 @@ const SignIn: React.FC = (props: any) => {
           </SubscribeButton>
         </TouchableOpacity>
       </BodyContainer>
-      {/* <UseTermsModal
-        modalVisible={visibleModal}
-        handleClose={() => handleCloseModal()}
-        usageTerms={usageTerms}
-        hasNewUsageTerms={true}
-        acceptNewUsageTerms={handleSubmit(handleAcceptNewTerms)}
-      /> */}
-      {/* <UseTermsModal
-        modalVisible={visibleModal}
-        handleClose={() => handleCloseModal()}
-        usageTerms={usageTerms}
-        hasNewUsageTerms={true}
-        acceptNewUsageTerms={handleSubmit(handleAcceptNewTerms)}
-      /> */}
     </Container>
   )
 }

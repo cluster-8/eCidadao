@@ -4,7 +4,7 @@ export const api = axios.create({
   baseURL: 'https://api-ecidadao.herokuapp.com/v1/',
 })
 
-// console.log(api.defaults.headers.common.Authorization)
+console.log(api.defaults.headers.common.Authorization)
 
 // if (!api.defaults.headers.common.Authorization) {
 //   api

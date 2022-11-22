@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { UseTermsModal } from '../../components/UseTermsModal'
 import { Button } from '../../components/Button'
 import { useAuth } from '../../hooks/useAuth'
+import { useTerms } from '../../hooks/useTerms'
 
 import {
   HeaderContainer,
@@ -40,7 +41,8 @@ const SignUp: React.FC = () => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [isChecked, setChecked] = useState(false)
   const [password, setPassword] = useState('')
-  const { signUp, getUsageTerms, usageTerms } = useAuth()
+  const { signUp } = useAuth()
+  const { getUsageTerms, usageTerms } = useTerms()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [cpf, setCpf] = useState('')
