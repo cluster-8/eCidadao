@@ -32,8 +32,6 @@ interface IUseTermsModal {
 }
 
 export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
-  // console.log('Has New usage Terms', props.hasNewUsageTerms)
-
   const { signOut } = useAuth()
   const { acceptNewUsageTerms } = useTerms()
 
@@ -54,7 +52,7 @@ export const UseTermsModal: React.FC<IUseTermsModal> = (props: any) => {
   }
 
   async function refuseNewTerms() {
-    console.log('refuseNewTerms() -> UseTermsModal...')
+    console.log('NEW USAGE TERMS REJECTED')
     props.handleClose()
     await signOut()
   }

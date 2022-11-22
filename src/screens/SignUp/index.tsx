@@ -178,9 +178,6 @@ const SignUp: React.FC = () => {
             usageTerms={usageTerms}
           />
         </TermsUseView>
-        {/* <ButtonView>
-          <Button title="Confirmar" onPress={handleSubmit(signUp)} />
-        </ButtonView> */}
         <TouchableOpacity onPress={handleSubmit(handleClick)}>
           <Button title="Confirmar" onPress={handleSubmit(handleClick)} />
         </TouchableOpacity>
