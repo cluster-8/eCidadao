@@ -47,6 +47,9 @@ import {
   SubTitle,
   Title,
   Icon,
+  NoRequestImage,
+  ImageContainer,
+  ImageMessage,
 } from './styles'
 
 import { RFHeight } from '../../utils/getResponsiveSizes'
@@ -57,6 +60,8 @@ const schema = yup.object().shape({
   searchTerm: yup.string(),
   solutionDescription: yup.string(),
 })
+
+const constructionImage = require('../../../assets/construction-pana.png')
 
 const MyRequests: React.FC = () => {
   const [solutionDescription, setSolutionsDescription] = useState<any>()
@@ -323,7 +328,7 @@ const MyRequests: React.FC = () => {
               <Camera
                 ref={cameraRef}
                 type={camType}
-                style={{ height, flexDirection: "row" }}
+                style={{ height, flexDirection: 'row' }}
               >
                 {CamCloseButton}
                 {CamButton}
@@ -348,7 +353,7 @@ const MyRequests: React.FC = () => {
                     <FormContainer>
                       <TextInput
                         onChangeText={(text: string) =>
-                          setValue("solutionDescription", text)
+                          setValue('solutionDescription', text)
                         }
                         errorMessage={errors?.solutionDescription?.message}
                         control={control}
@@ -364,7 +369,7 @@ const MyRequests: React.FC = () => {
                           <Feather
                             name="x"
                             size={RFHeight(33)}
-                            color={"#fff"}
+                            color={'#fff'}
                           />
                           <ButtonText>Cancelar</ButtonText>
                         </DiscardButton>
@@ -372,7 +377,7 @@ const MyRequests: React.FC = () => {
                           <Feather
                             name="check"
                             size={RFHeight(33)}
-                            color={"#fff"}
+                            color={'#fff'}
                           />
                           <ButtonText>Confirmar</ButtonText>
                         </ConfirmButton>
@@ -392,7 +397,7 @@ const MyRequests: React.FC = () => {
               <TabSelectorContainer>
                 <TabSelectorButton
                   active={opened}
-                  onPress={() => handleChangeTab("opened")}
+                  onPress={() => handleChangeTab('opened')}
                 >
                   <TabSelectorButtonTitle active={opened}>
                     EM ABERTO
@@ -401,7 +406,7 @@ const MyRequests: React.FC = () => {
 
                 <TabSelectorButton
                   active={closed}
-                  onPress={() => handleChangeTab("closed")}
+                  onPress={() => handleChangeTab('closed')}
                 >
                   <TabSelectorButtonTitle active={closed}>
                     FINALIZADAS
@@ -424,8 +429,8 @@ const MyRequests: React.FC = () => {
 
                   <FilterButtonsContainer>
                     <FilterButton
-                      onPress={() => handleSort("byDate")}
-                      active={activeSort === "byDate"}
+                      onPress={() => handleSort('byDate')}
+                      active={activeSort === 'byDate'}
                     >
                       <Icon name="filter" />
                       <FilterButtonText>Data</FilterButtonText>
@@ -440,8 +445,8 @@ const MyRequests: React.FC = () => {
                     </FilterButton> */}
 
                     <FilterButton
-                      onPress={() => handleSort("byType")}
-                      active={activeSort === "byType"}
+                      onPress={() => handleSort('byType')}
+                      active={activeSort === 'byType'}
                     >
                       <Icon name="filter" />
                       <FilterButtonText>Tipo</FilterButtonText>
@@ -449,12 +454,21 @@ const MyRequests: React.FC = () => {
                   </FilterButtonsContainer>
                 </FilterContainer>
 
+                {sortedData?.length === 0 && (
+                  <ImageContainer>
+                    <ImageMessage>
+                      {'Ainda não há solicitações de manutenção registradas'}
+                    </ImageMessage>
+                    <NoRequestImage source={constructionImage} />
+                  </ImageContainer>
+                )}
+
                 {opened && (
                   <CardsContainer
                     data={sortedData}
                     keyExtractor={(item: any) => item.id}
                     renderItem={({ item }: any) =>
-                      item?.status === "opened" &&
+                      item?.status === 'opened' &&
                       opened && (
                         <RequestCard
                           onPress={() => handleCardPress(item)}
@@ -469,7 +483,7 @@ const MyRequests: React.FC = () => {
                     data={sortedData}
                     keyExtractor={(item: any) => item?.id}
                     renderItem={({ item }: any) =>
-                      item.status === "closed" &&
+                      item.status === 'closed' &&
                       closed && (
                         <RequestCard
                           onPress={() => handleCardPress(item)}
@@ -501,7 +515,7 @@ const MyRequests: React.FC = () => {
         </>
       )}
     </>
-  );
+  )
 }
 
 export default MyRequests
