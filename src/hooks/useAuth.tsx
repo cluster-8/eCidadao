@@ -88,6 +88,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
         ['@ecidadao:user', JSON.stringify(user)],
         ['@ecidadao:token', token],
       ])
+      console.log('User stored in Async Storage')
     } catch (error) {
       console.log('Store User catch()')
       console.log(error)
@@ -150,10 +151,12 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   const updateUser = useCallback(async (data: any) => {
     try {
       const userId = authUser.id
+
       if (data && userId) {
         const res = await api.put(`/user/${userId}`, data)
         if (res.status === 200) {
           const response: any = await getUserById(userId)
+          console.log({ response })
           // await storeUser(response?.data, response?.token)
           // await AsyncStorage.multiSet([
           //   ["@ecidadao:user", JSON.stringify(user)],
@@ -192,7 +195,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     try {
       if (!authUser.id) return
       const res = await api.delete(`/user/${authUser.id}`)
-      // console.log(res)
       if (res.status === 200) await signOut()
     } catch (error) {
       console.log('Delete account catch()')

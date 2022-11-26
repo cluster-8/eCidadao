@@ -259,7 +259,7 @@ export const HeaderContainer = styled.View`
   height: ${RFHeight(150)}px;
   resizemode: contain;
   width: 100%;
-`;
+`
 
 export const HeaderTitle = styled.Text`
   font-size: ${RFFontSize(25)}px;
@@ -330,3 +330,25 @@ export const ButtonText = styled.Text`
 export const StyledActivityIndicator = styled.ActivityIndicator`
   color: ${({ theme }) => theme.colors.primary};
 `
+
+export const ImageContainer = styled.View`
+  margin-top: ${RFHeight(20)}px;
+  flex-direction: column;
+  height: 65%;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  /* background-color: ${({ theme }) => theme.colors.primary}; */
+`;
+
+export const NoRequestImage = styled.Image`
+  width: 85%;
+  height: 100%;
+`
+
+export const ImageMessage = styled.Text`
+  font-size: ${RFFontSize(16)}px;
+  margin-top: ${RFHeight(15)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+`;

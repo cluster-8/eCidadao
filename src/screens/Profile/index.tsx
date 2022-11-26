@@ -45,7 +45,7 @@ const userData = yup.object().shape({
   password: yup.string().min(6, 'Mínimo de 6 caracteres'),
   email: yup.string().required('Email obrigatório'),
   name: yup.string().required('Nome obrigatório'),
-  document: yup.string(),
+  cpf: yup.string(),
 })
 
 const Profile: React.FC = () => {
@@ -65,7 +65,8 @@ const Profile: React.FC = () => {
 
   async function handleSaveChangesClick(data: any) {
     const response = await updateUser(data)
-    if (response.status === 200) {
+    console.log(response)
+    if (response && response.status === 200) {
       Alert.alert('Salvar alterações', 'Alterações salvas com sucesso!', [
         {
           text: 'OK',
@@ -136,13 +137,13 @@ const Profile: React.FC = () => {
         />
 
         <TextInput
-          errorMessage={errors?.document?.message}
+          errorMessage={errors?.cpf?.message}
           defaultValue={authUser.cpf}
           control={control}
           disabled={true}
           icon="credit-card"
           placeholder="CPF"
-          name="document"
+          name="cpf"
           label="CPF"
         />
 
