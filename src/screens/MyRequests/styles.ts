@@ -165,6 +165,14 @@ export const CamBtnContainer = styled.View`
   padding-bottom: ${RFHeight(50)}px;
 `
 
+export const CamCloseBtnContainer = styled.View`
+  flex: 1;
+  background-color: 'transparent';
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: ${RFHeight(50)}px;
+`
+
 export const TouchableOpacityCam = styled.TouchableOpacity<TypeProps>`
   height: ${RFHeight(56)}px;
   border-radius: ${RFHeight(8)}px;

@@ -29,6 +29,7 @@ import {
   FilterButtonText,
   FilterContainer,
   CamBtnContainer,
+  CamCloseBtnContainer,
   HeaderContainer,
   TitleContainer,
   CardsContainer,
@@ -252,6 +253,18 @@ const MyRequests: React.FC = () => {
     )
   }, [])
 
+  const CamCloseButton = useMemo(() => {
+    return (
+      <>
+        <CamCloseBtnContainer>
+          <TouchableOpacityCam onPress={() => setOpenCamera(false)}>
+            <Feather name="x" size={RFHeight(33)} color={'#fff'} />
+          </TouchableOpacityCam>
+        </CamCloseBtnContainer>
+      </>
+    )
+  }, [])
+
   async function handleFinalizeSubmit() {
     if (!image || !dataToSubmit || !requestId) return
     const data = {
@@ -312,6 +325,7 @@ const MyRequests: React.FC = () => {
                 type={camType}
                 style={{ height, flexDirection: "row" }}
               >
+                {CamCloseButton}
                 {CamButton}
               </Camera>
               {photo && (
