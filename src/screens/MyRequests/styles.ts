@@ -166,11 +166,11 @@ export const CamBtnContainer = styled.View`
 `
 
 export const CamCloseBtnContainer = styled.View`
-  flex: 1;
-  background-color: 'transparent';
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: ${RFHeight(50)}px;
+position: absolute;
+top: ${RFHeight(15)}px;
+left: 88%;
+width: ${RFHeight(45)}px;
+height: ${RFHeight(45)}px;
 `
 
 export const TouchableOpacityCam = styled.TouchableOpacity<TypeProps>`

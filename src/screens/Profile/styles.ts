@@ -11,7 +11,7 @@ export const HeaderContainer = styled.View`
   resizemode: contain;
   width: 100%;
   /* height: 20%; */
-  height: ${RFHeight(150)}px;
+  height: 20%;
 `;
 export const LogOffButton = styled.Pressable`
   background-color: #f6f6f6;
