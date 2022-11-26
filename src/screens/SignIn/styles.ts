@@ -38,15 +38,10 @@ export const Title = styled.Text`
   margin-bottom: ${RFHeight(20)}px;
   text-align: center;
 `
-export const ForgotPasswdView = styled.View`
-  margin-top: ${RFHeight(10)}px;
+export const ButtonView = styled.View`
+  margin-top: ${RFHeight(20)}px;
 `
 
-export const ForgotPasswdText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: ${RFFontSize(16)}px;
-`
 
 export const ContainerButton = styled.View`
   margin-top: ${RFHeight(10)}px;

@@ -4,8 +4,6 @@ import * as Animatable from 'react-native-animatable'
 import { TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { ModalForgotPasswd } from '../../components/ModalForgotPasswd'
-
 import { TextInput } from '../../components/TextInput'
 import { Button } from '../../components/Button'
 
@@ -19,8 +17,7 @@ import {
   Container,
   Title,
   LogoAnimation,
-  ForgotPasswdText,
-  ForgotPasswdView,
+  ButtonView,
 } from './styles'
 
 const logoImage = require('../../../assets/ecidadao.png')
@@ -91,20 +88,13 @@ const SignIn: React.FC = (props: any) => {
           label="Senha"
           icon="lock"
         />
-        <ForgotPasswdView>
-          <TouchableOpacity onPress={() => setVisibleModal(true)}>
-            <ForgotPasswdText>Esqueci minha senha</ForgotPasswdText>
-          </TouchableOpacity>
 
-          <ModalForgotPasswd
-            modalVisible={visibleModal}
-            handleClose={() => setVisibleModal(false)}
-          />
-        </ForgotPasswdView>
+        <ButtonView>
 
         <TouchableOpacity onPress={handleSubmit(signIn)}>
           <Button title="Entrar" onPress={handleSubmit(signIn)} />
         </TouchableOpacity>
+        </ButtonView>
 
         <TouchableOpacity>
           <SubscribeButton onPress={() => navigation?.navigate('SignUp')}>

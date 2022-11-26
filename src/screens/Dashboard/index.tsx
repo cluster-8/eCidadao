@@ -124,7 +124,7 @@ const Dashboard: React.FC = () => {
               type={'closed'}
             />
           </CardContainer>
-          <GraphTitle>{'Total de solicita≤ções por tipo'}</GraphTitle>
+          <GraphTitle>{'Total de solicitações por tipo'}</GraphTitle>
           <GraphDescription>
             {'Arraste para a esquerda para visualizar mais'}
           </GraphDescription>
