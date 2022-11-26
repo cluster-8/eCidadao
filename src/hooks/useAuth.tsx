@@ -18,20 +18,20 @@ import { api } from '../data/services/api'
 import { useTerms } from '../hooks/useTerms'
 
 interface AuthContextData {
-  signInWithPassword: (data: FieldValues) => Promise<void>;
-  signUp: (data: FieldValues) => Promise<void>;
-  signOut: () => Promise<void>;
-  authUser: User;
-  isLoading: boolean;
-  isConnected: boolean;
-  usageTerms: any;
-  getUsageTerms: () => Promise<any>;
+  signInWithPassword: (data: FieldValues) => Promise<void>
+  signUp: (data: FieldValues) => Promise<void>
+  signOut: () => Promise<void>
+  authUser: User
+  isLoading: boolean
+  isConnected: boolean
+  usageTerms: any
+  getUsageTerms: () => Promise<any>
   // acceptNewUsageTerms: (data: FieldValues) => Promise<any>
-  hasNewUsageTerms: boolean;
-  setHasNewUsageTerms: any;
-  updateUser: any;
-  updatePassword: any;
-  getUserById: any;
+  hasNewUsageTerms: boolean
+  setHasNewUsageTerms: any
+  updateUser: any
+  updatePassword: any
+  getUserById: any
   deleteAccount: () => Promise<any>
 }
 
@@ -78,6 +78,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   }, [])
 
   const storeUser = async (user: User, token: string) => {
+    console.log(user)
     try {
       setAuthUser(user)
 
@@ -92,28 +93,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       console.log(error)
     }
   }
-
-  // const getUserLastUsageTerm = (userTermsAcceptedList: any[]) => {
-  //   const sortedArr: any = userTermsAcceptedList.sort(
-  //     (a: any, b: any) => a.usageTermsAcceptedAt - b.usageTermsAcceptedAt,
-  //   )
-  //   const lastTerm = sortedArr[0]
-  //   // console.log(lastTerm)
-  //   console.log(sortedArr[0].usageTermsAcceptedAt)
-  //   // console.log(sortedArr[1].usageTermsAcceptedAt);
-  //   return lastTerm
-  // }
-
-  // const acceptNewUsageTerms = useCallback(async (data: FieldValues) => {
-  //   try {
-  //     const { email, password, newUsageTermsAccepted } = data
-  //     console.log(email, password, newUsageTermsAccepted)
-
-  //     // await storeUser(user, token);
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }, [])
 
   const signInWithPassword = useCallback(
     async ({ email, password }: FieldValues) => {
@@ -149,14 +128,12 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       const user = { ...data, id } as User
       setHasNewUsageTerms(false)
       await storeUser(user, token)
-      console.log('passei pelo store user')
 
       Alert.alert(
         'Bem vindo(a)!',
         'Olá, Seja muito bem vindo(a) ao eCidadão! Você já pode registrar solicitações de manutenção.',
       )
     } catch (err) {
-      console.log('Sign Up catch()')
       console.log(err)
     }
   }, [])
@@ -172,18 +149,20 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
 
   const updateUser = useCallback(async (data: any) => {
     try {
-      if (data) {
-        const res = await api.put(`/user/${authUser.id}`, data)
-        console.log(res.status)
-        if (res.status) {
-          const response: any = await getUserById(authUser.id)
-
-          console.log('todo: getuser', response?.data)
-          await storeUser(response?.data, response?.token)
-          return response?.data
+      const userId = authUser.id
+      if (data && userId) {
+        const res = await api.put(`/user/${userId}`, data)
+        if (res.status === 200) {
+          const response: any = await getUserById(userId)
+          // await storeUser(response?.data, response?.token)
+          // await AsyncStorage.multiSet([
+          //   ["@ecidadao:user", JSON.stringify(user)],
+          // ]);
+          return res
         }
       }
     } catch (error) {
+      console.log('updateUser() -> catch()')
       console.log(error)
     }
   }, [])
@@ -198,9 +177,15 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     } catch (error) {}
   }, [])
 
-  // todo
   const updatePassword = useCallback(async (data: any) => {
-    console.log('updatePassword() ...', data)
+    try {
+      const userId = authUser.id
+      if (!data || !userId) return
+      const response = await api.put(`/user/${userId}`, data)
+      return response
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   const deleteAccount = useCallback(async () => {

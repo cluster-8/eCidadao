@@ -28,7 +28,7 @@ export const Routes: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {!authUser.id ? (
+      {!authUser?.id ? (
         <AuthRoutes screenOptions={screenOptions} />
       ) : (
         <AppRoutes />
