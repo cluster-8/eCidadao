@@ -310,7 +310,7 @@ const MyRequests: React.FC = () => {
               <Camera
                 ref={cameraRef}
                 type={camType}
-                style={{ height, flexDirection: 'row' }}
+                style={{ height, flexDirection: "row" }}
               >
                 {CamButton}
               </Camera>
@@ -334,7 +334,7 @@ const MyRequests: React.FC = () => {
                     <FormContainer>
                       <TextInput
                         onChangeText={(text: string) =>
-                          setValue('solutionDescription', text)
+                          setValue("solutionDescription", text)
                         }
                         errorMessage={errors?.solutionDescription?.message}
                         control={control}
@@ -350,7 +350,7 @@ const MyRequests: React.FC = () => {
                           <Feather
                             name="x"
                             size={RFHeight(33)}
-                            color={'#fff'}
+                            color={"#fff"}
                           />
                           <ButtonText>Cancelar</ButtonText>
                         </DiscardButton>
@@ -358,7 +358,7 @@ const MyRequests: React.FC = () => {
                           <Feather
                             name="check"
                             size={RFHeight(33)}
-                            color={'#fff'}
+                            color={"#fff"}
                           />
                           <ButtonText>Confirmar</ButtonText>
                         </ConfirmButton>
@@ -378,7 +378,7 @@ const MyRequests: React.FC = () => {
               <TabSelectorContainer>
                 <TabSelectorButton
                   active={opened}
-                  onPress={() => handleChangeTab('opened')}
+                  onPress={() => handleChangeTab("opened")}
                 >
                   <TabSelectorButtonTitle active={opened}>
                     EM ABERTO
@@ -387,7 +387,7 @@ const MyRequests: React.FC = () => {
 
                 <TabSelectorButton
                   active={closed}
-                  onPress={() => handleChangeTab('closed')}
+                  onPress={() => handleChangeTab("closed")}
                 >
                   <TabSelectorButtonTitle active={closed}>
                     FINALIZADAS
@@ -410,8 +410,8 @@ const MyRequests: React.FC = () => {
 
                   <FilterButtonsContainer>
                     <FilterButton
-                      onPress={() => handleSort('byDate')}
-                      active={activeSort === 'byDate'}
+                      onPress={() => handleSort("byDate")}
+                      active={activeSort === "byDate"}
                     >
                       <Icon name="filter" />
                       <FilterButtonText>Data</FilterButtonText>
@@ -426,8 +426,8 @@ const MyRequests: React.FC = () => {
                     </FilterButton> */}
 
                     <FilterButton
-                      onPress={() => handleSort('byType')}
-                      active={activeSort === 'byType'}
+                      onPress={() => handleSort("byType")}
+                      active={activeSort === "byType"}
                     >
                       <Icon name="filter" />
                       <FilterButtonText>Tipo</FilterButtonText>
@@ -440,7 +440,7 @@ const MyRequests: React.FC = () => {
                     data={sortedData}
                     keyExtractor={(item: any) => item.id}
                     renderItem={({ item }: any) =>
-                      item?.status === 'opened' &&
+                      item?.status === "opened" &&
                       opened && (
                         <RequestCard
                           onPress={() => handleCardPress(item)}
@@ -455,7 +455,7 @@ const MyRequests: React.FC = () => {
                     data={sortedData}
                     keyExtractor={(item: any) => item?.id}
                     renderItem={({ item }: any) =>
-                      item.status === 'closed' &&
+                      item.status === "closed" &&
                       closed && (
                         <RequestCard
                           onPress={() => handleCardPress(item)}
@@ -466,25 +466,28 @@ const MyRequests: React.FC = () => {
                   />
                 )}
 
-                <ModalDetails
-                  data={modalData}
-                  modalVisible={showModal}
-                  handleClose={() => isShowModal(false)}
-                />
+                {showModal && (
+                  <ModalDetails
+                    data={modalData}
+                    modalVisible={showModal}
+                    handleClose={() => isShowModal(false)}
+                  />
+                )}
               </Container>
-              <UseTermsModal
-                modalVisible={visibleModal}
-                handleClose={() => handleCloseModal()}
-                usageTerms={usageTerms}
-                hasNewUsageTerms={true}
-                // acceptNewUsageTerms={handleSubmit(handleAcceptNewTerm)}
-              />
+              {visibleModal && (
+                <UseTermsModal
+                  modalVisible={visibleModal}
+                  handleClose={() => handleCloseModal()}
+                  usageTerms={usageTerms}
+                  hasNewUsageTerms={true}
+                />
+              )}
             </>
           )}
         </>
       )}
     </>
-  )
+  );
 }
 
 export default MyRequests

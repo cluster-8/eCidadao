@@ -80,7 +80,9 @@ const SignUp: React.FC = () => {
   }
 
   async function getUsageTermsData() {
+    // console.log('get usage terms...')
     await getUsageTerms()
+    // console.log(res)
   }
 
   useEffect(() => {

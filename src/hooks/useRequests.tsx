@@ -9,6 +9,7 @@ import React, {
 import { api } from '../data/services/api'
 import { useAuth } from '../hooks/useAuth'
 import { useDate } from '../hooks/useDate'
+import { useTypes } from '../hooks/useTypes'
 import { Alert } from 'react-native'
 interface RequestType {
   value: string
@@ -66,8 +67,28 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
 
   const { authUser } = useAuth()
   const { selectedDate } = useDate()
+  const { getTypeValue } = useTypes()
 
   // todo {{baseurl}}/v1/requests/count-to-dashboard
+
+  const graphArraysData = (data: any) => {
+    if (!data) return
+    const yAxis = []
+    const xAxis = []
+    for (const [key, value] of Object.entries(data)) {
+      const requestType = getTypeValue(key)
+      let formatedType = requestType.split('/')
+      if (formatedType.length > 0) {
+        formatedType = formatedType[0]
+      }
+      xAxis.push(formatedType)
+      yAxis.push(value)
+    }
+    return {
+      y: yAxis,
+      x: xAxis,
+    }
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const countRequestsByType = async () => {
@@ -76,14 +97,19 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       let endDate = new Date(selectedDate.key)
       endDate = new Date(endDate.setMonth(selectedDate.key.getMonth() + 1))
 
-      const path =
-        authUser.role === 'technical' ? 'requests/technical' : `requests`
+      // const path =
+      //   authUser.role === 'technical' ? 'requests/technical' : `requests`
+
+      const path = 'requests'
 
       const { data } = await api.get(
         `${path}/count-to-dashboard?select=all&filter[0][path]=createdAt&filter[0][value]=${selectedDate.key}&filter[0][operator]=gte&filter[0][type]=date&filter[1][path]=createdAt&filter[1][value]=${endDate}&filter[1][operator]=lte&filter[1][type]=date&limit=999`,
       )
-      return data
+      const graphData = graphArraysData(data)
+      console.log(graphData)
+      return graphData
     } catch (error) {
+      console.log('countRequestByType() -> catch()')
       console.log(error)
     }
   }
@@ -221,7 +247,7 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       data = await getUserRequests()
     }
     if (data) {
-      setReqData(data);
+      setReqData(data)
     }
   }
 

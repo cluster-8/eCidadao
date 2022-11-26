@@ -147,6 +147,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       } = await api.post<SignUpRequestProps>('/user', data)
 
       const user = { ...data, id } as User
+      setHasNewUsageTerms(false)
       await storeUser(user, token)
       console.log('passei pelo store user')
 
@@ -206,6 +207,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     try {
       if (!authUser.id) return
       const res = await api.delete(`/user/${authUser.id}`)
+      // console.log(res)
       if (res.status === 200) await signOut()
     } catch (error) {
       console.log('Delete account catch()')

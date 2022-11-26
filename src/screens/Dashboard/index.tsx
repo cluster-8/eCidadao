@@ -12,6 +12,9 @@ import {
   CardContainer,
   FilterContainer,
   GraphContainer,
+  ScrollContainer,
+  GraphTitle,
+  GraphDescription,
 } from './styles'
 
 import ModalFilter from '../../components/ModalFilter'
@@ -50,6 +53,7 @@ const Dashboard: React.FC = () => {
 
   const [totalOpened, setTotalOpened] = useState<number>(0)
   const [totalClosed, setTotalClosed] = useState<number>(0)
+  const [graphData, setGraphData] = useState<any>()
 
   const { countRequestsByStatus, countRequestsByType } = useRequests()
 
@@ -64,9 +68,11 @@ const Dashboard: React.FC = () => {
     const opened = await countRequestsByStatus('opened')
     const closed = await countRequestsByStatus('closed')
     const countByType = await countRequestsByType()
+    console.log(countByType)
 
     setTotalOpened(Number(opened))
     setTotalClosed(Number(closed))
+    setGraphData(countByType)
   }
 
   useEffect(() => {
@@ -83,6 +89,10 @@ const Dashboard: React.FC = () => {
           </HeaderText>
         </HeaderContainer>
         <BodyContainer>
+          <GraphTitle>{'Filtrar por mês e ano'}</GraphTitle>
+          <GraphDescription>
+            {'Selecione uma opção para visualizar'}
+          </GraphDescription>
           <FilterContainer>
             <SelectDataInput
               onPress={() => setOpenModalFilter(!openModalFilter)}
@@ -91,67 +101,65 @@ const Dashboard: React.FC = () => {
               control={control}
               icon="chevron-down"
               placeholder="Data"
-              label="Filtrar por mês e ano"
+              // label="Selecione uma opção para visualizar"
               name="date"
             />
             {/* <DateSelectButton /> */}
           </FilterContainer>
+          <GraphTitle>{'Total de solicita≤ções por status'}</GraphTitle>
+          <GraphDescription>
+            {'Total de solicitações registradas por status'}
+          </GraphDescription>
           <CardContainer>
             <DashboardCard
-              title={"SOLICITAÇÕES ABERTAS"}
+              title={'SOLICITAÇÕES ABERTAS'}
               data={totalOpened}
-              icon={"traffic-cone"}
-              type={"opened"}
+              icon={'traffic-cone'}
+              type={'opened'}
             />
             <DashboardCard
-              title={"SOLICITAÇÕES FECHADAS"}
+              title={'SOLICITAÇÕES FECHADAS'}
               data={totalClosed}
-              icon={"check"}
-              type={"closed"}
+              icon={'check'}
+              type={'closed'}
             />
           </CardContainer>
-          <GraphContainer>
-            <BarChart
-              data={{
-                labels: [
-                  "January",
-                  "February",
-                  "March",
-                  "April",
-                  "May",
-                  "June",
-                ],
-                datasets: [
-                  {
-                    data: [
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                    ],
+          <GraphTitle>{'Total de solicita≤ções por tipo'}</GraphTitle>
+          <GraphDescription>
+            {'Arraste para a esquerda para visualizar mais'}
+          </GraphDescription>
+          <ScrollContainer horizontal>
+            <GraphContainer>
+              <BarChart
+                yAxisLabel={''}
+                yAxisSuffix={''}
+                data={{
+                  labels: graphData ? graphData.x : [],
+                  datasets: [
+                    {
+                      data: graphData ? graphData.y : [],
+                    },
+                  ],
+                }}
+                width={Dimensions.get('window').width} // from react-native
+                height={220}
+                chartConfig={{
+                  backgroundColor: '#004997',
+                  backgroundGradientFrom: '#0257b1',
+                  backgroundGradientTo: '#0061c9',
+                  decimalPlaces: 0, // optional, defaults to 2dp
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  style: {
+                    borderRadius: 16,
                   },
-                ],
-              }}
-              width={Dimensions.get("window").width - 50} // from react-native
-              height={220}
-              chartConfig={{
-                backgroundColor: "#004997",
-                backgroundGradientFrom: "#0257b1",
-                backgroundGradientTo: "#0061c9",
-                decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
+                }}
+                style={{
+                  marginVertical: 8,
                   borderRadius: 16,
-                },
-              }}
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-              }}
-            />
-          </GraphContainer>
+                }}
+              />
+            </GraphContainer>
+          </ScrollContainer>
         </BodyContainer>
       </Container>
       <ModalFilter
@@ -160,7 +168,7 @@ const Dashboard: React.FC = () => {
         type={modalType}
       />
     </>
-  );
+  )
 }
 
 export default Dashboard

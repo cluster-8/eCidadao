@@ -10,15 +10,22 @@ export const Container = styled.View`
 `;
 
 export const HeaderContainer = styled.View`
+  /* align-items: center;
+  justify-content: center;
+  height: 20%; */
+
   align-items: center;
   justify-content: center;
-  height: 20%;
+  resizemode: contain;
+  width: 100%;
+  /* height: 20%; */
+  height: ${RFHeight(150)}px;
 `;
 
 export const HeaderTitle = styled.Text`
   font-size: ${RFFontSize(25)}px;
   font-family: ${({ theme }) => theme.fonts.semiBold};
-  margin-top: ${RFHeight(10)}px;
+  margin-top: ${RFHeight(40)}px;
 `;
 
 export const HeaderText = styled.Text`

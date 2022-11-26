@@ -16,8 +16,7 @@ export const Content = styled.View`
   flex: 1%;
   justify-content: center;
   align-items: center;
-  background-color: 'rgba(0,0,0,0.5)'
-
+  background-color: 'rgba(0,0,0,0.5)';
 `
 
 export const ModalContent = styled.View`
@@ -30,7 +29,7 @@ export const ModalContent = styled.View`
   border-top-left-radius: ${RFHeight(10)}px;
   border-top-right-radius: ${RFHeight(10)}px;
   align-items: center;
-`;
+`
 
 export const CloseButton = styled.Pressable`
   background-color: #f6f6f6;
@@ -58,8 +57,7 @@ export const DescriptionContainer = styled.View`
   padding: ${RFHeight(10)}px;
   padding-top: ${RFHeight(0)}px;
   margin-left: ${RFHeight(70)}px;
-  margin-right:${RFHeight(45)}px;
-
+  margin-right: ${RFHeight(45)}px;
 `
 
 export const Image = styled(ImageBackground as any)`
@@ -71,14 +69,14 @@ export const BtnBackground = styled(ImageBackground as any)`
   width: 100%;
   height: ${RFHeight(265)}px;
   flex-direction: row;
-`;
+`
 
 export const TitleContainer = styled.View`
   flex: 2;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  margin-right:${RFWidth(8)}px;
+  margin-right: ${RFWidth(8)}px;
 `
 
 export const Title = styled.Text`
@@ -88,7 +86,6 @@ export const Title = styled.Text`
   font-weight: bold;
   text-align: center;
   font-family: ${({ theme }) => theme.fonts.semiBold};
-  
 `
 
 export const InfoRow = styled.View`
@@ -109,7 +106,6 @@ export const Info = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   margin-bottom: ${RFHeight(10)}px;
   margin-right: ${RFHeight(10)}px;
-
 `
 
 export const FinalizeButton = styled.TouchableOpacity`
@@ -121,7 +117,7 @@ export const FinalizeButton = styled.TouchableOpacity`
   flex-direction: row;
   width: ${RFWidth(85)}px;
   padding: ${RFWidth(5)}px;
-  margin-right:${RFWidth(11)}px;
+  margin-right: ${RFWidth(11)}px;
 `
 
 export const FinishedTag = styled.View`
@@ -134,8 +130,8 @@ export const FinishedTag = styled.View`
   width: ${RFWidth(93)}px;
   padding: ${RFWidth(5)}px;
   border-radius: ${RFHeight(10)}px;
-  margin-right:${RFWidth(10)}px;
-`;
+  margin-right: ${RFWidth(10)}px;
+`
 
 export const BtnText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
@@ -149,19 +145,18 @@ export const ImageCarousel = styled.ScrollView`
   width: 90%;
   height: ${RFHeight(10)}px;
   margin-top: ${RFHeight(10)}px;
-`;
+`
 
 export const ImageView = styled.View`
   width: ${Number(width) - 60};
   height: ${RFWidth(100)}px;
   margin-right: ${RFHeight(10)}px;
-`;
+`
 
 export const RNImageComponent = styled(RNImage as any)`
   height: ${RFHeight(265)}px;
 `
 
 export const DescriptionScrollView = styled.ScrollView`
-width: 100%;
+  width: 100%;
 `
-
