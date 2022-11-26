@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react'
-import { Alert, Text } from 'react-native'
+import React, { useState } from 'react'
+import { Alert } from 'react-native'
 import * as yup from 'yup'
 
 import { TextInput } from '../../components/TextInput'
@@ -10,7 +10,7 @@ import { ModalChangePasswd } from '../../components/ModalChangePasswd'
 
 import { useAuth } from '../../hooks/useAuth'
 
-import { Entypo, Ionicons, Feather } from '@expo/vector-icons'
+import { Entypo, Ionicons } from '@expo/vector-icons'
 
 import {
   HeaderContainer,
@@ -63,16 +63,25 @@ const Profile: React.FC = () => {
     resolver: yupResolver(userData),
   })
 
-  async function saveChanges(data: any) {
-    await updateUser(data.name)
-    Alert.alert('Salvar alterações', 'Alterações salvas com sucesso!', [
-      {
-        text: 'OK',
-        // onPress: () => {
-        //   setName(data.name)
-        // },
-      },
-    ])
+  async function handleSaveChangesClick(data: any) {
+    const response = await updateUser(data)
+    if (response.status === 200) {
+      Alert.alert('Salvar alterações', 'Alterações salvas com sucesso!', [
+        {
+          text: 'OK',
+        },
+      ])
+    } else {
+      Alert.alert(
+        'Falha',
+        'Ops! Ocorreu um erro ao salvar as alterações, tente novamente!',
+        [
+          {
+            text: 'OK',
+          },
+        ],
+      )
+    }
   }
 
   async function handleDeleteAccount() {
@@ -151,7 +160,7 @@ const Profile: React.FC = () => {
         <ButtonContainer>
           <Button
             title="Salvar alterações"
-            onPress={handleSubmit(saveChanges)}
+            onPress={handleSubmit(handleSaveChangesClick)}
           />
         </ButtonContainer>
 

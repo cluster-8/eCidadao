@@ -1,34 +1,33 @@
 import React, { useEffect } from 'react'
-import { Modal } from 'react-native'
-import * as yup from 'yup'
+import { Modal, Alert } from 'react-native'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
 import { Entypo } from '@expo/vector-icons'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 import {
-  Container,
-  Content,
-  ModalContent,
-  Title,
-  TitleView,
   DescriptionView,
   TextDescription,
-  InputView,
-  ButtonView,
   ConfirmButton,
-  ConfirmText,
+  ModalContent,
   CloseButton,
+  ConfirmText,
+  ButtonView,
+  Container,
+  InputView,
+  TitleView,
+  Content,
+  Title,
 } from './styles'
 
-import { TextInput } from '../../components/TextInput'
 import { RFHeight } from '../../utils/getResponsiveSizes'
-
+import { TextInput } from '../../components/TextInput'
 import { useAuth } from '../../hooks/useAuth'
 
 const schema = yup.object().shape({
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null]),
-  password: yup.string().min(6, 'Mínimo de 6 caracteres'),
-  currentPassword: yup.string(),
+  newPasswordConfirmation: yup.string().oneOf([yup.ref('newPassword'), null]),
+  newPassword: yup.string().min(6, 'Mínimo de 6 caracteres'),
+  oldPassword: yup.string(),
 })
 
 interface IModalChangePasswd {
@@ -37,7 +36,6 @@ interface IModalChangePasswd {
 }
 
 export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
-  // const [password, setPassword] = useState('')
   const { updatePassword } = useAuth()
 
   const {
@@ -50,16 +48,39 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
     resolver: yupResolver(schema),
   })
 
-  async function handleUpdate(data: any) {
-    // console.log(data)
-    await updatePassword(data)
+  function handleClose() {
+    setValue('newPassword', '')
+    setValue('newPasswordConfirmation', '')
+    setValue('oldPassword', '')
     props.handleClose()
   }
 
+  async function handleUpdate(data: any) {
+    const response = await updatePassword(data)
+    if (response && response.status === 200) {
+      Alert.alert('Alterar senha', 'Senha alterada com sucesso!', [
+        {
+          text: 'OK',
+        },
+      ])
+    } else {
+      Alert.alert(
+        'Falha',
+        'Ops! Ocorreu um erro ao alterar a senha, tente novamente!',
+        [
+          {
+            text: 'OK',
+          },
+        ],
+      )
+    }
+    handleClose()
+  }
+
   useEffect(() => {
-    register('currentPassword')
-    register('password')
-    register('passwordConfirmation')
+    register('newPasswordConfirmation')
+    register('oldPassword')
+    register('newPassword')
   }, [])
 
   return (
@@ -71,7 +92,7 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
       >
         <Content>
           <ModalContent>
-            <CloseButton onPress={props.handleClose}>
+            <CloseButton onPress={handleClose}>
               <Entypo name="cross" size={RFHeight(30)} />
             </CloseButton>
             <TitleView>
@@ -79,47 +100,44 @@ export const ModalChangePasswd: React.FC<IModalChangePasswd> = (props) => {
             </TitleView>
             <DescriptionView>
               <TextDescription>
-                {' '}
                 Digite sua senha atual de acesso, em seguida sua nova senha.
               </TextDescription>
             </DescriptionView>
             <InputView>
               <TextInput
-                onChangeText={(text: string) =>
-                  setValue('currentPassword', text)
-                }
-                errorMessage={errors?.password?.message}
-                defaultValue={''}
-                control={control}
+                onChangeText={(text: string) => setValue('oldPassword', text)}
+                errorMessage={errors?.oldPassword?.message}
                 placeholder="Digite a senha atual"
-                secureTextEntry
-                name="currentPassword"
                 label="Senha Atual"
+                name="oldPassword"
+                defaultValue={''}
+                control={control}
+                secureTextEntry
                 icon="lock"
               />
 
               <TextInput
-                onChangeText={(text: string) => setValue('password', text)}
-                errorMessage={errors?.password?.message}
+                onChangeText={(text: string) => setValue('newPassword', text)}
+                errorMessage={errors?.oldPassword?.message}
+                placeholder="Digite a nova senha"
+                name="newPassword"
+                label="Nova Senha"
                 defaultValue={''}
                 control={control}
-                placeholder="Digite a nova senha"
                 secureTextEntry
-                name="password"
-                label="Nova Senha"
                 icon="lock"
               />
 
               <TextInput
                 onChangeText={(text: string) =>
-                  setValue('passwordConfirmation', text)
+                  setValue('newPasswordConfirmation', text)
                 }
-                defaultValue={''}
-                errorMessage={errors?.passwordConfirmation?.message}
-                control={control}
+                errorMessage={errors?.newPasswordConfirmation?.message}
                 placeholder="Digite a senha novamente"
+                name="newPasswordConfirmation"
                 label="Confirme sua Senha"
-                name="passwordConfirmation"
+                defaultValue={''}
+                control={control}
                 secureTextEntry
                 icon="lock"
               />
