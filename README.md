@@ -58,7 +58,7 @@ Acesse o link para visualizar:
 
 ### ❌ Exclusão de conta
 
-![]()
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/delete-account.gif)
 
 ### 📊 Dashboard de indicativos
 
