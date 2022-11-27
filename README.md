@@ -58,8 +58,12 @@ Acesse o link para visualizar:
 
 ### ❌ Exclusão de conta
 
+A funcionalidade de "Exclusão de Conta" é requisito de adequação às Leis Gerais de Proteção de Dados, que garante ao usuário o direito de ter seus dados pessoais excluídos da aplicação quando achar necessário
+
 ![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/delete-account.gif)
 
 ### 📊 Dashboard de indicativos
 
-![]()
+No Dashboard de Indicativos o usuário pode visualizar informações relacionadas ao total de solicitações de manutenção registradas de acordo com seus respectivos status e tipos com filtro seletor por mês/ano.
+
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/dashboard.gif)
