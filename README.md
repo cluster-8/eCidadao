@@ -56,10 +56,10 @@ Acesse o link para visualizar:
 
 ## 💫 Funcionalidades implementadas
 
-### ➕ Exclusão de conta
+### ❌ Exclusão de conta
 
 ![]()
 
-### 👤 Dashboard de indicativos
+### 📊 Dashboard de indicativos
 
 ![]()
