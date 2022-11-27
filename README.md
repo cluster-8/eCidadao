@@ -9,10 +9,10 @@
 </h2>
 
 <h1 align="center"> 
-🏁 Sprint 2
+🏁 Sprint 4
 </h1>
 
-Abaixo encontram-se todos os itens produzidos durante a Sprint 2 conforme estabelecido previamente por meio do planejamento:
+Abaixo encontram-se todos os itens produzidos durante a Sprint 4 conforme estabelecido previamente por meio do planejamento:
 
 ## 💹 Planejamento da Sprint
 
@@ -22,14 +22,14 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 | ID    | Prioridade | User Story                                                                                           | Funcionalidades                                                                                                       |
 | ----- | ---------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| US_02 | Importante | Eu, como usuário, gostaria de submeter um problema identificado em área pública. | 1. Imagem; 2. Localização via GPS; 3. Texto descritivo; 4. Problema identificado (select); 5. Data. |
-| US_03 | Essencial  | Eu, como usuário, gostaria de visualizar os problemas informados por mim e seus respectivos status.                            | 1. Lista de problemas segmentados por status exibidos em cards; 2. Visualização de detalhes do problema.                                    |
+| US_05 | Importante | Eu, como usuário, gostaria de exluir minha conta quando achar necessário. | 1. Exclusão de conta do usuário na tela de Perfil |
+| US_08 | Desejável  | Eu, como usuário, gostaria de visualizar indicativos sobre as solicitações de manutenção realizadas.                            | 1. Card de total de solicitações em aberto e Card para total de solicitações fechadas; 2. Gráfico de pizza com os tipos de solicitações mais frequentes.                                    |
 
 ### 📝 Sprint Backlog
 
 A imagem abaixo mostra os itens do [**Product Backlog**](https://github.com/cluster-8/eCidadao/blob/main/docs/Product_Backlog_-_eCidado_-_Cluster_8-1.pdf) em ordem de prioridade referentes a Sprint 2:
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint2.png)
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/user-stories-sprint4.png)
 
 ## 📂 Documentação do Projeto
 
@@ -39,17 +39,13 @@ Acesse os documentos clicando nos links abaixo:
 
 ## 📉 Burndown da Sprint
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/burndown-sprint2.png)
+![]()
 
 ## 🖥️ Wireframe
 
 Acesse o link para visualizar:
 
 > - [Protótipo interativo](https://www.figma.com/proto/Z9tFxvXDa5ntOBZ4g77Ubh/Cluster-8-API-5-SEMESTRE?node-id=0%3A1)
-
-## 📃 Termos de uso
-
-> - ![Termos de uso](https://github.com/cluster-8/eCidadao/blob/main/docs/Termos%20de%20uso%20-%20Versa%CC%83o%201.0.pdf)
 
 ## 📃 Código - Ambiente de Desenvolvimento
 
@@ -60,10 +56,10 @@ Acesse o link para visualizar:
 
 ## 💫 Funcionalidades implementadas
 
-### ➕ Nova solicitação
+### ➕ Exclusão de conta
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/nova-solicitacao.gif)
+![]()
 
-### 👤 Minhas solicitações
+### 👤 Dashboard de indicativos
 
-![](https://github.com/cluster-8/eCidadao/blob/main/docs/gifs/minhas-requisicoes.gif)
+![]()
