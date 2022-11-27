@@ -90,6 +90,30 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     }
   }
 
+  const pieChartData = (data: any) => {
+    const colors = ['#914fa1', '#de5b91', '#ff8274', '#ffbb5e', '#f9f871']
+
+    if (!data) {
+      console.log('sem data...')
+      return
+    }
+
+    const chartData = []
+    let i = 0
+    for (const [key, value] of Object.entries(data)) {
+      const requestType = getTypeValue(key)
+      chartData.push({
+        name: requestType,
+        total: value,
+        color: colors[i],
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 10,
+      })
+      i += 1
+    }
+    return chartData
+  }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const countRequestsByType = async () => {
     try {
@@ -97,16 +121,17 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       let endDate = new Date(selectedDate.key)
       endDate = new Date(endDate.setMonth(selectedDate.key.getMonth() + 1))
 
-      // const path =
-      //   authUser.role === 'technical' ? 'requests/technical' : `requests`
+      const path =
+        authUser.role === 'technical' ? 'requests/technical' : `requests`
 
-      const path = 'requests'
+      // const path = 'requests'
 
       const { data } = await api.get(
         `${path}/count-to-dashboard?select=all&filter[0][path]=createdAt&filter[0][value]=${selectedDate.key}&filter[0][operator]=gte&filter[0][type]=date&filter[1][path]=createdAt&filter[1][value]=${endDate}&filter[1][operator]=lte&filter[1][type]=date&limit=999`,
       )
-      const graphData = graphArraysData(data)
-      console.log(graphData)
+      // const graphData = graphArraysData(data)
+      const graphData = pieChartData(data)
+
       return graphData
     } catch (error) {
       console.log('countRequestByType() -> catch()')
@@ -123,11 +148,11 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
 
       const path =
         authUser.role === 'technical' ? 'requests/technical' : `requests`
-
+      console.log(path)
       const { data } = await api.get(
         `${path}?select=id&filter[0][path]=status&filter[0][value]=${status}&filter[1][path]=createdAt&filter[1][value]=${selectedDate.key}&filter[1][operator]=gte&filter[1][type]=date&filter[2][path]=createdAt&filter[2][value]=${endDate}&filter[2][operator]=lte&filter[2][type]=date&limit=999`,
       )
-
+      console.log(data)
       return data.length
     } catch (error) {
       console.log(error)

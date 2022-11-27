@@ -28,7 +28,7 @@ import * as useDate from '../../hooks/useDate'
 import {
   // LineChart,
   BarChart,
-  // PieChart,
+  PieChart,
   // ProgressChart,
   // ContributionGraph,
 } from 'react-native-chart-kit'
@@ -73,6 +73,12 @@ const Dashboard: React.FC = () => {
     setTotalOpened(Number(opened))
     setTotalClosed(Number(closed))
     setGraphData(countByType)
+  }
+
+  const chartConfig = {
+    backgroundGradientFrom: '#1E2923',
+    backgroundGradientTo: '#08130D',
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
   }
 
   useEffect(() => {
@@ -130,9 +136,18 @@ const Dashboard: React.FC = () => {
           </GraphDescription>
           <ScrollContainer horizontal>
             <GraphContainer>
-              <BarChart
-                yAxisLabel={''}
-                yAxisSuffix={''}
+              <PieChart
+                data={graphData || []}
+                width={350}
+                height={220}
+                chartConfig={chartConfig}
+                accessor="total"
+                backgroundColor="transparent"
+                paddingLeft="0"
+              />
+              {/* <BarChart
+                yAxisLabel={""}
+                yAxisSuffix={""}
                 data={{
                   labels: graphData ? graphData.x : [],
                   datasets: [
@@ -141,12 +156,12 @@ const Dashboard: React.FC = () => {
                     },
                   ],
                 }}
-                width={Dimensions.get('window').width} // from react-native
+                width={Dimensions.get("window").width} // from react-native
                 height={220}
                 chartConfig={{
-                  backgroundColor: '#004997',
-                  backgroundGradientFrom: '#0257b1',
-                  backgroundGradientTo: '#0061c9',
+                  backgroundColor: "#004997",
+                  backgroundGradientFrom: "#0257b1",
+                  backgroundGradientTo: "#0061c9",
                   decimalPlaces: 0, // optional, defaults to 2dp
                   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                   style: {
@@ -157,7 +172,7 @@ const Dashboard: React.FC = () => {
                   marginVertical: 8,
                   borderRadius: 16,
                 }}
-              />
+              /> */}
             </GraphContainer>
           </ScrollContainer>
         </BodyContainer>

@@ -308,6 +308,31 @@ const MyRequests: React.FC = () => {
     getData()
   }, [])
 
+  // const NoRequestsComponent = useMemo(() => {
+  //   // if (!reqData) return
+  //   const closedRequests = reqData.some((el: any) => el.status === 'closed')
+  //   const openedRequests = reqData.some((el: any) => el.status === 'opened')
+
+  //   return (
+  //     <>
+  //       {(opened && openedRequests) || (closed && closedRequests) ? (
+  //         <ImageContainer>
+  //           <ImageMessage>
+  //             {'Ainda não há solicitações de manutenção registradas'}
+  //           </ImageMessage>
+  //           <NoRequestImage source={constructionImage} />
+  //         </ImageContainer>
+  //       ) : (
+  //         <></>
+  //       )}
+  //     </>
+  //   )
+  // }, [reqData])
+
+  useEffect(() => {
+    console.log(reqData)
+  }, [reqData])
+
   return (
     <>
       {uploading ? (
@@ -453,16 +478,25 @@ const MyRequests: React.FC = () => {
                     </FilterButton>
                   </FilterButtonsContainer>
                 </FilterContainer>
-
-                {sortedData?.length === 0 && (
-                  <ImageContainer>
-                    <ImageMessage>
-                      {'Ainda não há solicitações de manutenção registradas'}
-                    </ImageMessage>
-                    <NoRequestImage source={constructionImage} />
-                  </ImageContainer>
-                )}
-
+                {closed &&
+                  !sortedData?.some((el: any) => el.status === 'closed') && (
+                    <ImageContainer>
+                      <ImageMessage>
+                        {'Ainda não há solicitações de manutenção registradas'}
+                      </ImageMessage>
+                      <NoRequestImage source={constructionImage} />
+                    </ImageContainer>
+                  )}
+                {opened &&
+                  !sortedData?.some((el: any) => el.status === 'opened') && (
+                    <ImageContainer>
+                      <ImageMessage>
+                        {'Ainda não há solicitações de manutenção registradas'}
+                      </ImageMessage>
+                      <NoRequestImage source={constructionImage} />
+                    </ImageContainer>
+                  )}
+                {/* <NoRequestsComponent /> */}
                 {opened && (
                   <CardsContainer
                     data={sortedData}
@@ -493,7 +527,6 @@ const MyRequests: React.FC = () => {
                     }
                   />
                 )}
-
                 {showModal && (
                   <ModalDetails
                     data={modalData}
