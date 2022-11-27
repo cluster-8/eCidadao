@@ -22,7 +22,7 @@ A tabela abaixo mostra as **Histórias de Usuário** selecionadas para serem des
 
 | ID    | Prioridade | User Story                                                                                           | Funcionalidades                                                                                                       |
 | ----- | ---------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| US_05 | Importante | Eu, como usuário, gostaria de exluir minha conta quando achar necessário. | 1. Exclusão de conta do usuário na tela de Perfil |
+| US_05 | Importante | Eu, como usuário, gostaria de excluir minha conta quando achar necessário. | 1. Exclusão de conta do usuário na tela de Perfil |
 | US_08 | Desejável  | Eu, como usuário, gostaria de visualizar indicativos sobre as solicitações de manutenção realizadas.                            | 1. Card de total de solicitações em aberto e Card para total de solicitações fechadas; 2. Gráfico de pizza com os tipos de solicitações mais frequentes.                                    |
 
 ### 📝 Sprint Backlog
