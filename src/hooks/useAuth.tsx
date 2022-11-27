@@ -109,9 +109,10 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
 
         await storeUser(user, token)
       } catch (error) {
+        console.log(error)
         Alert.alert(
           'Erro',
-          'Não foi possível fazer o login, tente novamente mais tarde - 111111',
+          'Não foi possível fazer o login, tente novamente mais tarde.',
         )
       } finally {
         setLoading(false)
@@ -191,8 +192,22 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     }
   }, [])
 
-  const deleteAccount = useCallback(async () => {
+  // const deleteAccount = useCallback(async () => {
+  //   try {
+  //     console.log(authUser)
+  //     if (!authUser.id) return
+  //     const res = await api.delete(`/user/${authUser.id}`)
+  //     if (res.status === 200) await signOut()
+  //   } catch (error) {
+  //     console.log('Delete account catch()')
+  //     console.log(error)
+  //   }
+  // }, [])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deleteAccount = async () => {
     try {
+      console.log(authUser)
       if (!authUser.id) return
       const res = await api.delete(`/user/${authUser.id}`)
       if (res.status === 200) await signOut()
@@ -200,7 +215,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       console.log('Delete account catch()')
       console.log(error)
     }
-  }, [])
+  }
 
   useEffect(() => {
     const loadStoragedData = async (): Promise<void> => {

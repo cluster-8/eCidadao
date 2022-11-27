@@ -89,3 +89,30 @@ export const GraphDescription = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_secondary};
 `;
+
+export const ImageContainer = styled.View`
+  margin-top: ${RFHeight(20)}px;
+  margin-bottom: ${RFHeight(20)}px;
+  flex-direction: column;
+  /* height: ${RFHeight(400)}px; */
+  height: 100%;
+  width: 100%;
+  /* justify-content: flex-start; */
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  /* background-color: ${({ theme }) => theme.colors.primary}; */
+`;
+
+export const NoDataImage = styled.Image`
+  width: 100%;
+  /* height: 100%; */
+  height: ${RFHeight(250)}px;
+`;
+
+export const ImageMessage = styled.Text`
+  font-size: ${RFFontSize(16)}px;
+  margin-top: ${RFHeight(15)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  margin-bottom: ${RFHeight(20)}px;
+`;

@@ -15,6 +15,9 @@ import {
   ScrollContainer,
   GraphTitle,
   GraphDescription,
+  ImageContainer,
+  NoDataImage,
+  ImageMessage,
 } from './styles'
 
 import ModalFilter from '../../components/ModalFilter'
@@ -27,11 +30,13 @@ import * as useDate from '../../hooks/useDate'
 
 import {
   // LineChart,
-  BarChart,
+  // BarChart,
   PieChart,
   // ProgressChart,
   // ContributionGraph,
 } from 'react-native-chart-kit'
+
+const noDataImage = require('../../../assets/under-construction-pana.png')
 
 const Dashboard: React.FC = () => {
   const schema = yup.object().shape({
@@ -134,18 +139,26 @@ const Dashboard: React.FC = () => {
           <GraphDescription>
             {'Arraste para a esquerda para visualizar mais'}
           </GraphDescription>
-          <ScrollContainer horizontal>
-            <GraphContainer>
-              <PieChart
-                data={graphData || []}
-                width={350}
-                height={220}
-                chartConfig={chartConfig}
-                accessor="total"
-                backgroundColor="transparent"
-                paddingLeft="0"
-              />
-              {/* <BarChart
+          {graphData?.length === 0 ? (
+            <ImageContainer>
+              <ImageMessage>
+                {'Ainda não há dados para serem visualizados'}
+              </ImageMessage>
+              <NoDataImage source={noDataImage} />
+            </ImageContainer>
+          ) : (
+            <ScrollContainer horizontal>
+              <GraphContainer>
+                <PieChart
+                  data={graphData || []}
+                  width={350}
+                  height={220}
+                  chartConfig={chartConfig}
+                  accessor="total"
+                  backgroundColor="transparent"
+                  paddingLeft="0"
+                />
+                {/* <BarChart
                 yAxisLabel={""}
                 yAxisSuffix={""}
                 data={{
@@ -173,8 +186,9 @@ const Dashboard: React.FC = () => {
                   borderRadius: 16,
                 }}
               /> */}
-            </GraphContainer>
-          </ScrollContainer>
+              </GraphContainer>
+            </ScrollContainer>
+          )}
         </BodyContainer>
       </Container>
       <ModalFilter

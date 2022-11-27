@@ -121,10 +121,10 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       let endDate = new Date(selectedDate.key)
       endDate = new Date(endDate.setMonth(selectedDate.key.getMonth() + 1))
 
-      const path =
-        authUser.role === 'technical' ? 'requests/technical' : `requests`
+      // const path =
+      //   authUser.role === 'technical' ? 'requests/technical' : `requests`
 
-      // const path = 'requests'
+      const path = 'requests'
 
       const { data } = await api.get(
         `${path}/count-to-dashboard?select=all&filter[0][path]=createdAt&filter[0][value]=${selectedDate.key}&filter[0][operator]=gte&filter[0][type]=date&filter[1][path]=createdAt&filter[1][value]=${endDate}&filter[1][operator]=lte&filter[1][type]=date&limit=999`,
