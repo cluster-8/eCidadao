@@ -117,7 +117,7 @@ const Dashboard: React.FC = () => {
             />
             {/* <DateSelectButton /> */}
           </FilterContainer>
-          <GraphTitle>{'Total de solicita≤ções por status'}</GraphTitle>
+          <GraphTitle>{'Total de solicitações por status'}</GraphTitle>
           <GraphDescription>
             {'Total de solicitações registradas por status'}
           </GraphDescription>
