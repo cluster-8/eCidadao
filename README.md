@@ -39,7 +39,7 @@ Acesse os documentos clicando nos links abaixo:
 
 ## 📉 Burndown da Sprint
 
-![]()
+![](https://github.com/cluster-8/eCidadao/blob/main/docs/images/burndown-sprint4.png)
 
 ## 🖥️ Wireframe
 
