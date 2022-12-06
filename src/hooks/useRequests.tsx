@@ -54,6 +54,7 @@ interface RequestsContextData {
   userRequests: any
   getData: any
   reqData: any
+  getMapRequests: () => Promise<any>
 }
 
 type RequestsContextProps = {
@@ -158,11 +159,13 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       let endDate = new Date(selectedDate.key)
       endDate = new Date(endDate.setMonth(selectedDate.key.getMonth() + 1))
 
-      const path =
-        authUser.role === 'technical' ? 'requests/technical' : `requests`
-      console.log(path)
+      // const path =
+      //   authUser.role === 'technical' ? 'requests/technical' : `requests`
+
+      // const path = isTechnicalOrAdmin(authUser.role)
+
       const { data } = await api.get(
-        `${path}?select=id&filter[0][path]=status&filter[0][value]=${status}&filter[1][path]=createdAt&filter[1][value]=${selectedDate.key}&filter[1][operator]=gte&filter[1][type]=date&filter[2][path]=createdAt&filter[2][value]=${endDate}&filter[2][operator]=lte&filter[2][type]=date&limit=999`,
+        `/requests/map/?select=id&filter[0][path]=status&filter[0][value]=${status}&filter[1][path]=createdAt&filter[1][value]=${selectedDate.key}&filter[1][operator]=gte&filter[1][type]=date&filter[2][path]=createdAt&filter[2][value]=${endDate}&filter[2][operator]=lte&filter[2][type]=date&limit=999`,
       )
       console.log(data)
       return data.length
@@ -180,6 +183,12 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getTechnicalRequests = async (queryParams: String = '') => {
     const { data } = await api.get(`requests/technical?select=all`)
+    return data
+  }
+
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   const getMapRequests = async (queryParams: String = '') => {
+    const { data } = await api.get(`requests/map?select=all`)
     return data
   }
 
@@ -278,7 +287,7 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getData() {
     let data
-    if (authUser.role === 'technical') {
+    if (authUser.role === 'technical' || authUser.role === 'admin') {
       data = await getTechnicalRequests()
     } else {
       data = await getUserRequests()
@@ -286,6 +295,10 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
     if (data) {
       setReqData(data)
     }
+  }
+
+  const isTechnicalOrAdmin = async (role: any) => {
+    return role === 'technical' || role === 'admin' ? 'requests/technical' : `requests`
   }
 
   // useEffect(() => {
@@ -305,6 +318,7 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       getRequests,
       getData,
       reqData,
+      getMapRequests,
     }),
     [
       countRequestsByType,
@@ -317,6 +331,7 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       getRequests,
       getData,
       reqData,
+      getMapRequests,
     ],
   )
 

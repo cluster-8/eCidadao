@@ -26,7 +26,7 @@ const Requests: React.FC = () => {
 
   const { coords, getLocation } = useLocation()
 
-  const { reqData, getTechnicalRequests, getRequests } = useRequests()
+  const { reqData, getTechnicalRequests, getRequests, getMapRequests } = useRequests()
 
   const { getTypeValue } = useTypes()
 
@@ -127,7 +127,7 @@ const Requests: React.FC = () => {
 
   const getData = async (searchTerm?: any) => {
     try {
-      let data = await getTechnicalRequests()
+      let data = await getMapRequests()
       if (searchTerm) {
         data = data.filter(
           (el: any) =>

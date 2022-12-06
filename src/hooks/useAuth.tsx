@@ -142,11 +142,9 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
 
   const signOut = useCallback(async () => {
     console.log('LOGGING USER OUT')
-    api.defaults.headers.common.Authorization = ''
-
-    setAuthUser({} as User)
-
     await AsyncStorage.multiRemove(['@ecidadao:token', '@ecidadao:user'])
+    api.defaults.headers.common.Authorization = ''
+    setAuthUser({} as User)
   }, [])
 
   // const updateUser = useCallback(async (data: any) => {
