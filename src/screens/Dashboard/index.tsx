@@ -73,7 +73,6 @@ const Dashboard: React.FC = () => {
     const opened = await countRequestsByStatus('opened')
     const closed = await countRequestsByStatus('closed')
     const countByType = await countRequestsByType()
-    console.log(countByType)
 
     setTotalOpened(Number(opened))
     setTotalClosed(Number(closed))
@@ -108,14 +107,11 @@ const Dashboard: React.FC = () => {
             <SelectDataInput
               onPress={() => setOpenModalFilter(!openModalFilter)}
               errorMessage={errors?.type?.message}
-              // defaultValue={selectedDate?.value}
               control={control}
               icon="chevron-down"
               placeholder="Data"
-              // label="Selecione uma opção para visualizar"
               name="date"
             />
-            {/* <DateSelectButton /> */}
           </FilterContainer>
           <GraphTitle>{'Total de solicitações por status'}</GraphTitle>
           <GraphDescription>
@@ -124,22 +120,24 @@ const Dashboard: React.FC = () => {
           <CardContainer>
             <DashboardCard
               title={'SOLICITAÇÕES ABERTAS'}
-              data={totalOpened}
+              data={totalOpened || 0}
               icon={'traffic-cone'}
               type={'opened'}
             />
             <DashboardCard
               title={'SOLICITAÇÕES FECHADAS'}
-              data={totalClosed}
+              data={totalClosed || 0}
               icon={'check'}
               type={'closed'}
             />
           </CardContainer>
-          <GraphTitle>{'Total de solicitações por tipo'}</GraphTitle>
+          <GraphTitle>{'Solicitações mais frequentes'}</GraphTitle>
           <GraphDescription>
-            {'Arraste para a esquerda para visualizar mais'}
+            {
+              'Veja a porcentagem de cada tipo de ocorrência dentre as solicitações mais registradas'
+            }
           </GraphDescription>
-          {graphData?.length === 0 ? (
+          {graphData?.length === 0 || !graphData ? (
             <ImageContainer>
               <ImageMessage>
                 {'Ainda não há dados para serem visualizados'}
@@ -158,34 +156,6 @@ const Dashboard: React.FC = () => {
                   backgroundColor="transparent"
                   paddingLeft="0"
                 />
-                {/* <BarChart
-                yAxisLabel={""}
-                yAxisSuffix={""}
-                data={{
-                  labels: graphData ? graphData.x : [],
-                  datasets: [
-                    {
-                      data: graphData ? graphData.y : [],
-                    },
-                  ],
-                }}
-                width={Dimensions.get("window").width} // from react-native
-                height={220}
-                chartConfig={{
-                  backgroundColor: "#004997",
-                  backgroundGradientFrom: "#0257b1",
-                  backgroundGradientTo: "#0061c9",
-                  decimalPlaces: 0, // optional, defaults to 2dp
-                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                  style: {
-                    borderRadius: 16,
-                  },
-                }}
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                }}
-              /> */}
               </GraphContainer>
             </ScrollContainer>
           )}

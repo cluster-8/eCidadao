@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Dimensions, View } from 'react-native'
-
-import MapView, { Marker } from 'react-native-maps'
+import { Dimensions, View, Text } from 'react-native'
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps'
 
 import { Container, GetLocationButton, GetLocationIcon } from './styles'
 
@@ -25,9 +24,9 @@ const delta = {
 const Requests: React.FC = () => {
   const mapRef = useRef<MapView | null>(null)
 
-  const { coords } = useLocation()
+  const { coords, getLocation } = useLocation()
 
-  const { reqData, getTechnicalRequests, getRequests } = useRequests();
+  const { reqData, getTechnicalRequests, getRequests } = useRequests()
 
   const { getTypeValue } = useTypes()
 
@@ -46,6 +45,7 @@ const Requests: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const requests: any = useMemo(() => {
+    console.log(searchTerm, data)
     if (!data) return
     if (!searchTerm) return data
     return data?.filter(
@@ -54,6 +54,21 @@ const Requests: React.FC = () => {
         el.address.formattedAddress.includes(searchTerm),
     )
   }, [searchTerm, data, getTypeValue])
+
+  // const requests: any = useMemo(() => {
+  //   let data = reqData
+  //   if (!reqData) return []
+  //   if (!searchTerm) return data
+  //   data = reqData?.filter(
+  //     (el: any) =>
+  //       getTypeValue(el.type).includes(searchTerm) ||
+  //       el.address.formattedAddress.includes(searchTerm),
+  //   )
+  //   console.log(data)
+  //   return data
+  // }, [searchTerm, reqData, getTypeValue])
+
+  const [solicitacoes, setSolicitacoes] = useState<any>([])
 
   const handleSelect = (request: any) => {
     setCurrentSolicitacao({
@@ -85,6 +100,7 @@ const Requests: React.FC = () => {
         longitudeDelta: 0.01,
       })
     }
+    console.log('coords has changed...')
   }, [coords])
 
   useEffect(() => {
@@ -96,11 +112,55 @@ const Requests: React.FC = () => {
         longitudeDelta: 0.01,
       })
     }
+    console.log('search term...')
   }, [requests, searchTerm])
+
+  // useEffect(() => {
+  //   getLocation().then((loc) =>
+  //     console.log(
+  //       'Coords ---------->',
+  //       loc.coords.latitude,
+  //       loc.coords.longitude,
+  //     ),
+  //   )
+  // }, [])
+
+  const getData = async (searchTerm?: any) => {
+    try {
+      let data = await getTechnicalRequests()
+      if (searchTerm) {
+        data = data.filter(
+          (el: any) =>
+            getTypeValue(el.type)
+              .toUpperCase()
+              .includes(searchTerm.toUpperCase()) ||
+            el.address.formattedAddress.includes(searchTerm),
+        )
+      }
+      setSolicitacoes(data)
+      setCurrentRegion({
+        latitude: Number(data[0].address.lat),
+        longitude: Number(data[0].address.long),
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      })
+      console.log()
+      console.log(data)
+      console.log()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getData(searchTerm)
+  }, [searchTerm])
 
   return (
     <Container>
       <MapView
+        // provider={PROVIDER_GOOGLE}
         ref={mapRef}
         style={{
           width: Dimensions.get('window').width,
@@ -115,9 +175,9 @@ const Requests: React.FC = () => {
         loadingEnabled={true}
         moveOnMarkerPress={true}
         initialRegion={currentRegion}
-        // region={currentRegion}
+        region={currentRegion}
       >
-        {reqData?.map((request: any) => {
+        {solicitacoes?.map((request: any) => {
           return (
             <View key={request.id}>
               {request.status === 'opened' && (
@@ -143,7 +203,11 @@ const Requests: React.FC = () => {
                     })
                     setModalVisible(true)
                   }}
-                />
+                >
+                  {/* <Callout>
+                    <Text>{request?.type}</Text>
+                  </Callout> */}
+                </Marker>
               )}
             </View>
           )

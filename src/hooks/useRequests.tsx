@@ -91,7 +91,18 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
   }
 
   const pieChartData = (data: any) => {
-    const colors = ['#914fa1', '#de5b91', '#ff8274', '#ffbb5e', '#f9f871']
+    const colors = [
+      '#914fa1',
+      '#de5b91',
+      '#ff8274',
+      '#ffbb5e',
+      '#f9f871',
+      '#4f53a9',
+      '#7f5cb8',
+      '#8f1d39',
+      '#c95568',
+      '#d3a518',
+    ]
 
     if (!data) {
       console.log('sem data...')
@@ -111,7 +122,8 @@ const RequestsProvider: React.FC<RequestsContextProps> = ({ children }) => {
       })
       i += 1
     }
-    return chartData
+    // return chartData
+    return chartData.length > 10 ? chartData.slice(0, 10) : chartData
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

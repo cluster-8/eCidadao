@@ -149,7 +149,30 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     await AsyncStorage.multiRemove(['@ecidadao:token', '@ecidadao:user'])
   }, [])
 
-  const updateUser = useCallback(async (data: any) => {
+  // const updateUser = useCallback(async (data: any) => {
+  //   try {
+  //     const userId = authUser.id
+
+  //     if (data && userId) {
+  //       const res = await api.put(`/user/${userId}`, data)
+  //       if (res.status === 200) {
+  //         const response: any = await getUserById(userId)
+  //         console.log({ response })
+  //         // await storeUser(response?.data, response?.token)
+  //         // await AsyncStorage.multiSet([
+  //         //   ["@ecidadao:user", JSON.stringify(user)],
+  //         // ]);
+  //         return res
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log('updateUser() -> catch()')
+  //     console.log(error)
+  //   }
+  // }, [])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateUser = async (data: any) => {
     try {
       const userId = authUser.id
 
@@ -158,10 +181,6 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
         if (res.status === 200) {
           const response: any = await getUserById(userId)
           console.log({ response })
-          // await storeUser(response?.data, response?.token)
-          // await AsyncStorage.multiSet([
-          //   ["@ecidadao:user", JSON.stringify(user)],
-          // ]);
           return res
         }
       }
@@ -169,19 +188,42 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
       console.log('updateUser() -> catch()')
       console.log(error)
     }
-  }, [])
+  }
 
-  const getUserById = useCallback(async (id: any) => {
+  // const getUserById = useCallback(async (id: any) => {
+  //   try {
+  //     if (id) {
+  //       const { data } = await api.get(`/user/${id}/?select=all`)
+  //       console.log(data)
+  //       return data
+  //     }
+  //   } catch (error) {}
+  // }, [])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getUserById = async (id: any) => {
     try {
-      if (id) {
-        const { data } = await api.get(`/user/${id}/?select=all`)
-        console.log(data)
-        return data
-      }
-    } catch (error) {}
-  }, [])
+      if (!id) return
+      const { data } = await api.get(`/user/${id}/?select=all`)
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  const updatePassword = useCallback(async (data: any) => {
+  // const updatePassword = useCallback(async (data: any) => {
+  //   try {
+  //     const userId = authUser.id;
+  //     if (!data || !userId) return;
+  //     const response = await api.put(`/user/${userId}`, data);
+  //     return response;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updatePassword = async (data: any) => {
     try {
       const userId = authUser.id
       if (!data || !userId) return
@@ -190,7 +232,7 @@ const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }
 
   // const deleteAccount = useCallback(async () => {
   //   try {
